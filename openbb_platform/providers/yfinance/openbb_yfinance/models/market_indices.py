@@ -1,4 +1,8 @@
 """Yahoo Finance Market Indices Model."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 # ruff: noqa: SIM105
 
 
@@ -58,8 +62,39 @@ class YFinanceMarketIndicesFetcher(
         if params.get("end_date") is None:
             transformed_params["end_date"] = now
 
+<<<<<<< HEAD
         return YFinanceMarketIndicesQueryParams(**params)
 
+=======
+        tickers = params.get("symbol").lower().split(",")
+
+        new_tickers = []
+        for ticker in tickers:
+            _ticker = ""
+            indices = pd.DataFrame(INDICES).transpose().reset_index()
+            indices.columns = ["code", "name", "symbol"]
+
+            if ticker in indices["code"].values:
+                _ticker = indices[indices["code"] == ticker]["symbol"].values[0]
+
+            if ticker.title() in indices["name"].values:
+                _ticker = indices[indices["name"] == ticker.title()]["symbol"].values[0]
+
+            if "^" + ticker.upper() in indices["symbol"].values:
+                _ticker = "^" + ticker.upper()
+
+            if ticker.upper() in indices["symbol"].values:
+                _ticker = ticker.upper()
+
+            if _ticker != "":
+                new_tickers.append(_ticker)
+
+        transformed_params["symbol"] = ",".join(new_tickers)
+
+        return YFinanceMarketIndicesQueryParams(**params)
+
+    # pylint: disable=unused-argument
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     @staticmethod
     def extract_data(
         query: YFinanceMarketIndicesQueryParams,
@@ -67,6 +102,7 @@ class YFinanceMarketIndicesFetcher(
         **kwargs: Any,
     ) -> List[dict]:
         """Return the raw data from the Yahoo Finance endpoint."""
+<<<<<<< HEAD
         symbol = query.symbol.lower()
         indices = pd.DataFrame(INDICES).transpose().reset_index()
         indices.columns = ["code", "name", "symbol"]
@@ -82,6 +118,11 @@ class YFinanceMarketIndicesFetcher(
 
         data = yf_download(
             symbol=symbol,
+=======
+
+        data = yf_download(
+            symbol=query.symbol,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
             start_date=query.start_date,
             end_date=query.end_date,
             interval=query.interval,
@@ -104,12 +145,18 @@ class YFinanceMarketIndicesFetcher(
                 data.set_index("date", inplace=True)
                 data.index = to_datetime(data.index)
 
+<<<<<<< HEAD
             start_date_dt = datetime.combine(query.start_date, datetime.min.time())
             end_date_dt = datetime.combine(query.end_date, datetime.min.time())
 
             data = data[
                 (data.index >= start_date_dt + timedelta(days=days))
                 & (data.index <= end_date_dt)
+=======
+            data = data[
+                (data.index >= to_datetime(query.start_date))
+                & (data.index <= to_datetime(query.end_date + timedelta(days=days)))
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
             ]
 
         data.reset_index(inplace=True)

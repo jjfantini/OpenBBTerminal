@@ -1,4 +1,8 @@
 """The unit test generator for the fetchers."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from datetime import date
 from pathlib import Path
 from typing import Any, Dict, Tuple

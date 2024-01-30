@@ -3,7 +3,11 @@
 import numpy as np
 import pandas as pd
 import pytest
+<<<<<<< HEAD
 from openbb_core.app.static.filters import filter_inputs
+=======
+from openbb_core.app.static.utils.filters import filter_inputs
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_core.provider.abstract.data import Data
 
 

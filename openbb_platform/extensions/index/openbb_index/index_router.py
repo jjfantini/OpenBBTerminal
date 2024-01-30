@@ -1,4 +1,8 @@
 """Index Router."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_core.app.model.command_context import CommandContext
 from openbb_core.app.model.obbject import OBBject
 from openbb_core.app.provider_interface import (
@@ -10,12 +14,27 @@ from openbb_core.app.query import Query
 from openbb_core.app.router import Router
 from pydantic import BaseModel
 
+<<<<<<< HEAD
 router = Router(prefix="")
+=======
+from openbb_index.price.price_router import router as price_router
+
+router = Router(prefix="")
+router.include_router(price_router)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 # pylint: disable=unused-argument
 
 
+<<<<<<< HEAD
 @router.command(model="MarketIndices")
+=======
+@router.command(
+    model="MarketIndices",
+    deprecated=True,
+    deprecation_message="This endpoint will be deprecated in the future releases. Use '/index/price/historical' instead.",
+)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 async def market(
     cc: CommandContext,
     provider_choices: ProviderChoices,
@@ -26,6 +45,7 @@ async def market(
     return await OBBject.from_query(Query(**locals()))
 
 
+<<<<<<< HEAD
 @router.command(model="EuropeanIndices")
 async def european(
     cc: CommandContext,
@@ -37,6 +57,8 @@ async def european(
     return await OBBject.from_query(Query(**locals()))
 
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 @router.command(model="IndexConstituents")
 async def constituents(
     cc: CommandContext,
@@ -48,6 +70,7 @@ async def constituents(
     return await OBBject.from_query(Query(**locals()))
 
 
+<<<<<<< HEAD
 @router.command(model="EuropeanIndexConstituents")
 async def european_constituents(
     cc: CommandContext,
@@ -59,6 +82,8 @@ async def european_constituents(
     return await OBBject.from_query(Query(**locals()))
 
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 @router.command(model="IndexSnapshots")
 async def snapshots(
     cc: CommandContext,

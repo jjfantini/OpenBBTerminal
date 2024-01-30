@@ -1,4 +1,8 @@
 """Backend for Plotly."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 import asyncio
 import atexit
 import json
@@ -353,7 +357,11 @@ class Backend(PyWry):
     def get_kwargs(self, title: Optional[str] = "") -> dict:
         """Get the kwargs for the backend."""
         return {
+<<<<<<< HEAD
             "title": f"OpenBB - {title}",
+=======
+            "title": "OpenBB Platform" + (f" - {title}" if title else ""),
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
             "icon": self.get_window_icon(),
             "download_path": str(self.charting_settings.user_exports_directory),
         }

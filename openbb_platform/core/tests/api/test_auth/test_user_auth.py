@@ -1,4 +1,8 @@
 """Test the user module."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 # ruff: noqa: S105 S106
 
 import asyncio

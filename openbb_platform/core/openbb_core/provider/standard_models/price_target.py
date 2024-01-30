@@ -1,10 +1,17 @@
 """Price Target Standard Model."""
 
+<<<<<<< HEAD
 
 from datetime import datetime
 from typing import List, Optional, Set, Union
 
 from pydantic import Field, field_validator
+=======
+from datetime import datetime
+from typing import List, Optional, Set, Union
+
+from pydantic import Field, NonNegativeInt, field_validator
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 from openbb_core.provider.abstract.data import Data
 from openbb_core.provider.abstract.query_params import QueryParams
@@ -18,8 +25,17 @@ class PriceTargetQueryParams(QueryParams):
     """Price Target Query."""
 
     symbol: str = Field(description=QUERY_DESCRIPTIONS.get("symbol", ""))
+<<<<<<< HEAD
 
     @field_validator("symbol", mode="before", check_fields=False)
+=======
+    limit: NonNegativeInt = Field(
+        default=100, description=QUERY_DESCRIPTIONS.get("limit", "")
+    )
+
+    @field_validator("symbol", mode="before", check_fields=False)
+    @classmethod
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     def upper_symbol(cls, v: Union[str, List[str], Set[str]]):
         """Convert symbol to uppercase."""
         if isinstance(v, str):
@@ -55,6 +71,10 @@ class PriceTargetData(Data):
     )
 
     @field_validator("symbol", mode="before", check_fields=False)
+<<<<<<< HEAD
+=======
+    @classmethod
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     def upper_symbol(cls, v: Union[str, List[str], Set[str]]):
         """Convert symbol to uppercase."""
         if isinstance(v, str):

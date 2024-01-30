@@ -1,17 +1,30 @@
+<<<<<<< HEAD
 # IMPORT STANDARD
 import json
 import logging
 import re
 import warnings
+=======
+"""Posthog Handler."""
+
+import json
+import logging
+import re
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from copy import deepcopy
 from enum import Enum
 from typing import Any, Dict
 
+<<<<<<< HEAD
+=======
+import posthog
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_core.app.logs.formatters.formatter_with_exceptions import (
     FormatterWithExceptions,
 )
 from openbb_core.app.logs.models.logging_settings import LoggingSettings
 from openbb_core.env import Env
+<<<<<<< HEAD
 from posthog import Posthog
 
 openbb_posthog = Posthog(
@@ -25,6 +38,15 @@ class PosthogHandler(logging.Handler):
 
     class AllowedEvents(Enum):
         """Allowed Posthog Events"""
+=======
+
+
+class PosthogHandler(logging.Handler):
+    """Posthog Handler."""
+
+    class AllowedEvents(Enum):
+        """Allowed Posthog Events."""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         log_startup = "log_startup"
         log_cmd = "log_cmd"
@@ -32,16 +54,30 @@ class PosthogHandler(logging.Handler):
         log_warning = "log_warning"
 
     def __init__(self, settings: LoggingSettings):
+<<<<<<< HEAD
         super().__init__()
         self._settings = settings
         self.logged_in = False
 
     @property
     def settings(self) -> LoggingSettings:
+=======
+        """Initialize Posthog Handler."""
+        super().__init__()
+        self._settings = settings
+        self.logged_in = False
+        posthog.api_key = "phc_6FXLqu4uW9yxfyN8DpPdgzCdlYXOmIWdMGh6GnBgJLX"  # pragma: allowlist secret
+        posthog.host = "https://app.posthog.com"
+
+    @property
+    def settings(self) -> LoggingSettings:
+        """Get logging settings."""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         return deepcopy(self._settings)
 
     @settings.setter
     def settings(self, settings: LoggingSettings) -> None:
+<<<<<<< HEAD
         self._settings = settings
 
     def emit(self, record: logging.LogRecord):
@@ -52,6 +88,45 @@ class PosthogHandler(logging.Handler):
 
     def log_to_dict(self, log_info: str) -> dict:
         """Log to dict"""
+=======
+        """Set logging settings."""
+        self._settings = settings
+
+    def emit(self, record: logging.LogRecord):
+        """Emit log record."""
+        try:
+            self.send(record=record)
+        except Exception as e:
+            self.handleError(record)
+            if Env().DEBUG_MODE:
+                raise e
+
+    def distinct_id(self) -> str:
+        """Get distinct id."""
+        return self._settings.user_id or self._settings.app_id
+
+    def identify(self) -> None:
+        """Identify user."""
+        if self.logged_in or not self._settings.user_id:
+            return
+
+        posthog.identify(
+            self._settings.user_id,
+            {
+                "email": self._settings.user_email,
+                "primaryUsage": self._settings.user_primary_usage,
+            },
+        )
+
+        if self._settings.sub_app_name == "pro":
+            return
+
+        self.logged_in = True
+        posthog.alias(self._settings.user_id, self._settings.app_id)
+
+    def log_to_dict(self, log_info: str) -> dict:
+        """Log to dict."""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         log_regex = r"(STARTUP|CMD|ERROR): (.*)"
         log_dict: Dict[str, Any] = {}
 
@@ -61,8 +136,12 @@ class PosthogHandler(logging.Handler):
         return log_dict
 
     def send(self, record: logging.LogRecord):
+<<<<<<< HEAD
         """Send log record to Posthog"""
 
+=======
+        """Send log record to Posthog."""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         level_name = logging.getLevelName(record.levelno)
         log_line = FormatterWithExceptions.filter_log_line(text=record.getMessage())
 
@@ -83,6 +162,7 @@ class PosthogHandler(logging.Handler):
         if event_name not in [e.value for e in self.AllowedEvents]:
             return
 
+<<<<<<< HEAD
         if not self.logged_in and self._settings.user_id:
             self.logged_in = True
             openbb_posthog.identify(
@@ -105,6 +185,13 @@ class PosthogHandler(logging.Handler):
     def extract_log_extra(self, record: logging.LogRecord) -> Dict[str, Any]:
         """Extract log extra from record"""
 
+=======
+        self.identify()
+        posthog.capture(self.distinct_id(), event_name, properties=log_extra)
+
+    def extract_log_extra(self, record: logging.LogRecord) -> Dict[str, Any]:
+        """Extract log extra from record."""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         log_extra: Dict[str, Any] = {
             "appName": self._settings.app_name,
             "subAppName": self._settings.sub_app_name,

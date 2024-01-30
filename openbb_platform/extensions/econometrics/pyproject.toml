@@ -1,6 +1,10 @@
 [tool.poetry]
 name = "openbb-econometrics"
+<<<<<<< HEAD
 version = "1.0.0"
+=======
+version = "1.1.1"
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 description = "Econometrics Toolkit for OpenBB"
 authors = ["OpenBB Team <hello@openbb.co>"]
 readme = "README.md"
@@ -12,7 +16,11 @@ scipy = "^1.10.1"
 statsmodels = "^0.14.0"
 arch = "^5.5.0"
 linearmodels = "<=4.25"                # ^4.26 has setuptools-scm in setup_requires
+<<<<<<< HEAD
 openbb-core = "^1.0.0"
+=======
+openbb-core = "^1.1.1"
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 [build-system]
 requires = ["poetry-core"]

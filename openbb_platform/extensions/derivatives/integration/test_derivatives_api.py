@@ -4,6 +4,10 @@ import base64
 
 import pytest
 import requests
+<<<<<<< HEAD
+=======
+from extensions.tests.conftest import parametrize
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_core.env import Env
 from openbb_core.provider.utils.helpers import get_querystring
 
@@ -19,11 +23,19 @@ def headers():
     return {"Authorization": f"Basic {base64_bytes.decode('ascii')}"}
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
     "params",
     [
         ({"provider": "intrinio", "symbol": "AAPL", "date": "2023-01-25"}),
         ({"provider": "cboe", "symbol": "AAPL"}),
+=======
+@parametrize(
+    "params",
+    [
+        ({"provider": "intrinio", "symbol": "AAPL", "date": "2023-01-25"}),
+        ({"provider": "cboe", "symbol": "AAPL", "use_cache": False}),
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     ],
 )
 @pytest.mark.integration
@@ -37,7 +49,11 @@ def test_derivatives_options_chains(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         ({"symbol": "AAPL"}),
@@ -56,12 +72,17 @@ def test_derivatives_options_unusual(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         (
             {
                 "provider": "yfinance",
+<<<<<<< HEAD
                 "symbol": "ES",
                 "start_date": "2023-01-01",
                 "end_date": "2023-06-06",
@@ -80,6 +101,13 @@ def test_derivatives_options_unusual(params, headers):
                 "start_date": "2023-01-01",
                 "end_date": "2023-06-06",
                 "expiration": "2024-06",
+=======
+                "interval": "1d",
+                "symbol": "CL,BZ",
+                "start_date": "2023-01-01",
+                "end_date": "2023-06-06",
+                "expiration": "2025-12",
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
             }
         ),
     ],
@@ -95,10 +123,17 @@ def test_derivatives_futures_historical(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
     "params",
     [
         ({"provider": "cboe", "symbol": "VX", "date": "2023-01-25"}),
+=======
+@parametrize(
+    "params",
+    [
+        ({"provider": "cboe", "symbol": "VX", "date": None}),
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         ({"provider": "yfinance", "symbol": "ES", "date": "2023-08-01"}),
     ],
 )

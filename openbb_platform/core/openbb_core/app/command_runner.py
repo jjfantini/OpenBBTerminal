@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+"""Command runner module."""
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 import warnings
 from contextlib import nullcontext
 from copy import deepcopy
@@ -27,6 +32,11 @@ from openbb_core.provider.utils.helpers import maybe_coroutine, run_async
 
 
 class ExecutionContext:
+<<<<<<< HEAD
+=======
+    """Execution context."""
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     def __init__(
         self,
         command_map: CommandMap,
@@ -145,8 +155,16 @@ class ParametersBuilder:
             command_coverage: Dict[str, List[str]],
             route_default: Optional[Dict[str, Optional[str]]],
         ) -> Optional[str]:
+<<<<<<< HEAD
             """Get the default provider for the given route.
             Either pick it from the user defaults or from the command coverage."""
+=======
+            """
+            Get the default provider for the given route.
+
+            Either pick it from the user defaults or from the command coverage.
+            """
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
             cmd_cov_given_route = command_coverage.get(route, None)
             command_cov_provider = (
                 cmd_cov_given_route[0] if cmd_cov_given_route else None
@@ -175,8 +193,12 @@ class ParametersBuilder:
         func: Callable,
         kwargs: Dict[str, Any],
     ) -> Dict[str, Any]:
+<<<<<<< HEAD
         """Validate kwargs and if possible coerce to the correct type"""
 
+=======
+        """Validate kwargs and if possible coerce to the correct type."""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         config = ConfigDict(extra="allow", arbitrary_types_allowed=True)
 
         sig = signature(func)
@@ -202,6 +224,10 @@ class ParametersBuilder:
         route: str,
         kwargs: Dict[str, Any],
     ) -> Dict[str, Any]:
+<<<<<<< HEAD
+=======
+        """Build the parameters for a function."""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         func = cls.get_polished_func(func=func)
         system_settings = execution_context.system_settings
         user_settings = execution_context.user_settings
@@ -230,9 +256,17 @@ class ParametersBuilder:
 
 
 class StaticCommandRunner:
+<<<<<<< HEAD
     @classmethod
     async def _command(cls, func: Callable, kwargs: Dict[str, Any]) -> OBBject:
         """Run a command and return the output"""
+=======
+    """Static Command Runner."""
+
+    @classmethod
+    async def _command(cls, func: Callable, kwargs: Dict[str, Any]) -> OBBject:
+        """Run a command and return the output."""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         context_manager: Union[warnings.catch_warnings, ContextManager[None]] = (
             warnings.catch_warnings(record=True)
             if not Env().DEBUG_MODE
@@ -281,7 +315,11 @@ class StaticCommandRunner:
         func: Callable,
         kwargs: Dict[str, Any],
     ) -> OBBject:
+<<<<<<< HEAD
         """Execute a function and return the output"""
+=======
+        """Execute a function and return the output."""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         user_settings = execution_context.user_settings
         system_settings = execution_context.system_settings
 
@@ -305,6 +343,18 @@ class StaticCommandRunner:
         # If we're on the api we need to remove "chart" here because the parameter is added on
         # commands.py and the function signature does not expect "chart"
         kwargs.pop("chart", None)
+<<<<<<< HEAD
+=======
+        # We also pop custom headers
+
+        model_headers = (
+            SystemService().system_settings.api_settings.custom_headers or {}
+        )
+        custom_headers = {
+            name: kwargs.pop(name.replace("-", "_"), default)
+            for name, default in model_headers.items() or {}
+        } or None
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         try:
             obbject = await cls._command(
@@ -320,6 +370,38 @@ class StaticCommandRunner:
                     route=route,
                     **kwargs,
                 )
+<<<<<<< HEAD
+=======
+            try:
+                if (
+                    obbject.results
+                    and execution_context.user_settings.preferences.field_order
+                ):
+                    if isinstance(obbject.results, list):
+                        fields = obbject.results[0].model_dump().keys()
+                    else:
+                        fields = obbject.results.model_dump().keys()
+
+                    obbject.extra["field_order"] = list(fields)
+            except Exception as e:
+                if Env().DEBUG_MODE:
+                    raise OpenBBError(e) from e
+
+            try:
+                if (
+                    obbject.results
+                    and execution_context.user_settings.preferences.field_order
+                ):
+                    if isinstance(obbject.results, list):
+                        fields = obbject.results[0].model_dump().keys()
+                    else:
+                        fields = obbject.results.model_dump().keys()
+
+                    obbject.extra["field_order"] = list(fields)
+            except Exception as e:
+                if Env().DEBUG_MODE:
+                    raise OpenBBError(e) from e
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         except Exception as e:
             raise OpenBBError(e) from e
@@ -334,6 +416,10 @@ class StaticCommandRunner:
                 func=func,
                 kwargs=kwargs,
                 exec_info=exc_info(),
+<<<<<<< HEAD
+=======
+                custom_headers=custom_headers,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
             )
 
         return obbject
@@ -346,6 +432,10 @@ class StaticCommandRunner:
         *args,
         **kwargs,
     ) -> OBBject:
+<<<<<<< HEAD
+=======
+        """Run a command and return the OBBject as output."""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         timestamp = datetime.now()
         start_ns = perf_counter_ns()
 
@@ -381,39 +471,74 @@ class StaticCommandRunner:
 
 
 class CommandRunner:
+<<<<<<< HEAD
+=======
+    """Command runner."""
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     def __init__(
         self,
         command_map: Optional[CommandMap] = None,
         system_settings: Optional[SystemSettings] = None,
         user_settings: Optional[UserSettings] = None,
     ) -> None:
+<<<<<<< HEAD
+=======
+        """Initialize the command runner."""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         self._command_map = command_map or CommandMap()
         self._system_settings = system_settings or SystemService().system_settings
         self._user_settings = user_settings or UserService.read_default_user_settings()
 
+<<<<<<< HEAD
         self._logging_service = LoggingService(
             system_settings=self._system_settings, user_settings=self._user_settings
         )
         self._charting_service = ChartingService(
+=======
+        self._charting_service = ChartingService(
+            system_settings=self._system_settings, user_settings=self._user_settings
+        )
+
+    def init_logging_service(self) -> None:
+        """Initialize the logging service."""
+        _ = LoggingService(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
             system_settings=self._system_settings, user_settings=self._user_settings
         )
 
     @property
     def command_map(self) -> CommandMap:
+<<<<<<< HEAD
+=======
+        """Command map."""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         return self._command_map
 
     @property
     def system_settings(self) -> SystemSettings:
+<<<<<<< HEAD
+=======
+        """System settings."""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         return self._system_settings
 
     @property
     def user_settings(self) -> UserSettings:
+<<<<<<< HEAD
+=======
+        """User settings."""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         return self._user_settings
 
     @user_settings.setter
     def user_settings(self, user_settings: UserSettings) -> None:
         self._user_settings = user_settings
 
+<<<<<<< HEAD
+=======
+    # pylint: disable=W1113
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     async def run(
         self,
         route: str,
@@ -434,6 +559,10 @@ class CommandRunner:
 
         return await StaticCommandRunner.run(execution_context, *args, **kwargs)
 
+<<<<<<< HEAD
+=======
+    # pylint: disable=W1113
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     def sync_run(
         self,
         route: str,

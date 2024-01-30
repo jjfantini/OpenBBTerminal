@@ -83,4 +83,12 @@ lightning_logs/
 *.pem
 
 # Platform auto generated files
+<<<<<<< HEAD
 openbb_platform/openbb/package/*
+=======
+openbb_platform/openbb/package/*
+
+# Reference files
+website/content/excel/reference/*
+website/content/excel/reference/*/*
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe

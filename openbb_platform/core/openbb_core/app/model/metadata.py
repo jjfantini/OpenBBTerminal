@@ -71,9 +71,17 @@ class Metadata(BaseModel):
                 type(arg_val[0]), pd.DataFrame
             ):
                 columns = [
+<<<<<<< HEAD
                     list(df.index.names) + df.columns.tolist()
                     if any(index is not None for index in list(df.index.names))
                     else df.columns.tolist()
+=======
+                    (
+                        list(df.index.names) + df.columns.tolist()
+                        if any(index is not None for index in list(df.index.names))
+                        else df.columns.tolist()
+                    )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
                     for df in arg_val
                 ]
                 new_arg_val = {
@@ -91,9 +99,17 @@ class Metadata(BaseModel):
             # List[Series]
             elif isinstance(arg_val, list) and isinstance(arg_val[0], pd.Series):
                 columns = [
+<<<<<<< HEAD
                     list(series.index.names) + [series.name]
                     if any(index is not None for index in list(series.index.names))
                     else series.name
+=======
+                    (
+                        list(series.index.names) + [series.name]
+                        if any(index is not None for index in list(series.index.names))
+                        else series.name
+                    )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
                     for series in arg_val
                 ]
                 new_arg_val = {

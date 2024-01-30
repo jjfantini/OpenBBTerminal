@@ -2,8 +2,14 @@
 
 import json
 import re
+<<<<<<< HEAD
 from io import StringIO
 from typing import Any, List, Optional, TypeVar, Union
+=======
+from datetime import datetime
+from io import StringIO
+from typing import Any, Dict, List, Optional, TypeVar, Union
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 import requests
 from openbb_core.provider import helpers
@@ -149,7 +155,10 @@ def get_data_one(url: str, **kwargs: Any) -> dict:
 
 def get_interval(value: str) -> str:
     """Get the intervals for the Alpha Vantage API."""
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     intervals = {
         "m": "min",
         "d": "day",
@@ -164,3 +173,20 @@ def extract_key_name(key):
     """Extract the alphabetical part of the key using regex."""
     match = re.search(r"\d+\.\s+([a-z]+)", key, re.I)
     return match.group(1) if match else key
+<<<<<<< HEAD
+=======
+
+
+def filter_by_dates(
+    data: List[Dict[str, Any]], start_date: datetime, end_date: datetime
+) -> List[Dict[str, Any]]:
+    """Filter the data by start and end dates."""
+    return list(
+        filter(
+            lambda x: start_date
+            <= datetime.strptime(x["date"], "%Y-%m-%d").date()
+            <= end_date,
+            data,
+        )
+    )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe

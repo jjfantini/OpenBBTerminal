@@ -1,4 +1,8 @@
 """Polygon provider module."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_core.provider.abstract.provider import Provider
 from openbb_polygon.models.balance_sheet import PolygonBalanceSheetFetcher
 from openbb_polygon.models.cash_flow import PolygonCashFlowStatementFetcher
@@ -9,6 +13,12 @@ from openbb_polygon.models.currency_pairs import PolygonCurrencyPairsFetcher
 from openbb_polygon.models.equity_historical import PolygonEquityHistoricalFetcher
 from openbb_polygon.models.equity_nbbo import PolygonEquityNBBOFetcher
 from openbb_polygon.models.income_statement import PolygonIncomeStatementFetcher
+<<<<<<< HEAD
+=======
+from openbb_polygon.models.index_historical import (
+    PolygonIndexHistoricalFetcher,
+)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_polygon.models.market_indices import (
     PolygonMarketIndicesFetcher,
 )
@@ -31,6 +41,10 @@ polygon_provider = Provider(
         "EquityHistorical": PolygonEquityHistoricalFetcher,
         "EquityNBBO": PolygonEquityNBBOFetcher,
         "IncomeStatement": PolygonIncomeStatementFetcher,
+<<<<<<< HEAD
+=======
+        "IndexHistorical": PolygonIndexHistoricalFetcher,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         "MarketIndices": PolygonMarketIndicesFetcher,
         "MarketSnapshots": PolygonMarketSnapshotsFetcher,
     },

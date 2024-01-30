@@ -4,11 +4,21 @@ import json
 from io import StringIO
 from typing import Any, List, Optional, Tuple, TypeVar, Union
 
+<<<<<<< HEAD
 import requests
 from openbb_core.provider import helpers
 from openbb_core.provider.utils.errors import EmptyDataError
 from pydantic import BaseModel
 from requests.exceptions import SSLError
+=======
+from openbb_core.provider.utils.errors import EmptyDataError
+from openbb_core.provider.utils.helpers import (
+    ClientResponse,
+    ClientSession,
+    amake_request,
+)
+from pydantic import BaseModel
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 T = TypeVar("T", bound=BaseModel)
 
@@ -49,6 +59,7 @@ def request(url: str) -> BasicResponse:
     return BasicResponse(response)
 
 
+<<<<<<< HEAD
 def get_data(url: str, **kwargs: Any) -> Union[list, dict]:
     """Get data from Polygon endpoint."""
     try:
@@ -65,6 +76,17 @@ def get_data(url: str, **kwargs: Any) -> Union[list, dict]:
         value = error or message
 
         raise RuntimeError(f"Error in Polygon request -> {value}")
+=======
+async def response_callback(
+    response: ClientResponse, _: ClientSession
+) -> Union[dict, List[dict]]:
+    """Callback for make_request."""
+    data: dict = await response.json()
+
+    if response.status != 200:
+        message = data.get("error", None) or data.get("message", None)
+        raise RuntimeError(f"Error in Polygon request -> {message}")
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     keys_in_data = "results" in data or "tickers" in data
 
@@ -74,7 +96,16 @@ def get_data(url: str, **kwargs: Any) -> Union[list, dict]:
     return data
 
 
+<<<<<<< HEAD
 def get_data_many(
+=======
+async def get_data(url: str, **kwargs: Any) -> Union[list, dict]:
+    """Get data from Polygon endpoint."""
+    return await amake_request(url, response_callback=response_callback, **kwargs)
+
+
+async def get_data_many(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     url: str, sub_dict: Optional[str] = None, **kwargs: Any
 ) -> List[dict]:
     """Get data from Polygon endpoint and convert to list of schemas.
@@ -91,7 +122,11 @@ def get_data_many(
     List[dict]
         Dictionary of data.
     """
+<<<<<<< HEAD
     data = get_data(url, **kwargs)
+=======
+    data = await get_data(url, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     if sub_dict and isinstance(data, dict):
         data = data.get(sub_dict, [])
     if isinstance(data, dict):
@@ -99,9 +134,15 @@ def get_data_many(
     return data
 
 
+<<<<<<< HEAD
 def get_data_one(url: str, **kwargs: Any) -> dict:
     """Get data from Polygon endpoint and convert to schema."""
     data = get_data(url, **kwargs)
+=======
+async def get_data_one(url: str, **kwargs: Any) -> dict:
+    """Get data from Polygon endpoint and convert to schema."""
+    data = await get_data(url, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     if isinstance(data, list):
         if len(data) == 0:
             raise ValueError("Expected dict, got empty list")

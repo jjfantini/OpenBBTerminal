@@ -8,7 +8,11 @@ from openbb_core.provider.standard_models.price_target import (
     PriceTargetData,
     PriceTargetQueryParams,
 )
+<<<<<<< HEAD
 from openbb_fmp.utils.helpers import create_url, get_data_many
+=======
+from openbb_fmp.utils.helpers import create_url, get_data_urls
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from pydantic import Field, field_validator
 
 
@@ -53,8 +57,14 @@ class FMPPriceTargetFetcher(
         """Transform the query params."""
         return FMPPriceTargetQueryParams(**params)
 
+<<<<<<< HEAD
     @staticmethod
     def extract_data(
+=======
+    # pylint: disable=unused-argument
+    @staticmethod
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: FMPPriceTargetQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -63,13 +73,28 @@ class FMPPriceTargetFetcher(
         api_key = credentials.get("fmp_api_key") if credentials else ""
         endpoint = "upgrades-downgrades" if query.with_grade else "price-target"
 
+<<<<<<< HEAD
         url = create_url(4, endpoint, api_key, query)
 
         return get_data_many(url, **kwargs)
 
+=======
+        urls = []
+        for symbol in query.symbol.split(","):
+            query.symbol = symbol
+            urls.append(create_url(4, endpoint, api_key, query, exclude=["limit"]))
+
+        return await get_data_urls(urls)
+
+    # pylint: disable=unused-argument
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     @staticmethod
     def transform_data(
         query: FMPPriceTargetQueryParams, data: List[Dict], **kwargs: Any
     ) -> List[FMPPriceTargetData]:
         """Return the transformed data."""
+<<<<<<< HEAD
+=======
+        data = data[: query.limit]
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         return [FMPPriceTargetData.model_validate(d) for d in data]

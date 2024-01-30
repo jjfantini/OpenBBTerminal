@@ -2,6 +2,10 @@ import base64
 
 import pytest
 import requests
+<<<<<<< HEAD
+=======
+from extensions.tests.conftest import parametrize
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_core.env import Env
 from openbb_core.provider.utils.helpers import get_querystring
 
@@ -18,7 +22,11 @@ def headers():
 # pylint: disable=redefined-outer-name
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         ({"query": "", "provider": "fmp"}),
@@ -35,7 +43,11 @@ def test_etf_search(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         (
@@ -67,7 +79,11 @@ def test_etf_historical(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         ({"symbol": "IOO", "provider": "fmp"}),
@@ -85,7 +101,11 @@ def test_etf_info(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         ({"symbol": "IOO", "provider": "fmp"}),
@@ -103,7 +123,11 @@ def test_etf_sectors(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         ({"symbol": "QQQ", "cik": None, "provider": "fmp"}),
@@ -120,7 +144,11 @@ def test_etf_holdings_date(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         (
@@ -139,6 +167,25 @@ def test_etf_holdings_date(params, headers):
                 "provider": "fmp",
             }
         ),
+<<<<<<< HEAD
+=======
+        (
+            {
+                "symbol": "TQQQ",
+                "date": None,
+                "provider": "sec",
+                "use_cache": False,
+            }
+        ),
+        (
+            {
+                "symbol": "QQQ",
+                "date": "2021-06-30",
+                "provider": "sec",
+                "use_cache": False,
+            }
+        ),
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     ],
 )
 @pytest.mark.integration
@@ -152,9 +199,18 @@ def test_etf_holdings(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
     "params",
     [({"symbol": "SPY,VOO,QQQ,IWM,IWN,GOVT,JNK", "provider": "fmp"})],
+=======
+@parametrize(
+    "params",
+    [
+        ({"symbol": "SPY,VOO,QQQ,IWM,IWN,GOVT,JNK", "provider": "fmp"}),
+        ({"symbol": "SPY,VOO,QQQ,IWM,IWN,GOVT,JNK", "provider": "finviz"}),
+    ],
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 )
 @pytest.mark.integration
 def test_etf_price_performance(params, headers):
@@ -167,7 +223,11 @@ def test_etf_price_performance(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [({"symbol": "IOO"})],
 )
@@ -182,7 +242,11 @@ def test_etf_countries(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [({"sort": "desc", "limit": 10})],
 )
@@ -197,7 +261,11 @@ def test_etf_discovery_gainers(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [({"sort": "desc", "limit": 10})],
 )
@@ -212,7 +280,11 @@ def test_etf_discovery_losers(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [({"sort": "desc", "limit": 10})],
 )
@@ -227,11 +299,19 @@ def test_etf_discovery_active(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
     "params",
     [
         ({"symbol": "qqq", "provider": "fmp"}),
         ({"symbol": "spy", "provider": "fmp"}),
+=======
+@parametrize(
+    "params",
+    [
+        ({"symbol": "SPY", "provider": "fmp"}),
+        ({"symbol": "QQQ", "provider": "fmp"}),
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     ],
 )
 @pytest.mark.integration

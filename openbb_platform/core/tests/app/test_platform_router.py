@@ -1,4 +1,8 @@
 """Test router.py file."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 # pylint: disable=redefined-outer-name
 # pylint: disable=unused-argument
 
@@ -196,7 +200,11 @@ def test_complete_signature(signature_inspector):
 
     model = "EquityHistorical"
 
+<<<<<<< HEAD
     assert signature_inspector.complete_signature(sample_function, model)
+=======
+    assert signature_inspector.complete(sample_function, model)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 
 def test_complete_signature_error(signature_inspector):
@@ -205,9 +213,13 @@ def test_complete_signature_error(signature_inspector):
     async def valid_function() -> OBBject[Optional[List[int]]]:
         return OBBject(results=[1, 2, 3])
 
+<<<<<<< HEAD
     assert (
         signature_inspector.complete_signature(valid_function, "invalid_model") is None
     )
+=======
+    assert signature_inspector.complete(valid_function, "invalid_model") is None
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 
 def test_validate_signature(signature_inspector):

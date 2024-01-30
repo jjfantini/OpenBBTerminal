@@ -1,6 +1,9 @@
 """PROJECTION Standard Model."""
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from datetime import date as dateType
 from typing import Optional
 

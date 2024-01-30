@@ -1,6 +1,9 @@
 """FMP Earnings Calendar Model."""
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from datetime import (
     date as dateType,
     datetime,
@@ -37,12 +40,20 @@ class FMPCalendarEarningsData(CalendarEarningsData):
         "eps_consensus": "epsEstimated",
     }
 
+<<<<<<< HEAD
     actual_eps: Optional[float] = Field(
+=======
+    eps_actual: Optional[float] = Field(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         default=None,
         description="The actual earnings per share announced.",
         alias="eps",
     )
+<<<<<<< HEAD
     actual_revenue: Optional[float] = Field(
+=======
+    revenue_actual: Optional[float] = Field(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         default=None,
         description="The actual reported revenue.",
         alias="revenue",
@@ -105,7 +116,11 @@ class FMPCalendarEarningsFetcher(
         return FMPCalendarEarningsQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: FMPCalendarEarningsQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -115,7 +130,11 @@ class FMPCalendarEarningsFetcher(
 
         url = create_url(3, "earning_calendar", api_key, query, [])
 
+<<<<<<< HEAD
         return get_data_many(url, **kwargs)
+=======
+        return await get_data_many(url, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

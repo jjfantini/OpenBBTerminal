@@ -15,11 +15,19 @@ from pydantic import Field
 class FMPEtfSearchQueryParams(EtfSearchQueryParams):
     """FMP ETF Search Query."""
 
+<<<<<<< HEAD
     exchange: Optional[
         Literal["AMEX", "NYSE", "NASDAQ", "ETF", "TSX", "EURONEXT"]
     ] = Field(
         description="The exchange code the ETF trades on.",
         default=None,
+=======
+    exchange: Optional[Literal["AMEX", "NYSE", "NASDAQ", "ETF", "TSX", "EURONEXT"]] = (
+        Field(
+            description="The exchange code the ETF trades on.",
+            default=None,
+        )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     )
     is_active: Optional[Literal[True, False]] = Field(
         description="Whether the ETF is actively trading.",
@@ -87,7 +95,11 @@ class FMPEtfSearchFetcher(
         return FMPEtfSearchQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: FMPEtfSearchQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -103,7 +115,11 @@ class FMPEtfSearchFetcher(
             exclude=["symbol"],
         )
 
+<<<<<<< HEAD
         return get_data_many(url, **kwargs)
+=======
+        return await get_data_many(url, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

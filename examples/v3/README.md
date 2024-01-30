@@ -29,7 +29,11 @@ This notebook explains how to calculate and plot the Copper-to-Gold ratio.
 
 ### realizedVolatilityModels
 
+<<<<<<< HEAD
 This notebook demonstrates the six, realized volatility models with in the Technical Analysis module.
+=======
+This notebook demonstrates the six, realized volatility models within the Technical Analysis module.
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 - Explore differences between:
   - Standard Deviation
@@ -70,7 +74,11 @@ This notebook demonstrates how to install the OpenBB SDK within Google Colab.
 
 ### volumeAtPrice
 
+<<<<<<< HEAD
 Volume-at-price is a chart used by technical analysts as a visual gauge to where the trading levels are concentrated, relative to price and volume.  In short, it is the sum of volume at different price levels.  This notebook utilizes individual components of the OpenBB SDK and combines them to build a new view.
+=======
+Volume-at-price is a chart used by technical analysts as a visual gauge of where the trading levels are concentrated, relative to price and volume.  In short, it is the sum of volume at different price levels.  This notebook utilizes individual components of the OpenBB SDK and combines them to build a new view.
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 - Price
 - Volume

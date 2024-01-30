@@ -1,4 +1,8 @@
 """Charting router."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from typing import Any, Dict, Tuple
 
 from openbb_core.app.model.charts.chart import ChartFormat

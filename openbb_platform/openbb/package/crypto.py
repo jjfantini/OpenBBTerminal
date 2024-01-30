@@ -1,13 +1,22 @@
 ### THIS FILE IS AUTO-GENERATED. DO NOT EDIT. ###
 
+<<<<<<< HEAD
 from typing import List, Literal, Optional
+=======
+from typing import Literal, Optional
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 from openbb_core.app.model.custom_parameter import OpenBBCustomParameter
 from openbb_core.app.model.obbject import OBBject
 from openbb_core.app.static.container import Container
+<<<<<<< HEAD
 from openbb_core.app.static.decorators import validate
 from openbb_core.app.static.filters import filter_inputs
 from openbb_core.provider.abstract.data import Data
+=======
+from openbb_core.app.static.utils.decorators import validate
+from openbb_core.app.static.utils.filters import filter_inputs
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from typing_extensions import Annotated
 
 
@@ -21,7 +30,12 @@ class ROUTER_crypto(Container):
         return self.__doc__ or ""
 
     @property
+<<<<<<< HEAD
     def price(self):  # route = "/crypto/price"
+=======
+    def price(self):
+        # pylint: disable=import-outside-toplevel
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         from . import crypto_price
 
         return crypto_price.ROUTER_crypto_price(command_runner=self._command_runner)
@@ -31,10 +45,17 @@ class ROUTER_crypto(Container):
         self,
         query: Annotated[
             Optional[str], OpenBBCustomParameter(description="Search query.")
+<<<<<<< HEAD
         ] = "",
         provider: Optional[Literal["fmp"]] = None,
         **kwargs
     ) -> OBBject[List[Data]]:
+=======
+        ] = None,
+        provider: Optional[Literal["fmp"]] = None,
+        **kwargs
+    ) -> OBBject:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """Cryptocurrency Search. Search available cryptocurrency pairs.
 
         Parameters
@@ -79,6 +100,7 @@ class ROUTER_crypto(Container):
         >>> obb.crypto.search()
         """  # noqa: E501
 
+<<<<<<< HEAD
         inputs = filter_inputs(
             provider_choices={
                 "provider": provider,
@@ -92,4 +114,17 @@ class ROUTER_crypto(Container):
         return self._run(
             "/crypto/search",
             **inputs,
+=======
+        return self._run(
+            "/crypto/search",
+            **filter_inputs(
+                provider_choices={
+                    "provider": provider,
+                },
+                standard_params={
+                    "query": query,
+                },
+                extra_params=kwargs,
+            )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         )

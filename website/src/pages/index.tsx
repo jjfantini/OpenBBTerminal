@@ -22,7 +22,11 @@ export default function Home(): JSX.Element {
               All the documentation for the tools you need for your investment research.
             </p>
           </div>
+<<<<<<< HEAD
           <div className="flex flex-col md:flex-row w-full container items-center justify-center gap-6 px-6 sm:mx-0">
+=======
+          <div className="flex flex-col md:flex-row w-full container items-center justify-center gap-6 px-6 sm:mx-0 sm:flex-col">
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
             <Link
               style={{
                 backgroundSize: "100% 130%",
@@ -31,7 +35,13 @@ export default function Home(): JSX.Element {
               className="!bg-grey-900 bg-[url('/img/pro.png')] bg-no-repeat shadow-sm group !no-underline text-white dark:hover:border-white hover:border-grey-600/80 relative w-full h-[238px] max-w-full p-8 rounded flex flex-col items-start justify-start border border-grey-300 hover:!text-white"
             >
               <h3 className="uppercase tracking-widest font-bold mb-0 mt-0 text-white">
+<<<<<<< HEAD
                 OpenBB Terminal Pro [EARLY ACCESS]
+              </h3>
+              <p className="text-sm lg:text-base dark:text-grey-300">
+                The OpenBB Terminal Pro is the investment research platform for the 21st century.
+=======
+                OpenBB Terminal Pro
               </h3>
               <p className="text-sm lg:text-base dark:text-grey-300">
                 The OpenBB Terminal Pro is the investment research platform for the 21st century.
@@ -45,7 +55,34 @@ export default function Home(): JSX.Element {
                 <ChevronRightIcon className="group-hover:translate-x-2 tw-transition w-3" />
               </p>
             </Link>
+            <Link
+              style={{
+                backgroundSize: "100% 130%",
+              }}
+              to="/excel"
+              className="!bg-grey-900 bg-[url('/img/excelbg.png')] bg-no-repeat shadow-sm group !no-underline text-white dark:hover:border-white hover:border-grey-600/80 relative w-full h-[238px] max-w-full p-8 rounded flex flex-col items-start justify-start border border-grey-300 hover:!text-white"
+            >
+              <h3 className="uppercase tracking-widest font-bold mb-0 mt-0 text-white">
+                OpenBB Excel Add-In
+              </h3>
+              <p className="text-sm lg:text-base text-grey-300">
+                The OpenBB Excel Add-In allows access to the same data as the OpenBB Terminal Pro, but through Excel.
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
+              </p>
+              <p
+                className={clsx(
+                  "mt-auto inline-flex items-center gap-1 font-normal text-sm",
+                )}
+              >
+                See more
+                <ChevronRightIcon className="group-hover:translate-x-2 tw-transition w-3" />
+              </p>
+            </Link>
           </div>
+<<<<<<< HEAD
+=======
+          <div className="my-4 md:my-0" />
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
           <div className="flex flex-col md:flex-row w-full container items-center justify-center gap-6 px-6 sm:mx-0 my-8 lg:!my-10">
             <Link
               style={{
@@ -70,6 +107,10 @@ export default function Home(): JSX.Element {
               </p>
             </Link>
           </div>
+<<<<<<< HEAD
+=======
+          <div className="my-4 md:my-0" />
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
           <div className="flex flex-col md:flex-row w-full container items-center justify-center gap-6 px-6 sm:mx-0">
             <Link
               style={{

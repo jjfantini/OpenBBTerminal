@@ -1,6 +1,9 @@
 """Euro Area Yield Curve Model."""
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from datetime import datetime, timedelta
 from typing import Any, Dict, List, Literal, Optional
 
@@ -54,6 +57,10 @@ class ECBEUYieldCurveFetcher(
         """Transform query."""
         return ECBEUYieldCurveQueryParams(**params)
 
+<<<<<<< HEAD
+=======
+    # pylint: disable=unused-argument
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     @staticmethod
     def extract_data(
         query: ECBEUYieldCurveQueryParams,
@@ -96,6 +103,10 @@ class ECBEUYieldCurveFetcher(
 
         return data
 
+<<<<<<< HEAD
+=======
+    # pylint: disable=unused-argument
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     @staticmethod
     def transform_data(
         query: ECBEUYieldCurveQueryParams, data: list, **kwargs: Any

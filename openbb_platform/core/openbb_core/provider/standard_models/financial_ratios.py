@@ -1,7 +1,12 @@
 """Financial Ratios Standard Model."""
 
+<<<<<<< HEAD
 
 from typing import List, Literal, Optional, Set, Union
+=======
+import warnings
+from typing import Optional
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 from pydantic import Field, NonNegativeInt, field_validator
 
@@ -12,12 +17,21 @@ from openbb_core.provider.utils.descriptions import (
     QUERY_DESCRIPTIONS,
 )
 
+<<<<<<< HEAD
+=======
+_warn = warnings.warn
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 class FinancialRatiosQueryParams(QueryParams):
     """Financial Ratios Query."""
 
     symbol: str = Field(description=QUERY_DESCRIPTIONS.get("symbol", ""))
+<<<<<<< HEAD
     period: Literal["annual", "quarter"] = Field(
+=======
+    period: str = Field(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         default="annual", description=QUERY_DESCRIPTIONS.get("period", "")
     )
     limit: NonNegativeInt = Field(
@@ -25,16 +39,28 @@ class FinancialRatiosQueryParams(QueryParams):
     )
 
     @field_validator("symbol", mode="before", check_fields=False)
+<<<<<<< HEAD
     def upper_symbol(cls, v: Union[str, List[str], Set[str]]):
         """Convert symbol to uppercase."""
         if isinstance(v, str):
             return v.upper()
         return ",".join([symbol.upper() for symbol in list(v)])
+=======
+    @classmethod
+    def upper_symbol(cls, v: str):
+        """Convert symbol to uppercase."""
+        if "," in v:
+            _warn(
+                f"{QUERY_DESCRIPTIONS.get('symbol_list_warning', '')} {v.split(',')[0].upper()}"
+            )
+        return v.split(",")[0].upper() if "," in v else v.upper()
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 
 class FinancialRatiosData(Data):
     """Financial Ratios Standard Model."""
 
+<<<<<<< HEAD
     symbol: str = Field(description=DATA_DESCRIPTIONS.get("symbol", ""))
     date: str = Field(description=DATA_DESCRIPTIONS.get("date", ""))
     period: str = Field(description="Period of the financial ratios.")
@@ -188,3 +214,8 @@ class FinancialRatiosData(Data):
     price_fair_value: Optional[float] = Field(
         default=None, description="Price fair value."
     )
+=======
+    period_ending: str = Field(description=DATA_DESCRIPTIONS.get("date", ""))
+    fiscal_period: str = Field(description="Period of the financial ratios.")
+    fiscal_year: Optional[int] = Field(default=None, description="Fiscal year.")
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe

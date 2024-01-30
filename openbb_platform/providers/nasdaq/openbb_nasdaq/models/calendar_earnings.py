@@ -33,7 +33,11 @@ class NasdaqCalendarEarningsData(CalendarEarningsData):
         "eps_previous": "lastYearEPS",
         "eps_consensus": "epsForecast",
     }
+<<<<<<< HEAD
     actual_eps: Optional[float] = Field(
+=======
+    eps_actual: Optional[float] = Field(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         default=None,
         description="The actual earnings per share (USD) announced.",
         alias="eps",
@@ -74,12 +78,24 @@ class NasdaqCalendarEarningsData(CalendarEarningsData):
         mode="before",
         check_fields=False,
     )
+<<<<<<< HEAD
     def validate_period_ending(cls, v: str):
+=======
+    @classmethod
+    def validate_period_ending(cls, v: str):
+        """Validate the date if available meets the %Y-%m convention."""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         v = v.replace("N/A", "")
         return datetime.strptime(v, "%b/%Y").strftime("%Y-%m") if v else None
 
     @field_validator("previous_report_date", mode="before", check_fields=False)
+<<<<<<< HEAD
     def validate_previous_report_date(cls, v: str):
+=======
+    @classmethod
+    def validate_previous_report_date(cls, v: str):
+        """Validate the date is a date object if available."""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         v = v.replace("N/A", "")
         return datetime.strptime(v, "%m/%d/%Y").date() if v else None
 
@@ -88,7 +104,13 @@ class NasdaqCalendarEarningsData(CalendarEarningsData):
         mode="before",
         check_fields=False,
     )
+<<<<<<< HEAD
     def validate_reporting_time(cls, v: str):
+=======
+    @classmethod
+    def validate_reporting_time(cls, v: str):
+        """Validate the time if available does not contain prefixes."""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         return v.replace("time-", "") if v else None
 
     @field_validator(
@@ -96,11 +118,21 @@ class NasdaqCalendarEarningsData(CalendarEarningsData):
         "eps_previous",
         "eps_consensus",
         "num_estimates",
+<<<<<<< HEAD
         "actual_eps",
         mode="before",
         check_fields=False,
     )
     def validate_numbers(cls, v: str):
+=======
+        "eps_actual",
+        mode="before",
+        check_fields=False,
+    )
+    @classmethod
+    def validate_numbers(cls, v: str):
+        """Validate the numbers are floats."""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         v = (
             v.replace("N/A", "")
             .replace("$", "")
@@ -115,7 +147,13 @@ class NasdaqCalendarEarningsData(CalendarEarningsData):
         mode="before",
         check_fields=False,
     )
+<<<<<<< HEAD
     def validate_surprise_percent(cls, v: str):
+=======
+    @classmethod
+    def validate_surprise_percent(cls, v: str):
+        """Validate the percent are normalized floats."""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         v = v.replace("N/A", "")
         return float(v) * 0.01 if v else None
 
@@ -144,8 +182,13 @@ class NasdaqCalendarEarningsFetcher(
 
     @staticmethod
     def extract_data(
+<<<<<<< HEAD
         query: NasdaqCalendarEarningsQueryParams,
         credentials: Optional[Dict[str, str]],  # pylint: disable=unused-argument
+=======
+        query: NasdaqCalendarEarningsQueryParams,  # pylint: disable=unused-argument
+        credentials: Optional[Dict[str, str]],
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         **kwargs: Any,
     ) -> List[Dict]:
         """Return the raw data from the Nasdaq endpoint."""
@@ -166,8 +209,12 @@ class NasdaqCalendarEarningsFetcher(
                     r_json["data"]["asOf"], "%a, %b %d, %Y"
                 ).date()
                 if len(response) > 0:
+<<<<<<< HEAD
                     [d.update({"date": _as_of_date}) for d in response]
                     data.extend(response)
+=======
+                    data.extend([{**d, "date": _as_of_date} for d in response])
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         with ThreadPoolExecutor() as executor:
             executor.map(get_calendar_data, dates)

@@ -1,4 +1,8 @@
 """Generate API integration tests."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 import argparse
 import os
 from typing import Dict, List, Literal, Type, get_type_hints
@@ -34,6 +38,10 @@ import pytest
 import requests
 from openbb_core.env import Env
 from openbb_core.provider.utils.helpers import get_querystring
+<<<<<<< HEAD
+=======
+from extensions.tests.conftest import parametrize
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 
 @pytest.fixture(scope="session")
@@ -78,7 +86,11 @@ def write_test_w_template(
     """
 
     template = f"""
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [{params_str}],
 )
@@ -140,7 +152,11 @@ def write_commands_integration_tests(
                 [{k: "" for k in get_post_flat_params(hints)}]
                 if http_method == "post"
                 else get_test_params(
+<<<<<<< HEAD
                     model_name=cm_models[route],
+=======
+                    model_name=cm_models[route],  # type: ignore
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
                     provider_interface_map=provider_interface_map,
                 )
             )

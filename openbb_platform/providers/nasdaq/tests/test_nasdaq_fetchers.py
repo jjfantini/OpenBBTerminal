@@ -8,6 +8,10 @@ from openbb_nasdaq.models.calendar_ipo import NasdaqCalendarIpoFetcher
 from openbb_nasdaq.models.cot import NasdaqCotFetcher
 from openbb_nasdaq.models.cot_search import NasdaqCotSearchFetcher
 from openbb_nasdaq.models.economic_calendar import NasdaqEconomicCalendarFetcher
+<<<<<<< HEAD
+=======
+from openbb_nasdaq.models.equity_search import NasdaqEquitySearchFetcher
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_nasdaq.models.sp500_multiples import NasdaqSP500MultiplesFetcher
 from openbb_nasdaq.models.top_retail import NasdaqTopRetailFetcher
 
@@ -19,12 +23,36 @@ test_credentials = UserService().default_user_settings.credentials.model_dump(
 @pytest.fixture(scope="module")
 def vcr_config():
     return {
+<<<<<<< HEAD
         "filter_headers": [("User-Agent", None)],
         "filter_query_parameters": [("api_key", "MOCK_API_KEY")],
+=======
+        "filter_headers": [
+            ("User-Agent", None),
+            ("api_key", "MOCK_API_KEY"),
+            ("x-api-token", "MOCK_API_KEY"),
+        ],
+        "filter_query_parameters": [
+            ("api_key", "MOCK_API_KEY"),
+            ("x-api-token", "MOCK_API_KEY"),
+        ],
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     }
 
 
 @pytest.mark.record_http
+<<<<<<< HEAD
+=======
+def test_nasdaq_equity_search_fetcher(credentials=test_credentials):
+    params = {"query": "", "is_etf": True, "use_cache": False}
+
+    fetcher = NasdaqEquitySearchFetcher()
+    result = fetcher.test(params, credentials)
+    assert result is None
+
+
+@pytest.mark.record_http
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 def test_nasdaq_economic_calendar_fetcher(credentials=test_credentials):
     params = {
         "start_date": datetime.date(2023, 11, 3),

@@ -1,7 +1,12 @@
 """Trailing Dividend Yield Standard Model."""
 
+<<<<<<< HEAD
 
 from datetime import date as dateType
+=======
+from datetime import date as dateType
+from typing import Optional
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 from pydantic import Field
 
@@ -17,6 +22,14 @@ class TrailingDivYieldQueryParams(QueryParams):
     """Trailing Dividend Yield Query."""
 
     symbol: str = Field(default=None, description=QUERY_DESCRIPTIONS.get("symbol", ""))
+<<<<<<< HEAD
+=======
+    limit: Optional[int] = Field(
+        default=252,
+        description=f"{QUERY_DESCRIPTIONS.get('limit', '')}"
+        " Default is 252, the number of trading days in a year.",
+    )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 
 class TrailingDivYieldData(Data):

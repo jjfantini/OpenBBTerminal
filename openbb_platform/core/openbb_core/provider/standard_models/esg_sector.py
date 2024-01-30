@@ -1,6 +1,9 @@
 """ESG Sector Standard Model."""
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_core.provider.abstract.data import Data
 from openbb_core.provider.abstract.query_params import QueryParams
 

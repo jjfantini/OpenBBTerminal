@@ -92,7 +92,11 @@ class FMPMarketSnapshotsFetcher(
         return FMPMarketSnapshotsQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: FMPMarketSnapshotsQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -101,9 +105,13 @@ class FMPMarketSnapshotsFetcher(
         api_key = credentials.get("fmp_api_key") if credentials else ""
         url = f"https://financialmodelingprep.com/api/v3/quotes/{query.market}?apikey={api_key}"
 
+<<<<<<< HEAD
         data = get_data(url)
 
         return data
+=======
+        return await get_data(url, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

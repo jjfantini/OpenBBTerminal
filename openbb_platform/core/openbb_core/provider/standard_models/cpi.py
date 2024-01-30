@@ -1,4 +1,8 @@
 """CPI Standard Model."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from datetime import date as dateType
 from typing import List, Literal, Optional
 
@@ -80,9 +84,17 @@ class ConsumerPriceIndexQueryParams(QueryParams):
         description=QUERY_DESCRIPTIONS.get("units", "")
         + """
     Options:
+<<<<<<< HEAD
     - `growth_previous`: growth from the previous period
     - `growth_same`: growth from the same period in the previous year
     - `index_2015`: index with base year 2015.""",
+=======
+    - `growth_previous`: Percent growth from the previous period.
+      If monthly data, this is month-over-month, etc
+    - `growth_same`: Percent growth from the same period in the previous year.
+      If looking at monthly data, this would be year-over-year, etc.
+    - `index_2015`: Rescaled index value, such that the value in 2015 is 100.""",
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     )
     frequency: CPI_FREQUENCY = Field(
         default="monthly",

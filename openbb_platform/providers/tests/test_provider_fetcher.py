@@ -1,4 +1,8 @@
 """Test if providers and fetchers are covered by tests."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 import os
 import unittest
 from importlib import import_module

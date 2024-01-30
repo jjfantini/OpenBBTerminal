@@ -59,7 +59,11 @@ class FMPEtfInfoFetcher(
         return FMPEtfInfoQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: FMPEtfInfoQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -69,7 +73,11 @@ class FMPEtfInfoFetcher(
 
         url = create_url(version=4, endpoint="etf-info", api_key=api_key, query=query)
 
+<<<<<<< HEAD
         return get_data_many(url, **kwargs)
+=======
+        return await get_data_many(url, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

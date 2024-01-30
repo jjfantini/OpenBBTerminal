@@ -2,7 +2,11 @@
 
 from typing import Any, Dict, List, Optional
 
+<<<<<<< HEAD
 from openbb_cboe.utils.helpers import get_cboe_directory
+=======
+from openbb_cboe.utils.helpers import get_company_directory
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_core.provider.abstract.fetcher import Fetcher
 from openbb_core.provider.standard_models.equity_search import (
     EquitySearchData,
@@ -17,12 +21,24 @@ class CboeEquitySearchQueryParams(EquitySearchQueryParams):
     Source: https://www.cboe.com/
     """
 
+<<<<<<< HEAD
+=======
+    use_cache: bool = Field(
+        default=True,
+        description="When True, the company directory of optionable tickers will be cached for 24 hours."
+        + " Set as False to bypass.",
+    )
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 class CboeEquitySearchData(EquitySearchData):
     """CBOE Equity Search Data."""
 
+<<<<<<< HEAD
     __alias_dict__ = {"name": "Company Name"}
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     dpm_name: Optional[str] = Field(
         default=None,
         description="Name of the primary market maker.",
@@ -47,14 +63,23 @@ class CboeEquitySearchFetcher(
         return CboeEquitySearchQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(  # pylint: disable=unused-argument
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: CboeEquitySearchQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
     ) -> Dict:
         """Return the raw data from the CBOE endpoint."""
         data = {}
+<<<<<<< HEAD
         symbols = get_cboe_directory().reset_index().replace("nan", None)
+=======
+        symbols = await get_company_directory(query.use_cache, **kwargs)
+        symbols = symbols.reset_index()
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         target = "name" if query.is_symbol is False else "symbol"
         idx = symbols[target].str.contains(query.query, case=False)
         result = symbols[idx].to_dict("records")

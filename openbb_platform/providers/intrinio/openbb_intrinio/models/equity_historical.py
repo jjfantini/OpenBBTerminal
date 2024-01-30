@@ -10,8 +10,17 @@ from openbb_core.provider.standard_models.equity_historical import (
     EquityHistoricalQueryParams,
 )
 from openbb_core.provider.utils.descriptions import QUERY_DESCRIPTIONS
+<<<<<<< HEAD
 from openbb_core.provider.utils.helpers import get_querystring
 from openbb_intrinio.utils.helpers import get_data_one
+=======
+from openbb_core.provider.utils.helpers import (
+    ClientResponse,
+    ClientSession,
+    amake_requests,
+    get_querystring,
+)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from pydantic import Field, PrivateAttr, model_validator
 
 
@@ -45,9 +54,15 @@ class IntrinioEquityHistoricalQueryParams(EquityHistoricalQueryParams):
     _interval_size: Literal["1m", "5m", "10m", "15m", "30m", "60m", "1h"] = PrivateAttr(
         default=None
     )
+<<<<<<< HEAD
     _frequency: Literal[
         "daily", "weekly", "monthly", "quarterly", "yearly"
     ] = PrivateAttr(default=None)
+=======
+    _frequency: Literal["daily", "weekly", "monthly", "quarterly", "yearly"] = (
+        PrivateAttr(default=None)
+    )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     # pylint: disable=protected-access
     @model_validator(mode="after")
@@ -177,7 +192,11 @@ class IntrinioEquityHistoricalFetcher(
 
     # pylint: disable=protected-access
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: IntrinioEquityHistoricalQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -186,6 +205,12 @@ class IntrinioEquityHistoricalFetcher(
         api_key = credentials.get("intrinio_api_key") if credentials else ""
 
         base_url = f"https://api-v2.intrinio.com/securities/{query.symbol}/prices"
+<<<<<<< HEAD
+=======
+        query_str = get_querystring(
+            query.model_dump(by_alias=True), ["symbol", "interval"]
+        )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         if query._interval_size:
             base_url += f"/intervals?interval_size={query._interval_size}"
@@ -194,6 +219,7 @@ class IntrinioEquityHistoricalFetcher(
             base_url += f"?frequency={query._frequency}"
             data_key = "stock_prices"
 
+<<<<<<< HEAD
         query_str = get_querystring(
             query.model_dump(by_alias=True), ["symbol", "interval"]
         )
@@ -214,6 +240,27 @@ class IntrinioEquityHistoricalFetcher(
             data.extend(temp_data.get(data_key, []))
 
         return data
+=======
+        async def callback(response: ClientResponse, session: ClientSession) -> list:
+            """Return the response."""
+            init_response = await response.json()
+
+            all_data: list = init_response.get(data_key, [])
+
+            next_page = init_response.get("next_page", None)
+            while next_page:
+                url = response.url.update_query(next_page=next_page).human_repr()
+                response_data = await session.get_json(url)
+
+                all_data.extend(response_data.get(data_key, []))
+                next_page = response_data.get("next_page", None)
+
+            return all_data
+
+        url = f"{base_url}&{query_str}&api_key={api_key}"
+
+        return await amake_requests([url], callback, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     # pylint: disable=unused-argument
     @staticmethod

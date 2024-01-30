@@ -5,9 +5,14 @@ from typing import List, Literal, Optional, Union
 from openbb_core.app.model.custom_parameter import OpenBBCustomParameter
 from openbb_core.app.model.obbject import OBBject
 from openbb_core.app.static.container import Container
+<<<<<<< HEAD
 from openbb_core.app.static.decorators import validate
 from openbb_core.app.static.filters import filter_inputs
 from openbb_core.provider.abstract.data import Data
+=======
+from openbb_core.app.static.utils.decorators import validate
+from openbb_core.app.static.utils.filters import filter_inputs
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from typing_extensions import Annotated
 
 
@@ -29,7 +34,11 @@ class ROUTER_derivatives_options(Container):
         ],
         provider: Optional[Literal["intrinio"]] = None,
         **kwargs
+<<<<<<< HEAD
     ) -> OBBject[List[Data]]:
+=======
+    ) -> OBBject:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """Get the complete options chain for a ticker.
 
         Parameters
@@ -41,7 +50,11 @@ class ROUTER_derivatives_options(Container):
             If None, the provider specified in defaults is selected or 'intrinio' if there is
             no default.
         date : Optional[datetime.date]
+<<<<<<< HEAD
             Date for which the options chains are returned. (provider: intrinio)
+=======
+            The end-of-day date for options chains data. (provider: intrinio)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         Returns
         -------
@@ -59,16 +72,26 @@ class ROUTER_derivatives_options(Container):
 
         OptionsChains
         -------------
+<<<<<<< HEAD
         contract_symbol : str
             Contract symbol for the option.
         symbol : Optional[str]
             Symbol representing the entity requested in the data. Here its the underlying symbol for the option.
+=======
+        symbol : Optional[str]
+            Symbol representing the entity requested in the data. Here, it is the underlying symbol for the option.
+        contract_symbol : str
+            Contract symbol for the option.
+        eod_date : Optional[date]
+            Date for which the options chains are returned.
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         expiration : date
             Expiration date of the contract.
         strike : float
             Strike price of the contract.
         option_type : str
             Call or Put.
+<<<<<<< HEAD
         eod_date : Optional[date]
             Date for which the options chains are returned.
         close : Optional[float]
@@ -79,12 +102,35 @@ class ROUTER_derivatives_options(Container):
             The closing ask price for the option that day.
         volume : Optional[float]
             The trading volume.
+=======
+        open_interest : Optional[int]
+            Open interest on the contract.
+        volume : Optional[int]
+            The trading volume.
+        theoretical_price : Optional[float]
+            Theoretical value of the option.
+        last_trade_price : Optional[float]
+            Last trade price of the option.
+        tick : Optional[str]
+            Whether the last tick was up or down in price.
+        bid : Optional[float]
+            Current bid price for the option.
+        bid_size : Optional[int]
+            Bid size for the option.
+        ask : Optional[float]
+            Current ask price for the option.
+        ask_size : Optional[int]
+            Ask size for the option.
+        mark : Optional[float]
+            The mid-price between the latest bid and ask.
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         open : Optional[float]
             The open price.
         open_bid : Optional[float]
             The opening bid price for the option that day.
         open_ask : Optional[float]
             The opening ask price for the option that day.
+<<<<<<< HEAD
         open_interest : Optional[float]
             Open interest on the contract.
         high : Optional[float]
@@ -101,6 +147,44 @@ class ROUTER_derivatives_options(Container):
             The highest bid price for the option that day.
         bid_low : Optional[float]
             The lowest bid price for the option that day.
+=======
+        high : Optional[float]
+            The high price.
+        bid_high : Optional[float]
+            The highest bid price for the option that day.
+        ask_high : Optional[float]
+            The highest ask price for the option that day.
+        low : Optional[float]
+            The low price.
+        bid_low : Optional[float]
+            The lowest bid price for the option that day.
+        ask_low : Optional[float]
+            The lowest ask price for the option that day.
+        close : Optional[float]
+            The close price.
+        close_size : Optional[int]
+            The closing trade size for the option that day.
+        close_time : Optional[datetime]
+            The time of the closing price for the option that day.
+        close_bid : Optional[float]
+            The closing bid price for the option that day.
+        close_bid_size : Optional[int]
+            The closing bid size for the option that day.
+        close_bid_time : Optional[datetime]
+            The time of the bid closing price for the option that day.
+        close_ask : Optional[float]
+            The closing ask price for the option that day.
+        close_ask_size : Optional[int]
+            The closing ask size for the option that day.
+        close_ask_time : Optional[datetime]
+            The time of the ask closing price for the option that day.
+        prev_close : Optional[float]
+
+        change : Optional[float]
+            The change in the price of the option.
+        change_percent : Optional[float]
+            Change, in normalizezd percentage points, of the option.
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         implied_volatility : Optional[float]
             Implied volatility of the option.
         delta : Optional[float]
@@ -111,6 +195,13 @@ class ROUTER_derivatives_options(Container):
             Theta of the option.
         vega : Optional[float]
             Vega of the option.
+<<<<<<< HEAD
+=======
+        rho : Optional[float]
+            Rho of the option.
+        exercise_style : Optional[str]
+            The exercise style of the option, American or European. (provider: intrinio)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         Example
         -------
@@ -118,6 +209,7 @@ class ROUTER_derivatives_options(Container):
         >>> obb.derivatives.options.chains(symbol="AAPL")
         """  # noqa: E501
 
+<<<<<<< HEAD
         inputs = filter_inputs(
             provider_choices={
                 "provider": provider,
@@ -131,6 +223,19 @@ class ROUTER_derivatives_options(Container):
         return self._run(
             "/derivatives/options/chains",
             **inputs,
+=======
+        return self._run(
+            "/derivatives/options/chains",
+            **filter_inputs(
+                provider_choices={
+                    "provider": provider,
+                },
+                standard_params={
+                    "symbol": ",".join(symbol) if isinstance(symbol, list) else symbol,
+                },
+                extra_params=kwargs,
+            )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         )
 
     @validate
@@ -144,7 +249,11 @@ class ROUTER_derivatives_options(Container):
         ] = None,
         provider: Optional[Literal["intrinio"]] = None,
         **kwargs
+<<<<<<< HEAD
     ) -> OBBject[List[Data]]:
+=======
+    ) -> OBBject:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """Get the complete options chain for a ticker.
 
         Parameters
@@ -203,6 +312,7 @@ class ROUTER_derivatives_options(Container):
         >>> obb.derivatives.options.unusual()
         """  # noqa: E501
 
+<<<<<<< HEAD
         inputs = filter_inputs(
             provider_choices={
                 "provider": provider,
@@ -216,4 +326,17 @@ class ROUTER_derivatives_options(Container):
         return self._run(
             "/derivatives/options/unusual",
             **inputs,
+=======
+        return self._run(
+            "/derivatives/options/unusual",
+            **filter_inputs(
+                provider_choices={
+                    "provider": provider,
+                },
+                standard_params={
+                    "symbol": ",".join(symbol) if isinstance(symbol, list) else symbol,
+                },
+                extra_params=kwargs,
+            )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         )

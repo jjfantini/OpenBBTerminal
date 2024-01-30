@@ -4,6 +4,12 @@ from openbb_core.provider.abstract.provider import Provider
 from openbb_government_us.models.treasury_auctions import (
     GovernmentUSTreasuryAuctionsFetcher,
 )
+<<<<<<< HEAD
+=======
+from openbb_government_us.models.treasury_prices import (
+    GovernmentUSTreasuryPricesFetcher,
+)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 government_us_provider = Provider(
     name="government_us",
@@ -17,5 +23,9 @@ government_us_provider = Provider(
     ),
     fetcher_dict={
         "TreasuryAuctions": GovernmentUSTreasuryAuctionsFetcher,
+<<<<<<< HEAD
+=======
+        "TreasuryPrices": GovernmentUSTreasuryPricesFetcher,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     },
 )

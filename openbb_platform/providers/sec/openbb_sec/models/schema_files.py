@@ -1,6 +1,9 @@
 """SEC Schema Files List Model."""
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from typing import Any, Dict, List, Optional
 
 from openbb_core.provider.abstract.data import Data
@@ -35,6 +38,10 @@ class SecSchemaFilesFetcher(Fetcher[SecSchemaFilesQueryParams, SecSchemaFilesDat
         """Transform the query."""
         return SecSchemaFilesQueryParams(**params)
 
+<<<<<<< HEAD
+=======
+    # pylint: disable=unused-argument
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     @staticmethod
     def extract_data(
         query: SecSchemaFilesQueryParams,
@@ -48,7 +55,15 @@ class SecSchemaFilesFetcher(Fetcher[SecSchemaFilesQueryParams, SecSchemaFilesDat
 
         return {"files": results}
 
+<<<<<<< HEAD
     @staticmethod
     def transform_data(data: Dict, **kwargs: Any) -> SecSchemaFilesData:
+=======
+    # pylint: disable=unused-argument
+    @staticmethod
+    def transform_data(
+        query: SecSchemaFilesQueryParams, data: Dict, **kwargs: Any
+    ) -> SecSchemaFilesData:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """Transform the data to the standard format."""
         return SecSchemaFilesData.model_validate(data)

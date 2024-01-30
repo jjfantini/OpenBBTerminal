@@ -1,8 +1,13 @@
 """Package Builder Class."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 # pylint: disable=too-many-lines
 import builtins
 import inspect
 import shutil
+<<<<<<< HEAD
 import subprocess
 import sys
 from inspect import Parameter, _empty, isclass, signature
@@ -16,11 +21,28 @@ from typing import (
     Literal,
     Optional,
     OrderedDict,
+=======
+import sys
+from inspect import Parameter, _empty, isclass, signature
+from json import dumps, load
+from pathlib import Path
+from typing import (
+    Callable,
+    Dict,
+    List,
+    Optional,
+    OrderedDict,
+    Set,
+    Tuple,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     Type,
     TypeVar,
     Union,
     get_args,
+<<<<<<< HEAD
     get_origin,
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     get_type_hints,
 )
 
@@ -33,9 +55,18 @@ from starlette.routing import BaseRoute
 from typing_extensions import Annotated, _AnnotatedAlias
 
 from openbb_core.app.charting_service import ChartingService
+<<<<<<< HEAD
 from openbb_core.app.model.custom_parameter import OpenBBCustomParameter
 from openbb_core.app.provider_interface import ProviderInterface
 from openbb_core.app.router import CommandMap, RouterLoader
+=======
+from openbb_core.app.extension_loader import ExtensionLoader, OpenBBGroups
+from openbb_core.app.model.custom_parameter import OpenBBCustomParameter
+from openbb_core.app.provider_interface import ProviderInterface
+from openbb_core.app.router import RouterLoader
+from openbb_core.app.static.utils.console import Console
+from openbb_core.app.static.utils.linters import Linters
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_core.env import Env
 from openbb_core.provider.abstract.data import Data
 
@@ -52,6 +83,7 @@ DataProcessingSupportedTypes = TypeVar(
 )
 
 
+<<<<<<< HEAD
 class Console:
     """Console to be used by builder and linters."""
 
@@ -65,6 +97,8 @@ class Console:
             print(message, **kwargs)  # noqa: T201
 
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 class PackageBuilder:
     """Build the extension package for the Platform."""
 
@@ -77,6 +111,7 @@ class PackageBuilder:
         self.verbose = verbose
         self.console = Console(verbose)
 
+<<<<<<< HEAD
     def clean_package(self, modules: Optional[Union[str, List[str]]] = None) -> None:
         """Delete the package folder or modules before building."""
         if modules:
@@ -86,6 +121,23 @@ class PackageBuilder:
                     module_path.unlink()
         else:
             shutil.rmtree(self.directory / "package", ignore_errors=True)
+=======
+    def auto_build(self) -> None:
+        """Trigger build if there are differences between built and installed extensions."""
+        if Env().AUTO_BUILD:
+            add, remove = PackageBuilder._diff(self.directory / "package")
+            if add:
+                a = ", ".join(add)
+                print(f"Extensions to add: {a}")  # noqa: T201
+
+            if remove:
+                r = ", ".join(remove)
+                print(f"Extensions to remove: {r}")  # noqa: T201
+
+            if add or remove:
+                print("\nBuilding...")  # noqa: T201
+                self.build()
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     def build(
         self,
@@ -93,6 +145,7 @@ class PackageBuilder:
     ) -> None:
         """Build the extensions for the Platform."""
         self.console.log("\nBuilding extensions package...\n")
+<<<<<<< HEAD
         self.clean_package(modules)
         ext_map = self.get_extension_map()
         self.save_extension_map(ext_map)
@@ -123,6 +176,54 @@ class PackageBuilder:
         self.write_to_package(code=code, name="extension_map", extension="json")
 
     def save_module_map(self):
+=======
+        self._clean_package(modules)
+        ext_map = self._get_extension_map()
+        self._save_extension_map(ext_map)
+        self._save_module_map()
+        self._save_modules(modules, ext_map)
+        self._save_package()
+        if self.lint:
+            self._run_linters()
+
+    def _clean_package(self, modules: Optional[Union[str, List[str]]] = None) -> None:
+        """Delete the package folder or modules before building."""
+        if modules:
+            for module in modules:
+                module_path = self.directory / "package" / f"{module}.py"
+                if module_path.exists():
+                    module_path.unlink()
+        else:
+            shutil.rmtree(self.directory / "package", ignore_errors=True)
+
+    def _get_extension_map(self) -> Dict[str, List[str]]:
+        """Get map of extensions available at build time."""
+        el = ExtensionLoader()
+        ext_map: Dict[str, List[str]] = {}
+
+        groups = [
+            OpenBBGroups.core.value,
+            OpenBBGroups.provider.value,
+        ]
+        entry_points_ = [
+            el.core_entry_points,
+            el.provider_entry_points,
+        ]
+
+        for group, entry_point in zip(groups, entry_points_):
+            ext_map[group] = [
+                f"{e.name}@{getattr(e.dist, 'version', '')}" for e in entry_point
+            ]
+        return ext_map
+
+    def _save_extension_map(self, ext_map: Dict[str, List[str]]) -> None:
+        """Save the map of extensions available at build time."""
+        code = dumps(obj=dict(sorted(ext_map.items())), indent=4)
+        self.console.log("Writing extension map...")
+        self._write(code=code, name="extension_map", extension="json")
+
+    def _save_module_map(self):
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """Save the module map."""
         route_map = PathHandler.build_route_map()
         path_list = PathHandler.build_path_list(route_map=route_map)
@@ -131,9 +232,15 @@ class PackageBuilder:
         }
         code = dumps(obj=dict(sorted(module_map.items())), indent=4)
         self.console.log("\nWriting module map...")
+<<<<<<< HEAD
         self.write_to_package(code=code, name="module_map", extension="json")
 
     def save_modules(
+=======
+        self._write(code=code, name="module_map", extension="json")
+
+    def _save_modules(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         self,
         modules: Optional[Union[str, List[str]]] = None,
         ext_map: Optional[Dict[str, List[str]]] = None,
@@ -161,6 +268,7 @@ class PackageBuilder:
                 )
                 module_name = PathHandler.build_module_name(path=path)
                 self.console.log(f"({path})", end=" " * (MAX_LEN - len(path)))
+<<<<<<< HEAD
                 self.write_to_package(code=module_code, name=module_name)
 
     def save_package(self):
@@ -170,13 +278,28 @@ class PackageBuilder:
         self.write_to_package(code=code, name="__init__")
 
     def run_linters(self):
+=======
+                self._write(code=module_code, name=module_name)
+
+    def _save_package(self):
+        """Save the package."""
+        self.console.log("\nWriting package __init__...")
+        code = "### THIS FILE IS AUTO-GENERATED. DO NOT EDIT. ###\n"
+        self._write(code=code, name="__init__")
+
+    def _run_linters(self):
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """Run the linters."""
         self.console.log("\nRunning linters...")
         linters = Linters(self.directory / "package", self.verbose)
         linters.ruff()
         linters.black()
 
+<<<<<<< HEAD
     def write_to_package(self, code: str, name: str, extension="py") -> None:
+=======
+    def _write(self, code: str, name: str, extension="py") -> None:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """Write the module to the package."""
         package_folder = self.directory / "package"
         package_path = package_folder / f"{name}.{extension}"
@@ -187,6 +310,52 @@ class PackageBuilder:
         with package_path.open("w", encoding="utf-8", newline="\n") as file:
             file.write(code.replace("typing.", ""))
 
+<<<<<<< HEAD
+=======
+    @staticmethod
+    def _read_extension_map(package: Path) -> dict:
+        """Get extension map from package folder."""
+        ext_map_file = Path(package, "extension_map.json")
+        try:
+            with open(ext_map_file) as fp:
+                ext_map = load(fp)
+        except Exception:
+            ext_map = {}
+
+        return ext_map
+
+    @staticmethod
+    def _diff(package: Path) -> Tuple[Set[str], Set[str]]:
+        """Check differences between built and installed extensions.
+
+        Parameters
+        ----------
+        package: Path
+            The path to the package
+
+        Returns
+        -------
+        Tuple[Set[str], Set[str]]
+            First element: set of installed extensions that are not in the package.
+            Second element: set of extensions in the package that are not installed.
+        """
+        ext_map = PackageBuilder._read_extension_map(package)
+
+        add: Set[str] = set()
+        remove: Set[str] = set()
+        groups = ("openbb_core_extension", "openbb_provider_extension")
+        for g in groups:
+            built = set(ext_map.get(g, {}))
+            installed = set(
+                f"{e.name}@{getattr(e.dist, 'version', '')}"
+                for e in entry_points(group=g)
+            )
+            add = add.union(installed - built)
+            remove = remove.union(built - installed)
+
+        return add, remove
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 class ModuleBuilder:
     """Build the module for the Platform."""
@@ -194,7 +363,11 @@ class ModuleBuilder:
     @staticmethod
     def build(path: str, ext_map: Optional[Dict[str, List[str]]] = None) -> str:
         """Build the module."""
+<<<<<<< HEAD
         code = "### THIS FILE IS AUTO-GENERATED. DO NOT EDIT. ###\n"
+=======
+        code = "### THIS FILE IS AUTO-GENERATED. DO NOT EDIT. ###\n\n"
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         code += ImportDefinition.build(path=path)
         code += ClassDefinition.build(path, ext_map)
 
@@ -258,7 +431,11 @@ class ImportDefinition:
     def build(cls, path: str) -> str:
         """Build the import definition."""
         hint_type_list = cls.get_path_hint_type_list(path=path)
+<<<<<<< HEAD
         code = "\nfrom openbb_core.app.static.container import Container"
+=======
+        code = "from openbb_core.app.static.container import Container"
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         code += "\nfrom openbb_core.app.model.obbject import OBBject"
         code += (
             "\nfrom openbb_core.app.model.custom_parameter import OpenBBCustomParameter"
@@ -282,8 +459,13 @@ class ImportDefinition:
         else:
             code += "\nfrom typing_extensions import Annotated"
         code += "\nfrom openbb_core.app.utils import df_to_basemodel"
+<<<<<<< HEAD
         code += "\nfrom openbb_core.app.static.decorators import validate\n"
         code += "\nfrom openbb_core.app.static.filters import filter_inputs\n"
+=======
+        code += "\nfrom openbb_core.app.static.utils.decorators import validate\n"
+        code += "\nfrom openbb_core.app.static.utils.filters import filter_inputs\n"
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         code += "\nfrom openbb_core.provider.abstract.data import Data"
         if path.startswith("/quantitative"):
             code += "\nfrom openbb_quantitative.models import "
@@ -307,7 +489,11 @@ class ClassDefinition:
     def build(path: str, ext_map: Optional[Dict[str, List[str]]] = None) -> str:
         """Build the class definition."""
         class_name = PathHandler.build_module_class(path=path)
+<<<<<<< HEAD
         code = f"\nclass {class_name}(Container):\n"
+=======
+        code = f"class {class_name}(Container):\n"
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         route_map = PathHandler.build_route_map()
         path_list = PathHandler.build_path_list(route_map=route_map)
@@ -320,6 +506,7 @@ class ClassDefinition:
 
         doc = f'    """{path}\n' if path else '    # fmt: off\n    """\nRouters:\n'
         methods = ""
+<<<<<<< HEAD
         for child_path in child_path_list:
             route = PathHandler.get_route(path=child_path, route_map=route_map)
             if route:
@@ -335,6 +522,26 @@ class ClassDefinition:
                 doc += "/" if path else "    /"
                 doc += child_path.split("/")[-1] + "\n"
                 methods += MethodDefinition.build_class_loader_method(path=child_path)
+=======
+        for c in child_path_list:
+            route = PathHandler.get_route(path=c, route_map=route_map)
+            if route:
+                doc += f"    {route.name}\n"
+                methods += MethodDefinition.build_command_method(
+                    path=route.path,
+                    func=route.endpoint,
+                    model_name=(
+                        route.openapi_extra.get("model", None)
+                        if route.openapi_extra
+                        else None
+                    ),
+                    examples=route.openapi_extra.get("examples", None),
+                )  # type: ignore
+            else:
+                doc += "    /" if path else "    /"
+                doc += c.split("/")[-1] + "\n"
+                methods += MethodDefinition.build_class_loader_method(path=c)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         if not path:
             if ext_map:
@@ -351,11 +558,19 @@ class ClassDefinition:
                     ]
                 )
             doc += '    """\n'
+<<<<<<< HEAD
             doc += "# fmt: on\n"
         else:
             doc += '    """\n'
 
         code += doc
+=======
+            doc += "    # fmt: on\n"
+        else:
+            doc += '    """\n'
+
+        code += doc + "\n"
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         code += "    def __repr__(self) -> str:\n"
         code += '        return self.__doc__ or ""\n'
         code += methods
@@ -363,6 +578,7 @@ class ClassDefinition:
         return code
 
 
+<<<<<<< HEAD
 class DocstringGenerator:
     """Dynamically generate docstrings for the commands."""
 
@@ -648,6 +864,8 @@ class DocstringGenerator:
         return doc
 
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 class MethodDefinition:
     """Build the method definition for the Platform."""
 
@@ -659,8 +877,14 @@ class MethodDefinition:
         function_name = path.rsplit("/", maxsplit=1)[-1].strip("/")
 
         code = "\n    @property\n"
+<<<<<<< HEAD
         code += f'    def {function_name}(self):  # route = "{path}"\n'
         code += f"        from . import {module_name}\n"
+=======
+        code += f"    def {function_name}(self):\n"
+        code += "        # pylint: disable=import-outside-toplevel\n"
+        code += f"        from . import {module_name}\n\n"
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         code += f"        return {module_name}.{class_name}(command_runner=self._command_runner)\n"
 
         return code
@@ -706,6 +930,19 @@ class MethodDefinition:
         return "POST" in methods
 
     @staticmethod
+<<<<<<< HEAD
+=======
+    def is_deprecated_function(path: str) -> bool:
+        """Check if the function is deprecated."""
+        return getattr(PathHandler.build_route_map()[path], "deprecated", False)
+
+    @staticmethod
+    def get_deprecation_message(path: str) -> str:
+        """Get the deprecation message."""
+        return getattr(PathHandler.build_route_map()[path], "summary", "")
+
+    @staticmethod
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     def reorder_params(params: Dict[str, Parameter]) -> "OrderedDict[str, Parameter]":
         """Reorder the params."""
         formatted_keys = list(params.keys())
@@ -824,7 +1061,13 @@ class MethodDefinition:
     @staticmethod
     def build_func_params(formatted_params: OrderedDict[str, Parameter]) -> str:
         """Stringify function params."""
+<<<<<<< HEAD
         func_params = ", ".join(str(param) for param in formatted_params.values())
+=======
+        func_params = ",\n        ".join(
+            str(param) for param in formatted_params.values()
+        )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         func_params = func_params.replace("NoneType", "None")
         func_params = func_params.replace(
             "pandas.core.frame.DataFrame", "pandas.DataFrame"
@@ -836,13 +1079,18 @@ class MethodDefinition:
         return func_params
 
     @staticmethod
+<<<<<<< HEAD
     def build_func_returns(return_type: type, model_name: Optional[str] = None) -> str:
+=======
+    def build_func_returns(return_type: type) -> str:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """Build the function returns."""
         if return_type == _empty:
             func_returns = "None"
         elif return_type.__module__ == "builtins":
             func_returns = return_type.__name__
         else:
+<<<<<<< HEAD
             item_type = get_args(get_type_hints(return_type)["results"])[0]
             if item_type.__module__ == "builtins":
                 func_returns = f"OBBject[{item_type.__name__}]"
@@ -850,6 +1098,9 @@ class MethodDefinition:
                 func_returns = return_type.__qualname__
                 if model_name:
                     func_returns = func_returns.replace(model_name, "Data")
+=======
+            func_returns = "OBBject"
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         return func_returns
 
@@ -865,7 +1116,11 @@ class MethodDefinition:
             od=formatted_params, model_name=model_name
         )  # this modified `od` in place
         func_params = MethodDefinition.build_func_params(formatted_params)
+<<<<<<< HEAD
         func_returns = MethodDefinition.build_func_returns(return_type, model_name)
+=======
+        func_returns = MethodDefinition.build_func_returns(return_type)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         args = (
             "(config=dict(arbitrary_types_allowed=True))"
@@ -873,7 +1128,12 @@ class MethodDefinition:
             else ""
         )
         code = f"\n    @validate{args}"
+<<<<<<< HEAD
         code += f"\n    def {func_name}(self, {func_params}) -> {func_returns}:\n"
+=======
+        code += f"\n    def {func_name}("
+        code += f"\n        self,\n        {func_params}\n    ) -> {func_returns}:\n"
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         return code
 
@@ -882,23 +1142,44 @@ class MethodDefinition:
         func: Callable,
         formatted_params: OrderedDict[str, Parameter],
         model_name: Optional[str] = None,
+<<<<<<< HEAD
+=======
+        examples: Optional[List[str]] = None,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     ):
         """Build the command method docstring."""
         doc = func.__doc__
         if model_name:
             doc = DocstringGenerator.generate(
+<<<<<<< HEAD
                 func=func, formatted_params=formatted_params, model_name=model_name
             )
         code = f'        """{doc}"""  # noqa: E501\n\n' if doc else ""
+=======
+                func=func,
+                formatted_params=formatted_params,
+                model_name=model_name,
+                examples=examples,
+            )
+        code = f'        """{doc}        """  # noqa: E501\n\n' if doc else ""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         return code
 
     @staticmethod
+<<<<<<< HEAD
     def build_command_method_implementation(path: str, func: Callable):
+=======
+    def build_command_method_body(path: str, func: Callable):
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """Build the command method implementation."""
         sig = signature(func)
         parameter_map = dict(sig.parameters)
         parameter_map.pop("cc", None)
+<<<<<<< HEAD
+=======
+        code = ""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         if (
             path.replace("/", "_")[1:]
@@ -911,6 +1192,7 @@ class MethodDefinition:
                 default=False,
             )
 
+<<<<<<< HEAD
         code = "        inputs = filter_inputs(\n"
         for name, param in parameter_map.items():
             if name == "extra_params":
@@ -937,12 +1219,51 @@ class MethodDefinition:
         code += "            **inputs,\n"
         code += "        )\n"
         code += "\n"
+=======
+        if MethodDefinition.is_deprecated_function(path):
+            deprecation_message = MethodDefinition.get_deprecation_message(path)
+            code += "        from warnings import warn, simplefilter; simplefilter('always', DeprecationWarning)\n"
+            code += f"""        warn("{deprecation_message}", category=DeprecationWarning, stacklevel=2)\n\n"""
+
+        code += "        return self._run(\n"
+        code += f"""            "{path}",\n"""
+        code += "            **filter_inputs(\n"
+        for name, param in parameter_map.items():
+            if name == "extra_params":
+                code += f"                {name}=kwargs,\n"
+            elif MethodDefinition.is_annotated_dc(param.annotation):
+                fields = param.annotation.__args__[0].__dataclass_fields__
+                value = {k: k for k in fields}
+                code += f"                {name}={{\n"
+                for k, v in value.items():
+                    if k == "symbol":
+                        code += f'                    "{k}": ",".join(symbol) if isinstance(symbol, list) else symbol, \n'
+                        continue
+                    code += f'                    "{k}": {v},\n'
+                code += "                },\n"
+            else:
+                code += f"                {name}={name},\n"
+
+        if MethodDefinition.is_data_processing_function(path):
+            code += "                data_processing=True,\n"
+
+        code += "            )\n"
+        code += "        )\n"
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         return code
 
     @classmethod
     def build_command_method(
+<<<<<<< HEAD
         cls, path: str, func: Callable, model_name: Optional[str] = None
+=======
+        cls,
+        path: str,
+        func: Callable,
+        model_name: Optional[str] = None,
+        examples: Optional[List[str]] = None,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     ) -> str:
         """Build the command method."""
         func_name = func.__name__
@@ -959,14 +1280,223 @@ class MethodDefinition:
             model_name=model_name,
         )
         code += cls.build_command_method_doc(
+<<<<<<< HEAD
             func=func, formatted_params=formatted_params, model_name=model_name
         )
 
         code += cls.build_command_method_implementation(path=path, func=func)
+=======
+            func=func,
+            formatted_params=formatted_params,
+            model_name=model_name,
+            examples=examples,
+        )
+
+        code += cls.build_command_method_body(path=path, func=func)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         return code
 
 
+<<<<<<< HEAD
+=======
+class DocstringGenerator:
+    """Dynamically generate docstrings for the commands."""
+
+    provider_interface = ProviderInterface()
+
+    @staticmethod
+    def get_OBBject_description(results_type: str, providers: Optional[str]) -> str:
+        """Get the command output description."""
+        available_providers = providers or "Optional[str]"
+
+        obbject_description = (
+            "        OBBject\n"
+            f"            results : {results_type}\n"
+            "                Serializable results.\n"
+            f"            provider : {available_providers}\n"
+            "                Provider name.\n"
+            "            warnings : Optional[List[Warning_]]\n"
+            "                List of warnings.\n"
+            "            chart : Optional[Chart]\n"
+            "                Chart object.\n"
+            "            extra: Dict[str, Any]\n"
+            "                Extra info.\n"
+        )
+        obbject_description = obbject_description.replace("NoneType", "None")
+
+        return obbject_description
+
+    @classmethod
+    def generate_model_docstring(
+        cls,
+        model_name: str,
+        summary: str,
+        explicit_params: dict,
+        params: dict,
+        returns: Dict[str, FieldInfo],
+        results_type: str,
+        examples: Optional[List[str]] = None,
+    ) -> str:
+        """Create the docstring for model."""
+
+        def format_type(type_: str, char_limit: Optional[int] = None) -> str:
+            """Format type in docstrings."""
+            type_str = str(type_)
+            type_str = type_str.replace("NoneType", "None")
+            if char_limit:
+                type_str = type_str[:char_limit] + (
+                    "..." if len(str(type_str)) > char_limit else ""
+                )
+            return type_str
+
+        def format_description(description: str) -> str:
+            """Format description in docstrings."""
+            description = description.replace("\n", "\n        ")
+            return description
+
+        standard_dict = params["standard"].__dataclass_fields__
+        extra_dict = params["extra"].__dataclass_fields__
+
+        obb_query_fields: Dict[str, FieldInfo] = cls.provider_interface.map[model_name][
+            "openbb"
+        ]["QueryParams"]["fields"]
+
+        if examples:
+            example_docstring = "\n        Example\n        -------\n"
+            example_docstring += "        >>> from openbb import obb\n"
+            for example in examples:
+                example_docstring += f"        >>> {example}\n"
+
+        docstring = summary
+        docstring += "\n\n"
+        docstring += "        Parameters\n"
+        docstring += "        ----------\n"
+
+        # Explicit parameters
+        for param_name, param in explicit_params.items():
+            if param_name in standard_dict:
+                # pylint: disable=W0212
+                p_type = obb_query_fields[param_name].annotation
+                type_ = p_type.__name__ if inspect.isclass(p_type) else p_type
+                description = getattr(obb_query_fields[param_name], "description", "")
+            elif param_name == "provider":
+                # pylint: disable=W0212
+                type_ = param._annotation
+                default = param._annotation.__args__[0].__args__[0]
+                description = f"""The provider to use for the query, by default None.
+    If None, the provider specified in defaults is selected or '{default}' if there is
+    no default."""
+            elif param_name == "chart":
+                type_ = "bool"
+                description = "Whether to create a chart or not, by default False."
+            else:
+                type_ = ""
+                description = ""
+
+            type_str = format_type(type_, char_limit=79)  # type: ignore
+            docstring += f"        {param_name} : {type_str}\n"
+            docstring += f"            {format_description(description)}\n"
+
+        # Kwargs
+        for param_name, param in extra_dict.items():
+            p_type = param.type
+            type_ = p_type.__name__ if inspect.isclass(p_type) else p_type
+
+            if "NoneType" in str(type_):
+                type_ = f"Optional[{type_}]".replace(", NoneType", "")
+
+            description = getattr(param.default, "description", "")
+
+            docstring += f"        {param_name} : {type_}\n"
+            docstring += f"            {format_description(description)}\n"
+
+        # Returns
+        docstring += "\n"
+        docstring += "        Returns\n"
+        docstring += "        -------\n"
+        provider_param = explicit_params.get("provider", None)
+        available_providers = getattr(provider_param, "_annotation", None)
+
+        docstring += cls.get_OBBject_description(results_type, available_providers)
+
+        # Schema
+        underline = "-" * len(model_name)
+        docstring += f"\n        {model_name}\n        {underline}\n"
+
+        for name, field in returns.items():
+            try:
+                _type = field.annotation
+                is_optional = not field.is_required()
+                if "BeforeValidator" in str(_type):
+                    _type = "Optional[int]" if is_optional else "int"  # type: ignore
+
+                field_type = (
+                    str(_type)
+                    .replace("<class '", "")
+                    .replace("'>", "")
+                    .replace("typing.", "")
+                    .replace("pydantic.types.", "")
+                    .replace("datetime.datetime", "datetime")
+                    .replace("datetime.date", "date")
+                    .replace("NoneType", "None")
+                    .replace(", None", "")
+                )
+                field_type = (
+                    f"Optional[{field_type}]"
+                    if is_optional and "Optional" not in str(_type)
+                    else field_type
+                )
+            except TypeError:
+                # Fallback to the annotation if the repr fails
+                field_type = field.annotation  # type: ignore
+
+            description = getattr(field, "description", "")
+
+            docstring += f"        {field.alias or name} : {field_type}\n"
+            docstring += f"            {format_description(description)}\n"
+
+        if examples:
+            docstring += example_docstring
+
+        return docstring
+
+    @classmethod
+    def generate(
+        cls,
+        func: Callable,
+        formatted_params: OrderedDict[str, Parameter],
+        model_name: Optional[str] = None,
+        examples: Optional[List[str]] = None,
+    ) -> Optional[str]:
+        """Generate the docstring for the function."""
+        doc = func.__doc__
+        if model_name:
+            params = cls.provider_interface.params.get(model_name, None)
+            return_schema = cls.provider_interface.return_schema.get(model_name, None)
+            if params and return_schema:
+                explicit_dict = dict(formatted_params)
+                explicit_dict.pop("extra_params", None)
+
+                returns = return_schema.model_fields
+                results_type = func.__annotations__.get("return", model_name)
+                if hasattr(results_type, "results_type_repr"):
+                    results_type = results_type.results_type_repr()
+
+                return cls.generate_model_docstring(
+                    model_name=model_name,
+                    summary=func.__doc__ or "",
+                    explicit_params=explicit_dict,
+                    params=params,
+                    returns=returns,
+                    results_type=results_type,
+                    examples=examples,
+                )
+            return doc
+        return doc
+
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 class PathHandler:
     """Handle the paths for the Platform."""
 
@@ -1032,6 +1562,7 @@ class PathHandler:
         if not path:
             return "Extensions"
         return f"ROUTER_{cls.clean_path(path=path)}"
+<<<<<<< HEAD
 
 
 class Linters:
@@ -1079,3 +1610,5 @@ class Linters:
         if not self.verbose and not Env().DEBUG_MODE:
             flags.append("--silent")
         self.run(linter="ruff", flags=flags)
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe

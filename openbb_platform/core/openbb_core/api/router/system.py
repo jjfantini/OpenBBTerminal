@@ -1,4 +1,8 @@
 """System router."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from fastapi import APIRouter, Depends
 from openbb_core.api.dependency.system import get_system_settings
 from openbb_core.app.model.system_settings import SystemSettings

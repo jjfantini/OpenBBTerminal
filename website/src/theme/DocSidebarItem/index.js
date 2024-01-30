@@ -31,9 +31,16 @@ export default function DocSidebarItem({ item, ...props }) {
   const { isIFrame } = useIFrameContext();
   const { pathname } = useLocation();
   const isPro = pathname.startsWith("/pro");
+<<<<<<< HEAD
 
   // Check if the item is the OpenBB Terminal Pro section
   if (item.customProps?.hiddenByDefault && !isPro) {
+=======
+  const isExcel = pathname.startsWith("/excel");
+
+  // Check if the item is the OpenBB Terminal Pro section
+  if (item.customProps?.hiddenByDefault && !(isPro || isExcel)) {
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     return null;
   }
 
@@ -45,9 +52,15 @@ export default function DocSidebarItem({ item, ...props }) {
     }
   }
 
+<<<<<<< HEAD
   if (isPro && !checkIfAnyChildIsPro(item)) {
     return null;
   } else if (!isPro && item.href?.startsWith("/pro")) {
+=======
+  if ((isPro || isExcel) && !checkIfAnyChildIsProExcel(item)) {
+    return null;
+  } else if (!(isPro || isExcel) && item.href?.startsWith("/pro") && item.href?.startsWith("/excel")) {
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     return null;
   }
 
@@ -62,6 +75,7 @@ export default function DocSidebarItem({ item, ...props }) {
   }
 }
 
+<<<<<<< HEAD
 function checkIfAnyChildIsPro(item) {
   if (item.items) {
     return item.items.some((childItem) => checkIfAnyChildIsPro(childItem));
@@ -73,6 +87,19 @@ function checkIfAnyChildIsPro(item) {
 
   if (item.type === "category") {
     return item.items.some((childItem) => checkIfAnyChildIsPro(childItem));
+=======
+function checkIfAnyChildIsProExcel(item) {
+  if (item.items) {
+    return item.items.some((childItem) => checkIfAnyChildIsProExcel(childItem));
+  }
+
+  if (item.type === "link") {
+    return item.href?.startsWith("/pro") || item.href?.startsWith("/excel");
+  }
+
+  if (item.type === "category") {
+    return item.items.some((childItem) => checkIfAnyChildIsProExcel(childItem));
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
   }
 
   return false;

@@ -1,7 +1,10 @@
 """FMP Equity Valuation Multiples Model."""
 
+<<<<<<< HEAD
 from concurrent.futures import ThreadPoolExecutor
 from itertools import repeat
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from typing import Any, Dict, List, Optional
 
 from openbb_core.provider.abstract.fetcher import Fetcher
@@ -9,7 +12,12 @@ from openbb_core.provider.standard_models.equity_valuation_multiples import (
     EquityValuationMultiplesData,
     EquityValuationMultiplesQueryParams,
 )
+<<<<<<< HEAD
 from openbb_fmp.utils.helpers import create_url, get_data_many
+=======
+from openbb_core.provider.utils.helpers import ClientResponse, amake_requests
+from openbb_fmp.utils.helpers import create_url
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 
 class FMPEquityValuationMultiplesQueryParams(EquityValuationMultiplesQueryParams):
@@ -103,13 +111,18 @@ class FMPEquityValuationMultiplesFetcher(
         return FMPEquityValuationMultiplesQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: FMPEquityValuationMultiplesQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
     ) -> List[Dict]:
         """Return the raw data from the FMP endpoint."""
         api_key = credentials.get("fmp_api_key") if credentials else ""
+<<<<<<< HEAD
 
         data: List[Dict] = []
 
@@ -125,6 +138,22 @@ class FMPEquityValuationMultiplesFetcher(
             executor.map(multiple_symbols, query.symbol.split(","), repeat(data))
 
         return data
+=======
+        urls = [
+            create_url(
+                3, f"key-metrics-ttm/{symbol}", api_key, query, exclude=["symbol"]
+            )
+            for symbol in query.symbol.split(",")
+        ]
+
+        async def callback(response: ClientResponse, _: Any) -> List[Dict]:
+            data = await response.json()
+            symbol = response.url.parts[-1]
+
+            return [{**d, "symbol": symbol} for d in data]
+
+        return await amake_requests(urls, callback, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

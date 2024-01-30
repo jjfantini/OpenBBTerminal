@@ -9,7 +9,11 @@ interactions:
       Connection:
       - keep-alive
     method: GET
+<<<<<<< HEAD
     uri: https://api-v2.intrinio.com/companies/AAPL/fundamentals?api_key=MOCK_API_KEY&statement_code=balance_sheet_statement&type=FY
+=======
+    uri: https://api-v2.intrinio.com/companies/AAPL/fundamentals?api_key=MOCK_API_KEY&statement_code=balance_sheet_statement&type=annual
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
   response:
     body:
       string: !!binary |

@@ -2,6 +2,10 @@ import base64
 
 import pytest
 import requests
+<<<<<<< HEAD
+=======
+from extensions.tests.conftest import parametrize
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_core.env import Env
 from openbb_core.provider.utils.helpers import get_querystring
 
@@ -17,9 +21,15 @@ def headers():
     return {"Authorization": f"Basic {base64_bytes.decode('ascii')}"}
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
     "params",
     [({"start_date": "2023-01-01", "end_date": "2023-06-06"})],
+=======
+@parametrize(
+    "params",
+    [({"start_date": "2023-01-01", "end_date": "2023-06-06", "provider": "fmp"})],
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 )
 @pytest.mark.integration
 def test_fixedincome_government_treasury_rates(params, headers):
@@ -34,9 +44,15 @@ def test_fixedincome_government_treasury_rates(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
     "params",
     [({"date": "2023-01-01", "inflation_adjusted": True})],
+=======
+@parametrize(
+    "params",
+    [({"date": "2023-01-01", "inflation_adjusted": True, "provider": "fred"})],
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 )
 @pytest.mark.integration
 def test_fixedincome_government_us_yield_curve(params, headers):
@@ -51,7 +67,11 @@ def test_fixedincome_government_us_yield_curve(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         ({"start_date": "2023-01-01", "end_date": "2023-06-06"}),
@@ -76,7 +96,11 @@ def test_fixedincome_sofr(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         ({"start_date": "2023-01-01", "end_date": "2023-06-06"}),
@@ -101,7 +125,11 @@ def test_fixedincome_rate_estr(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         ({"start_date": "2023-01-01", "end_date": "2023-06-06"}),
@@ -126,7 +154,11 @@ def test_fixedincome_rate_sonia(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         ({"start_date": "2023-01-01", "end_date": "2023-06-06"}),
@@ -151,10 +183,17 @@ def test_fixedincome_rate_ameribor(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
     "params",
     [
         ({"start_date": "2023-01-01", "end_date": "2023-06-06"}),
+=======
+@parametrize(
+    "params",
+    [
+        ({"start_date": "2023-01-01", "end_date": "2023-06-06", "provider": "fred"}),
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         (
             {
                 "parameter": "weekly",
@@ -163,6 +202,16 @@ def test_fixedincome_rate_ameribor(params, headers):
                 "end_date": "2023-06-06",
             }
         ),
+<<<<<<< HEAD
+=======
+        (
+            {
+                "start_date": "2023-01-01",
+                "end_date": "2023-06-06",
+                "provider": "federal_reserve",
+            }
+        ),
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     ],
 )
 @pytest.mark.integration
@@ -176,7 +225,11 @@ def test_fixedincome_rate_effr(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [({}), ({"long_run": True, "provider": "fred"})],
 )
@@ -191,7 +244,11 @@ def test_fixedincome_rate_effr_forecast(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [({"start_date": "2023-01-01", "end_date": "2023-06-06"})],
 )
@@ -206,7 +263,11 @@ def test_fixedincome_rate_iorb(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         ({"start_date": "2023-01-01", "end_date": "2023-06-06"}),
@@ -231,7 +292,11 @@ def test_fixedincome_rate_dpcredit(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         (
@@ -254,7 +319,11 @@ def test_fixedincome_rate_ecb(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         ({"start_date": "2023-01-01", "end_date": "2023-06-06", "index_type": "yield"}),
@@ -283,7 +352,11 @@ def test_fixedincome_corporate_ice_bofa(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [({"start_date": "2023-01-01", "end_date": "2023-06-06", "index_type": "aaa"})],
 )
@@ -298,7 +371,11 @@ def test_fixedincome_corporate_moody(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         (
@@ -308,6 +385,10 @@ def test_fixedincome_corporate_moody(params, headers):
                 "maturity": "30d",
                 "category": "financial",
                 "grade": "aa",
+<<<<<<< HEAD
+=======
+                "provider": "fred",
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
             }
         )
     ],
@@ -325,7 +406,11 @@ def test_fixedincome_corporate_commercial_paper(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         (
@@ -334,6 +419,10 @@ def test_fixedincome_corporate_commercial_paper(params, headers):
                 "end_date": "2023-06-06",
                 "maturity": [10.0],
                 "category": ["spot_rate"],
+<<<<<<< HEAD
+=======
+                "provider": "fred",
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
             }
         )
     ],
@@ -349,7 +438,11 @@ def test_fixedincome_corporate_spot_rates(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [({"date": "2023-01-01", "yield_curve": "spot"})],
 )
@@ -364,7 +457,11 @@ def test_fixedincome_corporate_hqm(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [({"start_date": "2023-01-01", "end_date": "2023-06-06", "maturity": "3m"})],
 )
@@ -379,9 +476,24 @@ def test_fixedincome_spreads_tmc(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
     "params",
     [({"start_date": "2023-01-01", "end_date": "2023-06-06", "maturity": "10y"})],
+=======
+@parametrize(
+    "params",
+    [
+        (
+            {
+                "start_date": "2023-01-01",
+                "end_date": "2023-06-06",
+                "maturity": "10y",
+                "provider": "fred",
+            }
+        )
+    ],
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 )
 @pytest.mark.integration
 def test_fixedincome_spreads_tmc_effr(params, headers):
@@ -394,9 +506,24 @@ def test_fixedincome_spreads_tmc_effr(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
     "params",
     [({"start_date": "2023-01-01", "end_date": "2023-06-06", "maturity": "3m"})],
+=======
+@parametrize(
+    "params",
+    [
+        (
+            {
+                "start_date": "2023-01-01",
+                "end_date": "2023-06-06",
+                "maturity": "3m",
+                "provider": "fred",
+            }
+        )
+    ],
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 )
 @pytest.mark.integration
 def test_fixedincome_spreads_treasury_effr(params, headers):
@@ -409,7 +536,11 @@ def test_fixedincome_spreads_treasury_effr(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         ({"date": "2023-01-01", "yield_curve_type": "spot_rate"}),
@@ -436,7 +567,11 @@ def test_fixedincome_government_eu_yield_curve(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         (
@@ -472,3 +607,40 @@ def test_fixedincome_government_treasury_auctions(params, headers):
     result = requests.get(url, headers=headers, timeout=30)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200
+<<<<<<< HEAD
+=======
+
+
+@pytest.mark.parametrize(
+    "params",
+    [
+        (
+            {
+                "date": "2023-11-16",
+                "cusip": None,
+                "security_type": "bond",
+                "provider": "government_us",
+            }
+        ),
+        (
+            {
+                "date": "2023-11-16",
+                "cusip": None,
+                "security_type": "bill",
+                "provider": "government_us",
+            }
+        ),
+    ],
+)
+@pytest.mark.integration
+def test_fixedincome_government_treasury_prices(params, headers):
+    params = {p: v for p, v in params.items() if v}
+
+    query_str = get_querystring(params, [])
+    url = (
+        f"http://0.0.0.0:8000/api/v1/fixedincome/government/treasury_prices?{query_str}"
+    )
+    result = requests.get(url, headers=headers, timeout=30)
+    assert isinstance(result, requests.Response)
+    assert result.status_code == 200
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe

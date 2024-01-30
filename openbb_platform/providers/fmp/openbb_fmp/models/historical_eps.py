@@ -31,17 +31,26 @@ class FMPHistoricalEpsQueryParams(HistoricalEpsQueryParams):
 class FMPHistoricalEpsData(HistoricalEpsData):
     """FMP Historical EPS Data."""
 
+<<<<<<< HEAD
     actual_eps: Optional[float] = Field(
         default=None,
         description="The actual earnings per share announced.",
         alias="eps",
     )
+=======
+    __alias_dict__ = {"eps_actual": "eps"}
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     revenue_estimated: Optional[float] = Field(
         default=None,
         description="Estimated consensus revenue for the reporting period.",
         alias="revenueEstimated",
     )
+<<<<<<< HEAD
     actual_revenue: Optional[float] = Field(
+=======
+    revenue_actual: Optional[float] = Field(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         default=None,
         description="The actual reported revenue.",
         alias="revenue",
@@ -90,7 +99,11 @@ class FMPHistoricalEpsFetcher(
         return FMPHistoricalEpsQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: FMPHistoricalEpsQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -102,7 +115,11 @@ class FMPHistoricalEpsFetcher(
             3, f"historical/earning_calendar/{query.symbol}", api_key, query, ["symbol"]
         )
 
+<<<<<<< HEAD
         return get_data_many(url, **kwargs)
+=======
+        return await get_data_many(url, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

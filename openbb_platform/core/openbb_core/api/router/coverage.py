@@ -1,4 +1,8 @@
 """Coverage API router."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from fastapi import APIRouter, Depends
 from openbb_core.api.dependency.coverage import get_command_map, get_provider_interface
 from openbb_core.app.provider_interface import ProviderInterface

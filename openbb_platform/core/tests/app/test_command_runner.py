@@ -1,5 +1,9 @@
 from inspect import Parameter
+<<<<<<< HEAD
 from typing import Dict
+=======
+from typing import Dict, List
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from unittest.mock import patch
 
 import pytest
@@ -288,6 +292,10 @@ def test_command_runner_run(_):
         assert runner.run("mock/route")
 
 
+<<<<<<< HEAD
+=======
+@pytest.mark.asyncio
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 @patch("openbb_core.app.command_runner.CommandMap.get_command")
 @patch("openbb_core.app.command_runner.StaticCommandRunner._execute_func")
 async def test_static_command_runner_run(
@@ -295,7 +303,11 @@ async def test_static_command_runner_run(
 ):
     """Test static command runner run."""
 
+<<<<<<< HEAD
     def other_mock_func(a: int, b: int, c: int, d: int) -> None:
+=======
+    def other_mock_func(a: int, b: int, c: int, d: int) -> List[int]:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         return [a, b, c, d]
 
     class MockOBBject:
@@ -315,6 +327,10 @@ async def test_static_command_runner_run(
     assert result.extra.get("metadata") is not None
 
 
+<<<<<<< HEAD
+=======
+@pytest.mark.asyncio
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 @patch("openbb_core.app.command_runner.LoggingService")
 @patch("openbb_core.app.command_runner.ParametersBuilder.build")
 @patch("openbb_core.app.command_runner.StaticCommandRunner._command")
@@ -385,6 +401,10 @@ def test_static_command_runner_chart(mock_charting_service_chart, execution_cont
     assert mock_obbject.chart == {"mock": "chart"}
 
 
+<<<<<<< HEAD
+=======
+@pytest.mark.asyncio
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 async def test_static_command_runner_command():
     """Test command."""
 

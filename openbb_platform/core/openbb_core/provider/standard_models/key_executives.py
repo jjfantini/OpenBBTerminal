@@ -15,6 +15,10 @@ class KeyExecutivesQueryParams(QueryParams):
     symbol: str = Field(description=QUERY_DESCRIPTIONS.get("symbol", ""))
 
     @field_validator("symbol", mode="before", check_fields=False)
+<<<<<<< HEAD
+=======
+    @classmethod
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     def upper_symbol(cls, v: Union[str, List[str], Set[str]]):
         """Convert symbol to uppercase."""
         if isinstance(v, str):
@@ -30,7 +34,13 @@ class KeyExecutivesData(Data):
     pay: Optional[ForceInt] = Field(
         default=None, description="Pay of the key executive."
     )
+<<<<<<< HEAD
     currency_pay: str = Field(description="Currency of the pay.")
+=======
+    currency_pay: Optional[str] = Field(
+        default=None, description="Currency of the pay."
+    )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     gender: Optional[str] = Field(
         default=None, description="Gender of the key executive."
     )

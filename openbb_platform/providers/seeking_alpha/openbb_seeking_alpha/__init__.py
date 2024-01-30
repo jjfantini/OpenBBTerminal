@@ -1,4 +1,8 @@
 """Seeking Alpha Provider module."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_core.provider.abstract.provider import Provider
 from openbb_seeking_alpha.models.upcoming_release_days import (
     SAUpcomingReleaseDaysFetcher,

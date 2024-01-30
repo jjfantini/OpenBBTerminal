@@ -3,6 +3,10 @@
 This was created as a way to handle short interest data from the FINRA.
 The files do not change, so there is no need to download them every time.
 """
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 import random
 import sqlite3
 from io import StringIO

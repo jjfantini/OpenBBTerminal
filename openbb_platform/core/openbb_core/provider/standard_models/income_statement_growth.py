@@ -1,6 +1,9 @@
 """Income Statement Growth Standard Model."""
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from datetime import date as dateType
 from typing import List, Literal, Optional, Set, Union
 
@@ -24,6 +27,10 @@ class IncomeStatementGrowthQueryParams(QueryParams):
     )
 
     @field_validator("symbol", mode="before", check_fields=False)
+<<<<<<< HEAD
+=======
+    @classmethod
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     def upper_symbol(cls, v: Union[str, List[str], Set[str]]):
         """Convert symbol to uppercase."""
         if isinstance(v, str):
@@ -111,9 +118,16 @@ class IncomeStatementGrowthData(Data):
     )
 
     @field_validator("symbol", mode="before", check_fields=False)
+<<<<<<< HEAD
+=======
+    @classmethod
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     def upper_symbol(cls, v: Union[str, List[str], Set[str]]):
         """Convert symbol to uppercase."""
         if isinstance(v, str):
             return v.upper()
         return ",".join([symbol.upper() for symbol in list(v)]) if v else None
+<<<<<<< HEAD
         return ",".join([symbol.upper() for symbol in list(v)]) if v else None
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe

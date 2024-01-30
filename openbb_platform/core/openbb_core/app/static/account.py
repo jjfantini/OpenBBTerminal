@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 """Account service."""
+=======
+"""Account."""
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 # pylint: disable=W0212:protected-access
 import json
 from functools import wraps
@@ -18,6 +23,7 @@ if TYPE_CHECKING:
 
 
 class Account:
+<<<<<<< HEAD
     """The account service handles the following commands.
 
     /account
@@ -25,6 +31,13 @@ class Account:
         logout
         save
         refresh
+=======
+    """/account
+    login
+    logout
+    save
+    refresh
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     """
 
     SESSION_FILE = ".hub_session.json"
@@ -116,7 +129,11 @@ class Account:
 
         Returns
         -------
+<<<<<<< HEAD
         UserSettings
+=======
+        Optional[UserSettings]
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
             User settings: profile, credentials, preferences
         """
         hs = self._create_hub_service(email, password, pat)
@@ -147,7 +164,11 @@ class Account:
 
         Returns
         -------
+<<<<<<< HEAD
         UserSettings
+=======
+        Optional[UserSettings]
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
             User settings: profile, credentials, preferences
         """
         hub_session = self._base_app._command_runner.user_settings.profile.hub_session
@@ -174,7 +195,11 @@ class Account:
 
         Returns
         -------
+<<<<<<< HEAD
         UserSettings
+=======
+        Optional[UserSettings]
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
             User settings: profile, credentials, preferences
         """
         hub_session = self._base_app._command_runner.user_settings.profile.hub_session
@@ -204,7 +229,11 @@ class Account:
 
         Returns
         -------
+<<<<<<< HEAD
         UserSettings
+=======
+        Optional[UserSettings]
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
             User settings: profile, credentials, preferences
         """
         hub_session = self._base_app._command_runner.user_settings.profile.hub_session

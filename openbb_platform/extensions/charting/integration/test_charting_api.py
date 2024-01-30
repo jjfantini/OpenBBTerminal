@@ -3,6 +3,10 @@ import json
 
 import pytest
 import requests
+<<<<<<< HEAD
+=======
+from extensions.tests.conftest import parametrize
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_core.env import Env
 from openbb_core.provider.utils.helpers import get_querystring
 
@@ -43,7 +47,11 @@ def get_equity_data():
     return data["stocks_data"]
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         (
@@ -74,7 +82,11 @@ def test_chart_equity_price_historical(params, headers):
     assert list(chart.keys()) == ["content", "format"]
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [({"symbol": "AAPL", "limit": 100, "chart": True})],
 )
@@ -97,7 +109,11 @@ def test_chart_equity_fundamental_multiples(params, headers):
     assert list(chart.keys()) == ["content", "format"]
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         (
@@ -132,7 +148,11 @@ def test_chart_technical_adx(params, headers):
     assert list(chart.keys()) == ["content", "format"]
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [({"data": "", "index": "date", "length": "30", "scalar": "110", "chart": True})],
 )
@@ -156,7 +176,11 @@ def test_chart_technical_aroon(params, headers):
     assert list(chart.keys()) == ["content", "format"]
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         (
@@ -191,7 +215,11 @@ def test_chart_technical_ema(params, headers):
     assert list(chart.keys()) == ["content", "format"]
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         (
@@ -226,7 +254,11 @@ def test_chart_technical_hma(params, headers):
     assert list(chart.keys()) == ["content", "format"]
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         (
@@ -262,7 +294,11 @@ def test_chart_technical_macd(params, headers):
     assert list(chart.keys()) == ["content", "format"]
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         (
@@ -298,7 +334,11 @@ def test_chart_technical_rsi(params, headers):
     assert list(chart.keys()) == ["content", "format"]
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         (
@@ -333,7 +373,11 @@ def test_chart_technical_sma(params, headers):
     assert list(chart.keys()) == ["content", "format"]
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         (
@@ -368,7 +412,11 @@ def test_chart_technical_wma(params, headers):
     assert list(chart.keys()) == ["content", "format"]
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         (

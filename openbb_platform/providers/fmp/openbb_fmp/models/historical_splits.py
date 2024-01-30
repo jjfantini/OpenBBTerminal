@@ -43,7 +43,11 @@ class FMPHistoricalSplitsFetcher(
         return FMPHistoricalSplitsQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: FMPHistoricalSplitsQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -55,7 +59,11 @@ class FMPHistoricalSplitsFetcher(
             3, f"historical-price-full/stock_split/{query.symbol}", api_key
         )
 
+<<<<<<< HEAD
         return get_data_many(url, "historical", **kwargs)
+=======
+        return await get_data_many(url, "historical", **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

@@ -1,8 +1,19 @@
 """FMP Historical Dividends Model."""
 
+<<<<<<< HEAD
 from datetime import date as dateType
 from typing import Any, Dict, List, Optional
 
+=======
+from datetime import (
+    date as dateType,
+    datetime,
+)
+from typing import Any, Dict, List, Optional
+
+from dateutil import parser
+from dateutil.relativedelta import relativedelta
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_core.provider.abstract.fetcher import Fetcher
 from openbb_core.provider.standard_models.historical_dividends import (
     HistoricalDividendsData,
@@ -65,10 +76,25 @@ class FMPHistoricalDividendsFetcher(
     @staticmethod
     def transform_query(params: Dict[str, Any]) -> FMPHistoricalDividendsQueryParams:
         """Transform the query params."""
+<<<<<<< HEAD
         return FMPHistoricalDividendsQueryParams(**params)
 
     @staticmethod
     def extract_data(
+=======
+        transformed_params = params
+
+        now = datetime.now().date()
+        if params.get("start_date") is None:
+            transformed_params["start_date"] = now - relativedelta(year=1)
+        if params.get("end_date") is None:
+            transformed_params["end_date"] = now
+
+        return FMPHistoricalDividendsQueryParams(**params)
+
+    @staticmethod
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: FMPHistoricalDividendsQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -79,11 +105,28 @@ class FMPHistoricalDividendsFetcher(
         url = create_url(
             3, f"historical-price-full/stock_dividend/{query.symbol}", api_key
         )
+<<<<<<< HEAD
         return get_data_many(url, "historical", **kwargs)
+=======
+        return await get_data_many(url, "historical", **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(
         query: FMPHistoricalDividendsQueryParams, data: List[Dict], **kwargs: Any
     ) -> List[FMPHistoricalDividendsData]:
         """Return the transformed data."""
+<<<<<<< HEAD
         return [FMPHistoricalDividendsData.model_validate(d) for d in data]
+=======
+        result = []
+        for d in data:
+            if "date" in d:
+                dt = parser.parse(str(d["date"])).date()
+
+                if query.start_date <= dt <= query.end_date:
+                    result.append(FMPHistoricalDividendsData(**d))
+            else:
+                result.append(FMPHistoricalDividendsData(**d))
+        return result
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe

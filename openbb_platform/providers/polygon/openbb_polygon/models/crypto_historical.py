@@ -1,6 +1,9 @@
 """Polygon Crypto Historical Price Model."""
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from datetime import datetime
 from typing import Any, Dict, List, Literal, Optional
 
@@ -24,9 +27,15 @@ class PolygonCryptoHistoricalQueryParams(CryptoHistoricalQueryParams):
     multiplier: PositiveInt = Field(
         default=1, description="Multiplier of the timespan."
     )
+<<<<<<< HEAD
     timespan: Literal[
         "minute", "hour", "day", "week", "month", "quarter", "year"
     ] = Field(default="day", description="Timespan of the data.")
+=======
+    timespan: Literal["minute", "hour", "day", "week", "month", "quarter", "year"] = (
+        Field(default="day", description="Timespan of the data.")
+    )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     sort: Literal["asc", "desc"] = Field(
         default="desc", description="Sort order of the data."
     )
@@ -81,7 +90,11 @@ class PolygonCryptoHistoricalFetcher(
         return PolygonCryptoHistoricalQueryParams(**transformed_params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: PolygonCryptoHistoricalQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -95,7 +108,11 @@ class PolygonCryptoHistoricalFetcher(
             f"{query.start_date}/{query.end_date}?adjusted={query.adjusted}"
             f"&sort={query.sort}&limit={query.limit}&apiKey={api_key}"
         )
+<<<<<<< HEAD
         data = get_data_many(request_url, "results", **kwargs)
+=======
+        data = await get_data_many(request_url, "results", **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         for d in data:
             d["t"] = datetime.fromtimestamp(d["t"] / 1000)

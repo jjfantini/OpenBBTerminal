@@ -1,6 +1,9 @@
 """FRED High Quality Market Corporate Bond Model."""
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from datetime import datetime, timedelta
 from typing import Any, Dict, List, Optional
 
@@ -14,7 +17,11 @@ from openbb_fred.utils.fred_helpers import (
     YIELD_CURVE_SERIES_CORPORATE_PAR,
     YIELD_CURVE_SERIES_CORPORATE_SPOT,
 )
+<<<<<<< HEAD
 from pydantic import field_validator
+=======
+from pydantic import Field, field_validator
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 
 class FREDHighQualityMarketCorporateBondQueryParams(
@@ -28,6 +35,11 @@ class FREDHighQualityMarketCorporateBondData(HighQualityMarketCorporateBondData)
 
     __alias_dict__ = {"rate": "value"}
 
+<<<<<<< HEAD
+=======
+    series_id: str = Field(description="FRED series id.")
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     @field_validator("rate", mode="before", check_fields=False)
     @classmethod
     def value_validate(cls, v):
@@ -88,10 +100,22 @@ class FREDHighQualityMarketCorporateBondFetcher(
                 start_date=start_date,
                 **kwargs,
             )
+<<<<<<< HEAD
             for item in d:
                 item["maturity"] = maturity
                 item["yield_curve"] = query.yield_curve
             data.extend(d)
+=======
+            for observation in d:
+                series_data = {
+                    "series_id": id_,
+                    "maturity": maturity,
+                    "yield_curve": query.yield_curve,
+                    "date": observation["date"],
+                    "value": observation["value"],
+                }
+                data.append(series_data)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         return data
 

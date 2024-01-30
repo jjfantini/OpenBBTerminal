@@ -3,6 +3,7 @@ interactions:
     body: null
     headers:
       Accept:
+<<<<<<< HEAD
       - '*/*'
       Accept-Encoding:
       - gzip, deflate, br
@@ -2276,6 +2277,24 @@ interactions:
         cYgo4bBfaQsil68+tCl3uTqkCZIZZ2AQOlNM6Rj6ynbneE03XnCKj8qnstU+XDiNQGNAYpXhvAof
         LTRqVtgUYwqw0oK1R+M/mYFGvyJNf3RM12VJr4EXTetDI3cluV3uttUjTivQuOom0PDgzHyuw3hJ
         ECzf/dIIALHmny/3n//+D0ql8HFX9QsA
+=======
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://financialmodelingprep.com/api/v3/historical-chart/1day/%5EDJI?apikey=MOCK_API_KEY&from=2023-01-01&to=2023-01-10
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA43SS07DMBAG4H1PEWXdjubhGXt6FcQCQUSRCkHitUDcHTcNcesopVGShX9b/jye
+        m1XTfOevadqHu/eu3TYtI8sGaUPYEG8R89uuj1P61+4lTxFRMgjs5mOw77+G8cAECTGmcXz39Lgb
+        gsgGKo42Bvf7/q07JhiAkPQv+ez3H8+HiC2xYX7y+M962Ym+7DQLcNiVa2eKYIZktdNFs8YlzZxK
+        eUlIIdRO4ZjCNU5bdqIqyEndRie7xzN/qSfh2QGK0yQnJycoTsN4lVOXneQEkVLUypmIYfjXznrB
+        5GTPznzgaUlxSnS+xhkuOC1fY5jfO4pASBhi7QzoZ11Y6snmEM1VZs7oQzn/dcoFZ0iQvDTVVE9F
+        0IhCtVNy4yoVTXGSGBzawmdO1Vzr0bm6/QU7Pyuq8gMAAA==
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     headers:
       Access-Control-Allow-Credentials:
       - 'true'
@@ -2295,9 +2314,15 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
+<<<<<<< HEAD
       - Mon, 16 Oct 2023 15:34:35 GMT
       ETag:
       - W/"bf557-WKEO7Y5UIQugaw5yqw/SVQqERI8"
+=======
+      - Fri, 01 Dec 2023 21:25:06 GMT
+      Etag:
+      - W/"3f2-y9+VxwqtePCRYovMzrv9Y2mmzrc"
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
       Server:
       - nginx/1.18.0 (Ubuntu)
       Transfer-Encoding:

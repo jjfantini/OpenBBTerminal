@@ -10,6 +10,11 @@ from openbb_intrinio.models.currency_pairs import IntrinioCurrencyPairsFetcher
 from openbb_intrinio.models.equity_historical import IntrinioEquityHistoricalFetcher
 from openbb_intrinio.models.equity_info import IntrinioEquityInfoFetcher
 from openbb_intrinio.models.equity_quote import IntrinioEquityQuoteFetcher
+<<<<<<< HEAD
+=======
+from openbb_intrinio.models.equity_search import IntrinioEquitySearchFetcher
+from openbb_intrinio.models.financial_ratios import IntrinioFinancialRatiosFetcher
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_intrinio.models.fred_series import IntrinioFredSeriesFetcher
 from openbb_intrinio.models.historical_attributes import (
     IntrinioHistoricalAttributesFetcher,
@@ -18,6 +23,10 @@ from openbb_intrinio.models.historical_dividends import (
     IntrinioHistoricalDividendsFetcher,
 )
 from openbb_intrinio.models.income_statement import IntrinioIncomeStatementFetcher
+<<<<<<< HEAD
+=======
+from openbb_intrinio.models.index_historical import IntrinioIndexHistoricalFetcher
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_intrinio.models.insider_trading import IntrinioInsiderTradingFetcher
 from openbb_intrinio.models.institutional_ownership import (
     IntrinioInstitutionalOwnershipFetcher,
@@ -27,6 +36,10 @@ from openbb_intrinio.models.latest_attributes import IntrinioLatestAttributesFet
 from openbb_intrinio.models.market_indices import IntrinioMarketIndicesFetcher
 from openbb_intrinio.models.options_chains import IntrinioOptionsChainsFetcher
 from openbb_intrinio.models.options_unusual import IntrinioOptionsUnusualFetcher
+<<<<<<< HEAD
+=======
+from openbb_intrinio.models.reported_financials import IntrinioReportedFinancialsFetcher
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_intrinio.models.search_attributes import (
     IntrinioSearchAttributesFetcher,
 )
@@ -49,10 +62,19 @@ intrinio_provider = Provider(
         "EquityHistorical": IntrinioEquityHistoricalFetcher,
         "EquityInfo": IntrinioEquityInfoFetcher,
         "EquityQuote": IntrinioEquityQuoteFetcher,
+<<<<<<< HEAD
+=======
+        "EquitySearch": IntrinioEquitySearchFetcher,
+        "FinancialRatios": IntrinioFinancialRatiosFetcher,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         "FredSeries": IntrinioFredSeriesFetcher,
         "HistoricalAttributes": IntrinioHistoricalAttributesFetcher,
         "HistoricalDividends": IntrinioHistoricalDividendsFetcher,
         "IncomeStatement": IntrinioIncomeStatementFetcher,
+<<<<<<< HEAD
+=======
+        "IndexHistorical": IntrinioIndexHistoricalFetcher,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         "InsiderTrading": IntrinioInsiderTradingFetcher,
         "InstitutionalOwnership": IntrinioInstitutionalOwnershipFetcher,
         "KeyMetrics": IntrinioKeyMetricsFetcher,
@@ -60,6 +82,10 @@ intrinio_provider = Provider(
         "MarketIndices": IntrinioMarketIndicesFetcher,
         "OptionsChains": IntrinioOptionsChainsFetcher,
         "OptionsUnusual": IntrinioOptionsUnusualFetcher,
+<<<<<<< HEAD
+=======
+        "ReportedFinancials": IntrinioReportedFinancialsFetcher,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         "SearchAttributes": IntrinioSearchAttributesFetcher,
         "ShareStatistics": IntrinioShareStatisticsFetcher,
         "WorldNews": IntrinioWorldNewsFetcher,

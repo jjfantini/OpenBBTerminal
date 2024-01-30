@@ -12,7 +12,11 @@ from openbb_core.provider.utils.descriptions import DATA_DESCRIPTIONS
 class CryptoSearchQueryParams(QueryParams):
     """Crypto Search Query."""
 
+<<<<<<< HEAD
     query: Optional[str] = Field(description="Search query.", default="")
+=======
+    query: Optional[str] = Field(description="Search query.", default=None)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 
 class CryptoSearchData(Data):

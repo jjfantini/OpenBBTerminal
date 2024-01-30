@@ -9,8 +9,13 @@ from openbb_core.provider.standard_models.balance_sheet import (
     BalanceSheetQueryParams,
 )
 from openbb_core.provider.utils.helpers import get_querystring
+<<<<<<< HEAD
 from openbb_polygon.utils.helpers import get_data
 from pydantic import Field, field_validator
+=======
+from openbb_polygon.utils.helpers import get_data_many
+from pydantic import Field
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 
 class PolygonBalanceSheetQueryParams(BalanceSheetQueryParams):
@@ -21,6 +26,10 @@ class PolygonBalanceSheetQueryParams(BalanceSheetQueryParams):
 
     __alias_dict__ = {"symbol": "ticker", "period": "timeframe"}
 
+<<<<<<< HEAD
+=======
+    period: Literal["annual", "quarter", "ttm"] = Field(default="annual")
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     filing_date: Optional[date] = Field(
         default=None, description="Filing date of the financial statement."
     )
@@ -58,8 +67,13 @@ class PolygonBalanceSheetQueryParams(BalanceSheetQueryParams):
         default=None,
         description="Period of report date greater than or equal to the given date.",
     )
+<<<<<<< HEAD
     include_sources: Optional[bool] = Field(
         default=None,
+=======
+    include_sources: bool = Field(
+        default=True,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         description="Whether to include the sources of the financial statement.",
     )
     order: Optional[Literal["asc", "desc"]] = Field(
@@ -75,11 +89,16 @@ class PolygonBalanceSheetData(BalanceSheetData):
 
     __alias_dict__ = {
         "date": "start_date",
+<<<<<<< HEAD
         "total_liabilities_and_stockholders_equity": "liabilities_and_equity",
+=======
+        "total_liabilities_and_stock_holders_equity": "liabilities_and_equity",
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         "minority_interest": "equity_attributable_to_noncontrolling_interest",
         "total_current_assets": "current_assets",
         "marketable_securities": "fixed_assets",
         "property_plant_equipment_net": "public_utilities_property_plant_and_equipment_net",
+<<<<<<< HEAD
         "other_non_current_assets": "other_noncurrent_assets_of_regulated_entity",
         "total_non_current_assets": "noncurrent_assets",
         "total_assets": "assets",
@@ -100,6 +119,97 @@ class PolygonBalanceSheetData(BalanceSheetData):
         if isinstance(v, list):
             return ",".join(v)
         return v
+=======
+        "other_non_current_assets": "other_noncurrent_assets",
+        "total_non_current_assets": "noncurrent_assets",
+        "total_assets": "assets",
+        "total_current_liabilities": "current_liabilities",
+        "other_non_current_liabilities": "other_noncurrent_liabilities",
+        "total_non_current_liabilities": "noncurrent_liabilities",
+        "total_liabilities": "liabilities",
+        "total_stock_holders_equity": "equity_attributable_to_parent",
+        "total_equity": "equity",
+        "employee_wages": "wages",
+        "redeemable_non_controlling_interest": "redeemable_noncontrolling_interest",
+        "redeemable_non_controlling_interest_other": "redeemable_noncontrolling_interest_other",
+    }
+
+    accounts_receivable: Optional[int] = Field(
+        description="Accounts receivable", default=None
+    )
+    marketable_securities: Optional[int] = Field(
+        description="Marketable securities", default=None
+    )
+    prepaid_expenses: Optional[int] = Field(
+        description="Prepaid expenses", default=None
+    )
+    other_current_assets: Optional[int] = Field(
+        description="Other current assets", default=None
+    )
+    total_current_assets: Optional[int] = Field(
+        description="Total current assets", default=None
+    )
+    property_plant_equipment_net: Optional[int] = Field(
+        description="Property plant and equipment net", default=None
+    )
+    inventory: Optional[int] = Field(description="Inventory", default=None)
+    other_non_current_assets: Optional[int] = Field(
+        description="Other non-current assets", default=None
+    )
+    total_non_current_assets: Optional[int] = Field(
+        description="Total non-current assets", default=None
+    )
+    intangible_assets: Optional[int] = Field(
+        description="Intangible assets", default=None
+    )
+    total_assets: Optional[int] = Field(description="Total assets", default=None)
+    accounts_payable: Optional[int] = Field(
+        description="Accounts payable", default=None
+    )
+    employee_wages: Optional[int] = Field(description="Employee wages", default=None)
+    other_current_liabilities: Optional[int] = Field(
+        description="Other current liabilities", default=None
+    )
+    total_current_liabilities: Optional[int] = Field(
+        description="Total current liabilities", default=None
+    )
+    other_non_current_liabilities: Optional[int] = Field(
+        description="Other non-current liabilities", default=None
+    )
+    total_non_current_liabilities: Optional[int] = Field(
+        description="Total non-current liabilities", default=None
+    )
+    long_term_debt: Optional[int] = Field(description="Long term debt", default=None)
+    total_liabilities: Optional[int] = Field(
+        description="Total liabilities", default=None
+    )
+    minority_interest: Optional[int] = Field(
+        description="Minority interest", default=None
+    )
+    temporary_equity_attributable_to_parent: Optional[int] = Field(
+        description="Temporary equity attributable to parent", default=None
+    )
+    equity_attributable_to_parent: Optional[int] = Field(
+        description="Equity attributable to parent", default=None
+    )
+    temporary_equity: Optional[int] = Field(
+        description="Temporary equity", default=None
+    )
+    preferred_stock: Optional[int] = Field(description="Preferred stock", default=None)
+    redeemable_non_controlling_interest: Optional[int] = Field(
+        description="Redeemable non-controlling interest", default=None
+    )
+    redeemable_non_controlling_interest_other: Optional[int] = Field(
+        description="Redeemable non-controlling interest other", default=None
+    )
+    total_stock_holders_equity: Optional[int] = Field(
+        description="Total stock holders equity", default=None
+    )
+    total_liabilities_and_stock_holders_equity: Optional[int] = Field(
+        description="Total liabilities and stockholders equity", default=None
+    )
+    total_equity: Optional[int] = Field(description="Total equity", default=None)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 
 class PolygonBalanceSheetFetcher(
@@ -116,17 +226,26 @@ class PolygonBalanceSheetFetcher(
         return PolygonBalanceSheetQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
         query: PolygonBalanceSheetQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
     ) -> dict:
+=======
+    async def aextract_data(
+        query: PolygonBalanceSheetQueryParams,
+        credentials: Optional[Dict[str, str]],
+        **kwargs: Any,
+    ) -> Dict:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """Return the raw data from the Intrinio endpoint."""
         api_key = credentials.get("polygon_api_key") if credentials else ""
 
         base_url = "https://api.polygon.io/vX/reference/financials"
         period = "quarterly" if query.period == "quarter" else query.period
         query_string = get_querystring(
+<<<<<<< HEAD
             query.model_dump(by_alias=True), ["ticker", "period"]
         )
 
@@ -138,17 +257,35 @@ class PolygonBalanceSheetFetcher(
         request_url = f"{base_url}?{query_string}&apiKey={api_key}"
 
         return get_data(request_url, **kwargs).get("results", [])
+=======
+            query.model_dump(by_alias=True), ["ticker", "timeframe"]
+        )
+
+        if query.symbol.isdigit():
+            query_string = f"cik={query.symbol}&timeframe={period}&{query_string}"
+        else:
+            query_string = f"ticker={query.symbol}&timeframe={period}&{query_string}"
+
+        request_url = f"{base_url}?{query_string}&apiKey={api_key}"
+
+        return await get_data_many(request_url, "results", **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(
         query: PolygonBalanceSheetQueryParams,
+<<<<<<< HEAD
         data: dict,
+=======
+        data: Dict,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         **kwargs: Any,
     ) -> List[PolygonBalanceSheetData]:
         """Return the transformed data."""
         transformed_data = []
 
         for item in data:
+<<<<<<< HEAD
             sub_data = {
                 key: value["value"]
                 for key, value in item["financials"]["balance_sheet"].items()
@@ -158,5 +295,15 @@ class PolygonBalanceSheetFetcher(
             sub_data["symbol"] = item["tickers"]
             sub_data["period"] = item["fiscal_period"]
             transformed_data.append(PolygonBalanceSheetData(**sub_data))
+=======
+            if "balance_sheet" in item["financials"]:
+                sub_data = {
+                    key: value["value"]
+                    for key, value in item["financials"]["balance_sheet"].items()
+                }
+                sub_data["period_ending"] = item["end_date"]
+                sub_data["fiscal_period"] = item["fiscal_period"]
+                transformed_data.append(PolygonBalanceSheetData(**sub_data))
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         return transformed_data

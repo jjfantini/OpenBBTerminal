@@ -1,6 +1,10 @@
 """Intrinio Institutional Ownership Model."""
 
+<<<<<<< HEAD
 from concurrent.futures import ThreadPoolExecutor
+=======
+import asyncio
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from typing import Any, Dict, List, Optional
 
 from openbb_core.provider.abstract.fetcher import Fetcher
@@ -75,7 +79,11 @@ class IntrinioInstitutionalOwnershipFetcher(
         return IntrinioInstitutionalOwnershipQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: IntrinioInstitutionalOwnershipQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -90,19 +98,42 @@ class IntrinioInstitutionalOwnershipFetcher(
             f"{base_url}/securities/{query.symbol}/institutional_ownership?"
             f"{query_str}&api_key={api_key}"
         )
+<<<<<<< HEAD
         data = get_data_many(url, "ownership", **kwargs)
 
         def get_owner_name(item: Dict) -> Dict:
             cik = item["owner_cik"]
             cik_url = f"{base_url}/owners/{cik}?api_key={api_key}"
             cik_data = get_data_one(cik_url, **kwargs)
+=======
+
+        async def get_owner_name(item: Dict) -> Dict:
+            cik = item["owner_cik"]
+            cik_url = f"{base_url}/owners/{cik}?api_key={api_key}"
+            cik_data = await get_data_one(cik_url, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
             owner_name = cik_data["owner_name"]
             item["symbol"] = query.symbol
             item["owner_name"] = owner_name
             return item
 
+<<<<<<< HEAD
         with ThreadPoolExecutor() as executor:
             data = list(executor.map(get_owner_name, data))
+=======
+        results = await asyncio.gather(
+            *[
+                get_owner_name(item)
+                for item in await get_data_many(url, "ownership", **kwargs)
+            ],
+            return_exceptions=True,
+        )
+
+        for item in results:
+            if isinstance(item, Exception):
+                continue
+            data.append(item)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         return data
 

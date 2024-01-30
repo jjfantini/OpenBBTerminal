@@ -47,7 +47,10 @@ def vcr_config():
 
 
 @pytest.mark.record_http
+<<<<<<< HEAD
 @pytest.mark.skip(reason="FRED has deeply nested return types which are not supported.")
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 def test_fredcpi_fetcher(credentials=test_credentials):
     """Test FREDConsumerPriceIndexFetcher."""
     params = {"countries": ["portugal", "spain"]}
@@ -58,10 +61,16 @@ def test_fredcpi_fetcher(credentials=test_credentials):
 
 
 @pytest.mark.record_http
+<<<<<<< HEAD
 @pytest.mark.skip(reason="FRED has deeply nested return types which are not supported.")
 def test_fred_yield_curve_fetcher(credentials=test_credentials):
     """Test FREDYieldCurveFetcher."""
     params = {}
+=======
+def test_fred_yield_curve_fetcher(credentials=test_credentials):
+    """Test FREDYieldCurveFetcher."""
+    params = {"date": datetime.date(2023, 12, 1)}
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     fetcher = FREDYieldCurveFetcher()
     result = fetcher.test(params, credentials)
@@ -69,7 +78,10 @@ def test_fred_yield_curve_fetcher(credentials=test_credentials):
 
 
 @pytest.mark.record_http
+<<<<<<< HEAD
 @pytest.mark.skip(reason="FRED has deeply nested return types which are not supported.")
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 def test_fredsofr_fetcher(credentials=test_credentials):
     """Test FREDSOFRFetcher."""
     params = {}
@@ -80,7 +92,10 @@ def test_fredsofr_fetcher(credentials=test_credentials):
 
 
 @pytest.mark.record_http
+<<<<<<< HEAD
 @pytest.mark.skip(reason="FRED has deeply nested return types which are not supported.")
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 def test_fredestr_fetcher(credentials=test_credentials):
     """Test FREDESTRFetcher."""
     params = {}
@@ -91,7 +106,10 @@ def test_fredestr_fetcher(credentials=test_credentials):
 
 
 @pytest.mark.record_http
+<<<<<<< HEAD
 @pytest.mark.skip(reason="FRED has deeply nested return types which are not supported.")
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 def test_fredsonia_fetcher(credentials=test_credentials):
     """Test FREDSONIAFetcher."""
     params = {}
@@ -102,7 +120,10 @@ def test_fredsonia_fetcher(credentials=test_credentials):
 
 
 @pytest.mark.record_http
+<<<<<<< HEAD
 @pytest.mark.skip(reason="FRED has deeply nested return types which are not supported.")
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 def test_fredameribor_fetcher(credentials=test_credentials):
     """Test FREDAMERIBORFetcher."""
     params = {}
@@ -113,7 +134,10 @@ def test_fredameribor_fetcher(credentials=test_credentials):
 
 
 @pytest.mark.record_http
+<<<<<<< HEAD
 @pytest.mark.skip(reason="FRED has deeply nested return types which are not supported.")
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 def test_fredfed_fetcher(credentials=test_credentials):
     """Test FREDFEDFetcher."""
     params = {}
@@ -124,7 +148,10 @@ def test_fredfed_fetcher(credentials=test_credentials):
 
 
 @pytest.mark.record_http
+<<<<<<< HEAD
 @pytest.mark.skip(reason="FRED has deeply nested return types which are not supported.")
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 def test_fredprojection_fetcher(credentials=test_credentials):
     """Test FREDPROJECTIONFetcher."""
     params = {}
@@ -135,7 +162,10 @@ def test_fredprojection_fetcher(credentials=test_credentials):
 
 
 @pytest.mark.record_http
+<<<<<<< HEAD
 @pytest.mark.skip(reason="FRED has deeply nested return types which are not supported.")
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 def test_frediorb_fetcher(credentials=test_credentials):
     """Test FREDIORBFetcher."""
     params = {}

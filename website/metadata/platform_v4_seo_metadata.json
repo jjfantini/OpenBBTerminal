@@ -2851,6 +2851,7 @@
       "index constituents founding year"
     ]
   },
+<<<<<<< HEAD
   "index.european": {
     "title": "european",
     "description": "Learn how to retrieve Historical European Indices data using the OBB\n  Python library. Understand the available parameters, return values, and data fields.",
@@ -2898,6 +2899,8 @@
       "asset type"
     ]
   },
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
   "index.fred": {
     "title": "fred",
     "description": "Learn how to retrieve Historical Fred Indices close values for selected\n  symbols using the OBB Python library. This documentation page provides details on\n  the required parameters, their types, and default values. It also explains the structure\n  of the returned data and its fields.",
@@ -3281,7 +3284,11 @@
   },
   "regulators.cftc.cot_search": {
     "title": "cot_search",
+<<<<<<< HEAD
     "description": "Learn about curated Commitment of Traders Reports series information\n  and how to perform a fuzzy search for specific data. Find details on the parameters,\n  data returned, and available CFTC codes.",
+=======
+    "description": "Learn about curated Commitment of Traders Reports series information\n  and how to perform a search for specific data. Find details on the parameters,\n  data returned, and available CFTC codes.",
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "keywords": [
       "Commitment of Traders Reports",
       "curated COT Reports series",
@@ -3413,9 +3420,15 @@
   },
   "regulators.sec.sic_search": {
     "title": "sic_search",
+<<<<<<< HEAD
     "description": "Learn how to perform a fuzzy search for industry titles, reporting office,\n  and SIC codes using Python. Explore the parameters, returns, and data associated\n  with the `obb.regulators.sec.sic_search` function.",
     "keywords": [
       "fuzzy search",
+=======
+    "description": "Learn how to perform a search for industry titles, reporting office,\n  and SIC codes using Python. Explore the parameters, returns, and data associated\n  with the `obb.regulators.sec.sic_search` function.",
+    "keywords": [
+      "search",
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
       "industry titles",
       "reporting office",
       "SIC codes",

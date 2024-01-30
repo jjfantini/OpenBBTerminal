@@ -1,6 +1,9 @@
 """FMP Cryptos Historical Price Model."""
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from datetime import datetime
 from typing import Any, Dict, List, Literal, Optional
 
@@ -10,6 +13,10 @@ from openbb_core.provider.standard_models.crypto_historical import (
     CryptoHistoricalData,
     CryptoHistoricalQueryParams,
 )
+<<<<<<< HEAD
+=======
+from openbb_core.provider.utils.descriptions import DATA_DESCRIPTIONS
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_core.provider.utils.helpers import get_querystring
 from openbb_fmp.utils.helpers import get_data_many
 from pydantic import Field, NonNegativeInt
@@ -23,19 +30,34 @@ class FMPCryptoHistoricalQueryParams(CryptoHistoricalQueryParams):
     https://site.financialmodelingprep.com/developer/docs/cryptocurrency-historical-data-api/#Historical-Daily-Prices
     """
 
+<<<<<<< HEAD
     timeseries: Optional[NonNegativeInt] = Field(
         default=None, description="Number of days to look back."
     )
     interval: Literal[
         "1min", "5min", "15min", "30min", "1hour", "4hour", "1day"
     ] = Field(default="1day", description="Data granularity.")
+=======
+    __alias_dict__ = {"start_date": "from", "end_date": "to"}
+
+    timeseries: Optional[NonNegativeInt] = Field(
+        default=None, description="Number of days to look back."
+    )
+    interval: Literal["1min", "5min", "15min", "30min", "1hour", "4hour", "1day"] = (
+        Field(default="1day", description="Data granularity.")
+    )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 
 class FMPCryptoHistoricalData(CryptoHistoricalData):
     """FMP Crypto Historical Price Data."""
 
     adj_close: Optional[float] = Field(
+<<<<<<< HEAD
         default=None, description="Adjusted Close Price of the symbol."
+=======
+        default=None, description=DATA_DESCRIPTIONS.get("adj_close", "")
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     )
     unadjusted_volume: Optional[float] = Field(
         default=None, description="Unadjusted volume of the symbol."
@@ -80,7 +102,11 @@ class FMPCryptoHistoricalFetcher(
         return FMPCryptoHistoricalQueryParams(**transformed_params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: FMPCryptoHistoricalQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -89,11 +115,15 @@ class FMPCryptoHistoricalFetcher(
         api_key = credentials.get("fmp_api_key") if credentials else ""
 
         base_url = "https://financialmodelingprep.com/api/v3"
+<<<<<<< HEAD
         query_str = (
             get_querystring(query.model_dump(), ["symbol"])
             .replace("start_date", "from")
             .replace("end_date", "to")
         )
+=======
+        query_str = get_querystring(query.model_dump(), ["symbol"])
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         url_params = f"{query.symbol}?{query_str}&apikey={api_key}"
         url = f"{base_url}/historical-chart/{query.interval}/{url_params}"
@@ -101,7 +131,11 @@ class FMPCryptoHistoricalFetcher(
         if query.interval == "1day":
             url = f"{base_url}/historical-price-full/crypto/{url_params}"
 
+<<<<<<< HEAD
         return get_data_many(url, "historical", **kwargs)
+=======
+        return await get_data_many(url, "historical", **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

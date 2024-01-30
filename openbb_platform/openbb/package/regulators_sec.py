@@ -5,9 +5,14 @@ from typing import List, Literal, Optional, Union
 from openbb_core.app.model.custom_parameter import OpenBBCustomParameter
 from openbb_core.app.model.obbject import OBBject
 from openbb_core.app.static.container import Container
+<<<<<<< HEAD
 from openbb_core.app.static.decorators import validate
 from openbb_core.app.static.filters import filter_inputs
 from openbb_core.provider.abstract.data import Data
+=======
+from openbb_core.app.static.utils.decorators import validate
+from openbb_core.app.static.utils.filters import filter_inputs
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from typing_extensions import Annotated
 
 
@@ -33,7 +38,11 @@ class ROUTER_regulators_sec(Container):
         ],
         provider: Optional[Literal["sec"]] = None,
         **kwargs
+<<<<<<< HEAD
     ) -> OBBject[Data]:
+=======
+    ) -> OBBject:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """Get the CIK number corresponding to a ticker symbol.
 
         Parameters
@@ -70,6 +79,7 @@ class ROUTER_regulators_sec(Container):
         >>> obb.regulators.sec.cik_map(symbol="AAPL")
         """  # noqa: E501
 
+<<<<<<< HEAD
         inputs = filter_inputs(
             provider_choices={
                 "provider": provider,
@@ -83,6 +93,19 @@ class ROUTER_regulators_sec(Container):
         return self._run(
             "/regulators/sec/cik_map",
             **inputs,
+=======
+        return self._run(
+            "/regulators/sec/cik_map",
+            **filter_inputs(
+                provider_choices={
+                    "provider": provider,
+                },
+                standard_params={
+                    "symbol": ",".join(symbol) if isinstance(symbol, list) else symbol,
+                },
+                extra_params=kwargs,
+            )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         )
 
     @validate
@@ -91,7 +114,11 @@ class ROUTER_regulators_sec(Container):
         query: Annotated[str, OpenBBCustomParameter(description="Search query.")] = "",
         provider: Optional[Literal["sec"]] = None,
         **kwargs
+<<<<<<< HEAD
     ) -> OBBject[List[Data]]:
+=======
+    ) -> OBBject:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """Look up institutions regulated by the SEC.
 
         Parameters
@@ -129,6 +156,7 @@ class ROUTER_regulators_sec(Container):
         Example
         -------
         >>> from openbb import obb
+<<<<<<< HEAD
         >>> obb.regulators.sec.institutions_search()
         """  # noqa: E501
 
@@ -145,12 +173,32 @@ class ROUTER_regulators_sec(Container):
         return self._run(
             "/regulators/sec/institutions_search",
             **inputs,
+=======
+        >>> obb.regulators.sec.institutions_search(query="AAPL")
+        """  # noqa: E501
+
+        return self._run(
+            "/regulators/sec/institutions_search",
+            **filter_inputs(
+                provider_choices={
+                    "provider": provider,
+                },
+                standard_params={
+                    "query": query,
+                },
+                extra_params=kwargs,
+            )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         )
 
     @validate
     def rss_litigation(
         self, provider: Optional[Literal["sec"]] = None, **kwargs
+<<<<<<< HEAD
     ) -> OBBject[List[Data]]:
+=======
+    ) -> OBBject:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """The RSS feed provides links to litigation releases concerning civil lawsuits brought by the Commission in federal court.
 
         Parameters
@@ -193,6 +241,7 @@ class ROUTER_regulators_sec(Container):
         >>> obb.regulators.sec.rss_litigation()
         """  # noqa: E501
 
+<<<<<<< HEAD
         inputs = filter_inputs(
             provider_choices={
                 "provider": provider,
@@ -204,6 +253,17 @@ class ROUTER_regulators_sec(Container):
         return self._run(
             "/regulators/sec/rss_litigation",
             **inputs,
+=======
+        return self._run(
+            "/regulators/sec/rss_litigation",
+            **filter_inputs(
+                provider_choices={
+                    "provider": provider,
+                },
+                standard_params={},
+                extra_params=kwargs,
+            )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         )
 
     @validate
@@ -212,7 +272,11 @@ class ROUTER_regulators_sec(Container):
         query: Annotated[str, OpenBBCustomParameter(description="Search query.")] = "",
         provider: Optional[Literal["sec"]] = None,
         **kwargs
+<<<<<<< HEAD
     ) -> OBBject[Data]:
+=======
+    ) -> OBBject:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """Get lists of SEC XML schema files by year.
 
         Parameters
@@ -248,6 +312,7 @@ class ROUTER_regulators_sec(Container):
         Example
         -------
         >>> from openbb import obb
+<<<<<<< HEAD
         >>> obb.regulators.sec.schema_files()
         """  # noqa: E501
 
@@ -264,6 +329,22 @@ class ROUTER_regulators_sec(Container):
         return self._run(
             "/regulators/sec/schema_files",
             **inputs,
+=======
+        >>> obb.regulators.sec.schema_files(query="AAPL")
+        """  # noqa: E501
+
+        return self._run(
+            "/regulators/sec/schema_files",
+            **filter_inputs(
+                provider_choices={
+                    "provider": provider,
+                },
+                standard_params={
+                    "query": query,
+                },
+                extra_params=kwargs,
+            )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         )
 
     @validate
@@ -272,8 +353,13 @@ class ROUTER_regulators_sec(Container):
         query: Annotated[str, OpenBBCustomParameter(description="Search query.")] = "",
         provider: Optional[Literal["sec"]] = None,
         **kwargs
+<<<<<<< HEAD
     ) -> OBBject[List[Data]]:
         """Fuzzy search for Industry Titles, Reporting Office, and SIC Codes.
+=======
+    ) -> OBBject:
+        """Search for Industry Titles, Reporting Office, and SIC Codes.
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         Parameters
         ----------
@@ -312,6 +398,7 @@ class ROUTER_regulators_sec(Container):
         Example
         -------
         >>> from openbb import obb
+<<<<<<< HEAD
         >>> obb.regulators.sec.sic_search()
         """  # noqa: E501
 
@@ -328,6 +415,22 @@ class ROUTER_regulators_sec(Container):
         return self._run(
             "/regulators/sec/sic_search",
             **inputs,
+=======
+        >>> obb.regulators.sec.sic_search(query="AAPL")
+        """  # noqa: E501
+
+        return self._run(
+            "/regulators/sec/sic_search",
+            **filter_inputs(
+                provider_choices={
+                    "provider": provider,
+                },
+                standard_params={
+                    "query": query,
+                },
+                extra_params=kwargs,
+            )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         )
 
     @validate
@@ -336,7 +439,11 @@ class ROUTER_regulators_sec(Container):
         query: Annotated[str, OpenBBCustomParameter(description="Search query.")] = "",
         provider: Optional[Literal["sec"]] = None,
         **kwargs
+<<<<<<< HEAD
     ) -> OBBject[Data]:
+=======
+    ) -> OBBject:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """Get the ticker symbol corresponding to a company's CIK.
 
         Parameters
@@ -370,6 +477,7 @@ class ROUTER_regulators_sec(Container):
         Example
         -------
         >>> from openbb import obb
+<<<<<<< HEAD
         >>> obb.regulators.sec.symbol_map()
         """  # noqa: E501
 
@@ -386,4 +494,20 @@ class ROUTER_regulators_sec(Container):
         return self._run(
             "/regulators/sec/symbol_map",
             **inputs,
+=======
+        >>> obb.regulators.sec.symbol_map(query="AAPL")
+        """  # noqa: E501
+
+        return self._run(
+            "/regulators/sec/symbol_map",
+            **filter_inputs(
+                provider_choices={
+                    "provider": provider,
+                },
+                standard_params={
+                    "query": query,
+                },
+                extra_params=kwargs,
+            )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         )

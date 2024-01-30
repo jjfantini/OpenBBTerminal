@@ -4,6 +4,10 @@ from openbb_sec.models.cik_map import SecCikMapFetcher
 from openbb_sec.models.company_filings import SecCompanyFilingsFetcher
 from openbb_sec.models.equity_ftd import SecEquityFtdFetcher
 from openbb_sec.models.equity_search import SecEquitySearchFetcher
+<<<<<<< HEAD
+=======
+from openbb_sec.models.etf_holdings import SecEtfHoldingsFetcher
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_sec.models.institutions_search import SecInstitutionsSearchFetcher
 from openbb_sec.models.rss_litigation import SecRssLitigationFetcher
 from openbb_sec.models.schema_files import SecSchemaFilesFetcher
@@ -24,6 +28,18 @@ def vcr_config():
 
 
 @pytest.mark.record_http
+<<<<<<< HEAD
+=======
+def test_sec_etf_holdings_fetcher(credentials=test_credentials):
+    params = {"symbol": "TQQQ", "use_cache": False}
+
+    fetcher = SecEtfHoldingsFetcher()
+    result = fetcher.test(params, credentials)
+    assert result is None
+
+
+@pytest.mark.record_http
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 def test_sec_sic_search_fetcher(credentials=test_credentials):
     params = {"query": "oil", "use_cache": False}
 

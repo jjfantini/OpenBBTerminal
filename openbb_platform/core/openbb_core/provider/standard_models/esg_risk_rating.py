@@ -1,6 +1,9 @@
 """ESG Risk Rating Standard Model."""
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from typing import List, Literal, Set, Union
 
 from pydantic import Field, field_validator

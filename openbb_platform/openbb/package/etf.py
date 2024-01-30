@@ -1,19 +1,32 @@
 ### THIS FILE IS AUTO-GENERATED. DO NOT EDIT. ###
 
+<<<<<<< HEAD
+=======
+import datetime
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from typing import List, Literal, Optional, Union
 
 from openbb_core.app.model.custom_parameter import OpenBBCustomParameter
 from openbb_core.app.model.obbject import OBBject
 from openbb_core.app.static.container import Container
+<<<<<<< HEAD
 from openbb_core.app.static.decorators import validate
 from openbb_core.app.static.filters import filter_inputs
 from openbb_core.provider.abstract.data import Data
+=======
+from openbb_core.app.static.utils.decorators import validate
+from openbb_core.app.static.utils.filters import filter_inputs
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from typing_extensions import Annotated
 
 
 class ROUTER_etf(Container):
     """/etf
     countries
+<<<<<<< HEAD
+=======
+    historical
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     holdings
     holdings_date
     holdings_performance
@@ -35,7 +48,11 @@ class ROUTER_etf(Container):
         ],
         provider: Optional[Literal["fmp"]] = None,
         **kwargs
+<<<<<<< HEAD
     ) -> OBBject[List[Data]]:
+=======
+    ) -> OBBject:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """ETF Country weighting.
 
         Parameters
@@ -69,6 +86,7 @@ class ROUTER_etf(Container):
         Example
         -------
         >>> from openbb import obb
+<<<<<<< HEAD
         >>> obb.etf.countries(symbol="AAPL")
         """  # noqa: E501
 
@@ -85,6 +103,111 @@ class ROUTER_etf(Container):
         return self._run(
             "/etf/countries",
             **inputs,
+=======
+        >>> obb.etf.countries(symbol="SPY")
+        """  # noqa: E501
+
+        return self._run(
+            "/etf/countries",
+            **filter_inputs(
+                provider_choices={
+                    "provider": provider,
+                },
+                standard_params={
+                    "symbol": ",".join(symbol) if isinstance(symbol, list) else symbol,
+                },
+                extra_params=kwargs,
+            )
+        )
+
+    @validate
+    def historical(
+        self,
+        symbol: Annotated[
+            Union[str, List[str]],
+            OpenBBCustomParameter(description="Symbol to get data for. (ETF)"),
+        ],
+        start_date: Annotated[
+            Union[datetime.date, None, str],
+            OpenBBCustomParameter(
+                description="Start date of the data, in YYYY-MM-DD format."
+            ),
+        ] = None,
+        end_date: Annotated[
+            Union[datetime.date, None, str],
+            OpenBBCustomParameter(
+                description="End date of the data, in YYYY-MM-DD format."
+            ),
+        ] = None,
+        provider: Optional[Literal["yfinance"]] = None,
+        **kwargs
+    ) -> OBBject:
+        """ETF Historical Market Price.
+
+        Parameters
+        ----------
+        symbol : str
+            Symbol to get data for. (ETF)
+        start_date : Optional[datetime.date]
+            Start date of the data, in YYYY-MM-DD format.
+        end_date : Optional[datetime.date]
+            End date of the data, in YYYY-MM-DD format.
+        provider : Optional[Literal['yfinance']]
+            The provider to use for the query, by default None.
+            If None, the provider specified in defaults is selected or 'yfinance' if there is
+            no default.
+
+        Returns
+        -------
+        OBBject
+            results : List[EtfHistorical]
+                Serializable results.
+            provider : Optional[Literal['yfinance']]
+                Provider name.
+            warnings : Optional[List[Warning_]]
+                List of warnings.
+            chart : Optional[Chart]
+                Chart object.
+            extra: Dict[str, Any]
+                Extra info.
+
+        EtfHistorical
+        -------------
+        date : date
+            The date of the data.
+        open : float
+            The open price.
+        high : float
+            The high price.
+        low : float
+            The low price.
+        close : float
+            The close price.
+        volume : Optional[Annotated[int, Ge(ge=0)]]
+            The trading volume.
+        adj_close : Optional[float]
+            The adjusted closing price of the ETF. (provider: yfinance)
+
+        Example
+        -------
+        >>> from openbb import obb
+        >>> obb.etf.historical(symbol="SPY")
+        """  # noqa: E501
+
+        return self._run(
+            "/etf/historical",
+            **filter_inputs(
+                provider_choices={
+                    "provider": provider,
+                },
+                standard_params={
+                    "symbol": ",".join(symbol) if isinstance(symbol, list) else symbol,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                },
+                extra_params=kwargs,
+            )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         )
 
     @validate
@@ -94,30 +217,53 @@ class ROUTER_etf(Container):
             Union[str, List[str]],
             OpenBBCustomParameter(description="Symbol to get data for. (ETF)"),
         ],
+<<<<<<< HEAD
         provider: Optional[Literal["fmp"]] = None,
         **kwargs
     ) -> OBBject[List[Data]]:
+=======
+        provider: Optional[Literal["fmp", "sec"]] = None,
+        **kwargs
+    ) -> OBBject:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """Get the holdings for an individual ETF.
 
         Parameters
         ----------
         symbol : str
             Symbol to get data for. (ETF)
+<<<<<<< HEAD
         provider : Optional[Literal['fmp']]
+=======
+        provider : Optional[Literal['fmp', 'sec']]
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
             The provider to use for the query, by default None.
             If None, the provider specified in defaults is selected or 'fmp' if there is
             no default.
         date : Optional[Union[str, datetime.date]]
+<<<<<<< HEAD
             A specific date to get data for. This needs to be _exactly_ the date of the filing. Use the holdings_date command/endpoint to find available filing dates for the ETF. (provider: fmp)
         cik : Optional[str]
             The CIK of the filing entity. Overrides symbol. (provider: fmp)
+=======
+            A specific date to get data for. This needs to be _exactly_ the date of the filing. Use the holdings_date command/endpoint to find available filing dates for the ETF. (provider: fmp);
+            A specific date to get data for.  The date represents the period ending.  The date entered will return the closest filing. (provider: sec)
+        cik : Optional[str]
+            The CIK of the filing entity. Overrides symbol. (provider: fmp)
+        use_cache : bool
+            Whether or not to use cache for the request. (provider: sec)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         Returns
         -------
         OBBject
             results : List[EtfHoldings]
                 Serializable results.
+<<<<<<< HEAD
             provider : Optional[Literal['fmp']]
+=======
+            provider : Optional[Literal['fmp', 'sec']]
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
                 Provider name.
             warnings : Optional[List[Warning_]]
                 List of warnings.
@@ -133,6 +279,7 @@ class ROUTER_etf(Container):
         name : Optional[str]
             Name of the ETF holding.
         lei : Optional[str]
+<<<<<<< HEAD
             The LEI of the holding. (provider: fmp)
         title : Optional[str]
             The title of the holding. (provider: fmp)
@@ -168,14 +315,167 @@ class ROUTER_etf(Container):
             Whether the holding is non-cash collateral. (provider: fmp)
         is_loan_by_fund : Optional[str]
             Whether the holding is loan by fund. (provider: fmp)
+=======
+            The LEI of the holding. (provider: fmp, sec)
+        title : Optional[str]
+            The title of the holding. (provider: fmp)
+        cusip : Optional[str]
+            The CUSIP of the holding. (provider: fmp, sec)
+        isin : Optional[str]
+            The ISIN of the holding. (provider: fmp, sec)
+        balance : Optional[float]
+            The balance of the holding. (provider: fmp, sec)
+        units : Optional[Union[str, float]]
+            The units of the holding. (provider: fmp, sec)
+        currency : Optional[str]
+            The currency of the holding. (provider: fmp, sec)
+        value : Optional[float]
+            The value of the holding in USD. (provider: fmp, sec)
+        weight : Optional[float]
+            The weight of the holding in ETF in %. (provider: fmp, sec)
+        payoff_profile : Optional[str]
+            The payoff profile of the holding. (provider: fmp, sec)
+        asset_category : Optional[str]
+            The asset category of the holding. (provider: fmp, sec)
+        issuer_category : Optional[str]
+            The issuer category of the holding. (provider: fmp, sec)
+        country : Optional[str]
+            The country of the holding. (provider: fmp, sec)
+        is_restricted : Optional[str]
+            Whether the holding is restricted. (provider: fmp, sec)
+        fair_value_level : Optional[int]
+            The fair value level of the holding. (provider: fmp, sec)
+        is_cash_collateral : Optional[str]
+            Whether the holding is cash collateral. (provider: fmp, sec)
+        is_non_cash_collateral : Optional[str]
+            Whether the holding is non-cash collateral. (provider: fmp, sec)
+        is_loan_by_fund : Optional[str]
+            Whether the holding is loan by fund. (provider: fmp, sec)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         cik : Optional[str]
             The CIK of the filing. (provider: fmp)
         acceptance_datetime : Optional[str]
             The acceptance datetime of the filing. (provider: fmp)
+<<<<<<< HEAD
+=======
+        other_id : Optional[str]
+            Internal identifier for the holding. (provider: sec)
+        loan_value : Optional[float]
+            The loan value of the holding. (provider: sec)
+        issuer_conditional : Optional[str]
+            The issuer conditions of the holding. (provider: sec)
+        asset_conditional : Optional[str]
+            The asset conditions of the holding. (provider: sec)
+        maturity_date : Optional[date]
+            The maturity date of the debt security. (provider: sec)
+        coupon_kind : Optional[str]
+            The type of coupon for the debt security. (provider: sec)
+        rate_type : Optional[str]
+            The type of rate for the debt security, floating or fixed. (provider: sec)
+        annualized_return : Optional[float]
+            The annualized return on the debt security. (provider: sec)
+        is_default : Optional[str]
+            If the debt security is defaulted. (provider: sec)
+        in_arrears : Optional[str]
+            If the debt security is in arrears. (provider: sec)
+        is_paid_kind : Optional[str]
+            If the debt security payments are are paid in kind. (provider: sec)
+        derivative_category : Optional[str]
+            The derivative category of the holding. (provider: sec)
+        counterparty : Optional[str]
+            The counterparty of the derivative. (provider: sec)
+        underlying_name : Optional[str]
+            The name of the underlying asset associated with the derivative. (provider: sec)
+        option_type : Optional[str]
+            The type of option. (provider: sec)
+        derivative_payoff : Optional[str]
+            The payoff profile of the derivative. (provider: sec)
+        expiry_date : Optional[date]
+            The expiry or termination date of the derivative. (provider: sec)
+        exercise_price : Optional[float]
+            The exercise price of the option. (provider: sec)
+        exercise_currency : Optional[str]
+            The currency of the option exercise price. (provider: sec)
+        shares_per_contract : Optional[float]
+            The number of shares per contract. (provider: sec)
+        delta : Optional[Union[str, float]]
+            The delta of the option. (provider: sec)
+        rate_type_rec : Optional[str]
+            The type of rate for reveivable portion of the swap. (provider: sec)
+        receive_currency : Optional[str]
+            The receive currency of the swap. (provider: sec)
+        upfront_receive : Optional[float]
+            The upfront amount received of the swap. (provider: sec)
+        floating_rate_index_rec : Optional[str]
+            The floating rate index for reveivable portion of the swap. (provider: sec)
+        floating_rate_spread_rec : Optional[float]
+            The floating rate spread for reveivable portion of the swap. (provider: sec)
+        rate_tenor_rec : Optional[str]
+            The rate tenor for reveivable portion of the swap. (provider: sec)
+        rate_tenor_unit_rec : Optional[Union[str, int]]
+            The rate tenor unit for reveivable portion of the swap. (provider: sec)
+        reset_date_rec : Optional[str]
+            The reset date for reveivable portion of the swap. (provider: sec)
+        reset_date_unit_rec : Optional[Union[str, int]]
+            The reset date unit for reveivable portion of the swap. (provider: sec)
+        rate_type_pmnt : Optional[str]
+            The type of rate for payment portion of the swap. (provider: sec)
+        payment_currency : Optional[str]
+            The payment currency of the swap. (provider: sec)
+        upfront_payment : Optional[float]
+            The upfront amount received of the swap. (provider: sec)
+        floating_rate_index_pmnt : Optional[str]
+            The floating rate index for payment portion of the swap. (provider: sec)
+        floating_rate_spread_pmnt : Optional[float]
+            The floating rate spread for payment portion of the swap. (provider: sec)
+        rate_tenor_pmnt : Optional[str]
+            The rate tenor for payment portion of the swap. (provider: sec)
+        rate_tenor_unit_pmnt : Optional[Union[str, int]]
+            The rate tenor unit for payment portion of the swap. (provider: sec)
+        reset_date_pmnt : Optional[str]
+            The reset date for payment portion of the swap. (provider: sec)
+        reset_date_unit_pmnt : Optional[Union[str, int]]
+            The reset date unit for payment portion of the swap. (provider: sec)
+        repo_type : Optional[str]
+            The type of repo. (provider: sec)
+        is_cleared : Optional[str]
+            If the repo is cleared. (provider: sec)
+        is_tri_party : Optional[str]
+            If the repo is tri party. (provider: sec)
+        principal_amount : Optional[float]
+            The principal amount of the repo. (provider: sec)
+        principal_currency : Optional[str]
+            The currency of the principal amount. (provider: sec)
+        collateral_type : Optional[str]
+            The collateral type of the repo. (provider: sec)
+        collateral_amount : Optional[float]
+            The collateral amount of the repo. (provider: sec)
+        collateral_currency : Optional[str]
+            The currency of the collateral amount. (provider: sec)
+        exchange_currency : Optional[str]
+            The currency of the exchange rate. (provider: sec)
+        exchange_rate : Optional[float]
+            The exchange rate. (provider: sec)
+        currency_sold : Optional[str]
+            The currency sold in a Forward Derivative. (provider: sec)
+        currency_amount_sold : Optional[float]
+            The amount of currency sold in a Forward Derivative. (provider: sec)
+        currency_bought : Optional[str]
+            The currency bought in a Forward Derivative. (provider: sec)
+        currency_amount_bought : Optional[float]
+            The amount of currency bought in a Forward Derivative. (provider: sec)
+        notional_amount : Optional[float]
+            The notional amount of the derivative. (provider: sec)
+        notional_currency : Optional[str]
+            The currency of the derivative's notional amount. (provider: sec)
+        unrealized_gain : Optional[float]
+            The unrealized gain or loss on the derivative. (provider: sec)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         Example
         -------
         >>> from openbb import obb
+<<<<<<< HEAD
         >>> obb.etf.holdings(symbol="AAPL")
         """  # noqa: E501
 
@@ -192,6 +492,22 @@ class ROUTER_etf(Container):
         return self._run(
             "/etf/holdings",
             **inputs,
+=======
+        >>> obb.etf.holdings(symbol="SPY")
+        """  # noqa: E501
+
+        return self._run(
+            "/etf/holdings",
+            **filter_inputs(
+                provider_choices={
+                    "provider": provider,
+                },
+                standard_params={
+                    "symbol": ",".join(symbol) if isinstance(symbol, list) else symbol,
+                },
+                extra_params=kwargs,
+            )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         )
 
     @validate
@@ -203,7 +519,11 @@ class ROUTER_etf(Container):
         ],
         provider: Optional[Literal["fmp"]] = None,
         **kwargs
+<<<<<<< HEAD
     ) -> OBBject[List[Data]]:
+=======
+    ) -> OBBject:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """Get the holdings filing date for an individual ETF.
 
         Parameters
@@ -239,6 +559,7 @@ class ROUTER_etf(Container):
         Example
         -------
         >>> from openbb import obb
+<<<<<<< HEAD
         >>> obb.etf.holdings_date(symbol="AAPL")
         """  # noqa: E501
 
@@ -255,6 +576,22 @@ class ROUTER_etf(Container):
         return self._run(
             "/etf/holdings_date",
             **inputs,
+=======
+        >>> obb.etf.holdings_date(symbol="SPY")
+        """  # noqa: E501
+
+        return self._run(
+            "/etf/holdings_date",
+            **filter_inputs(
+                provider_choices={
+                    "provider": provider,
+                },
+                standard_params={
+                    "symbol": ",".join(symbol) if isinstance(symbol, list) else symbol,
+                },
+                extra_params=kwargs,
+            )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         )
 
     @validate
@@ -266,7 +603,11 @@ class ROUTER_etf(Container):
         ],
         provider: Optional[Literal["fmp"]] = None,
         **kwargs
+<<<<<<< HEAD
     ) -> OBBject[List[Data]]:
+=======
+    ) -> OBBject:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """Get the ETF holdings performance.
 
         Parameters
@@ -328,6 +669,7 @@ class ROUTER_etf(Container):
         Example
         -------
         >>> from openbb import obb
+<<<<<<< HEAD
         >>> obb.etf.holdings_performance(symbol="AAPL")
         """  # noqa: E501
 
@@ -344,6 +686,22 @@ class ROUTER_etf(Container):
         return self._run(
             "/etf/holdings_performance",
             **inputs,
+=======
+        >>> obb.etf.holdings_performance(symbol="SPY")
+        """  # noqa: E501
+
+        return self._run(
+            "/etf/holdings_performance",
+            **filter_inputs(
+                provider_choices={
+                    "provider": provider,
+                },
+                standard_params={
+                    "symbol": ",".join(symbol) if isinstance(symbol, list) else symbol,
+                },
+                extra_params=kwargs,
+            )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         )
 
     @validate
@@ -355,7 +713,11 @@ class ROUTER_etf(Container):
         ],
         provider: Optional[Literal["fmp"]] = None,
         **kwargs
+<<<<<<< HEAD
     ) -> OBBject[List[Data]]:
+=======
+    ) -> OBBject:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """ETF Information Overview.
 
         Parameters
@@ -419,6 +781,7 @@ class ROUTER_etf(Container):
         Example
         -------
         >>> from openbb import obb
+<<<<<<< HEAD
         >>> obb.etf.info(symbol="AAPL")
         """  # noqa: E501
 
@@ -435,6 +798,22 @@ class ROUTER_etf(Container):
         return self._run(
             "/etf/info",
             **inputs,
+=======
+        >>> obb.etf.info(symbol="SPY")
+        """  # noqa: E501
+
+        return self._run(
+            "/etf/info",
+            **filter_inputs(
+                provider_choices={
+                    "provider": provider,
+                },
+                standard_params={
+                    "symbol": ",".join(symbol) if isinstance(symbol, list) else symbol,
+                },
+                extra_params=kwargs,
+            )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         )
 
     @validate
@@ -446,7 +825,11 @@ class ROUTER_etf(Container):
         ],
         provider: Optional[Literal["fmp"]] = None,
         **kwargs
+<<<<<<< HEAD
     ) -> OBBject[List[Data]]:
+=======
+    ) -> OBBject:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """Price performance as a return, over different periods.
 
         Parameters
@@ -508,6 +891,7 @@ class ROUTER_etf(Container):
         Example
         -------
         >>> from openbb import obb
+<<<<<<< HEAD
         >>> obb.equity.price.performance(symbol="AAPL")
         """  # noqa: E501
 
@@ -524,6 +908,22 @@ class ROUTER_etf(Container):
         return self._run(
             "/etf/price_performance",
             **inputs,
+=======
+        >>> obb.etf.price_performance(symbol="SPY")
+        """  # noqa: E501
+
+        return self._run(
+            "/etf/price_performance",
+            **filter_inputs(
+                provider_choices={
+                    "provider": provider,
+                },
+                standard_params={
+                    "symbol": ",".join(symbol) if isinstance(symbol, list) else symbol,
+                },
+                extra_params=kwargs,
+            )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         )
 
     @validate
@@ -534,6 +934,7 @@ class ROUTER_etf(Container):
         ] = "",
         provider: Optional[Literal["fmp"]] = None,
         **kwargs
+<<<<<<< HEAD
     ) -> OBBject[List[Data]]:
         """Search for ETFs.
 
@@ -615,6 +1016,87 @@ class ROUTER_etf(Container):
         return self._run(
             "/etf/search",
             **inputs,
+=======
+    ) -> OBBject:
+        """Search for ETFs.
+
+        An empty query returns the full list of ETFs from the provider.
+
+
+            Parameters
+            ----------
+            query : Optional[str]
+                Search query.
+            provider : Optional[Literal['fmp']]
+                The provider to use for the query, by default None.
+                If None, the provider specified in defaults is selected or 'fmp' if there is
+                no default.
+            exchange : Optional[Literal['AMEX', 'NYSE', 'NASDAQ', 'ETF', 'TSX', 'EURONEXT']]
+                The exchange code the ETF trades on. (provider: fmp)
+            is_active : Optional[Literal[True, False]]
+                Whether the ETF is actively trading. (provider: fmp)
+
+            Returns
+            -------
+            OBBject
+                results : List[EtfSearch]
+                    Serializable results.
+                provider : Optional[Literal['fmp']]
+                    Provider name.
+                warnings : Optional[List[Warning_]]
+                    List of warnings.
+                chart : Optional[Chart]
+                    Chart object.
+                extra: Dict[str, Any]
+                    Extra info.
+
+            EtfSearch
+            ---------
+            symbol : str
+                Symbol representing the entity requested in the data.(ETF)
+            name : Optional[str]
+                Name of the ETF.
+            market_cap : Optional[float]
+                The market cap of the ETF. (provider: fmp)
+            sector : Optional[str]
+                The sector of the ETF. (provider: fmp)
+            industry : Optional[str]
+                The industry of the ETF. (provider: fmp)
+            beta : Optional[float]
+                The beta of the ETF. (provider: fmp)
+            price : Optional[float]
+                The current price of the ETF. (provider: fmp)
+            last_annual_dividend : Optional[float]
+                The last annual dividend paid. (provider: fmp)
+            volume : Optional[float]
+                The current trading volume of the ETF. (provider: fmp)
+            exchange : Optional[str]
+                The exchange code the ETF trades on. (provider: fmp)
+            exchange_name : Optional[str]
+                The full name of the exchange the ETF trades on. (provider: fmp)
+            country : Optional[str]
+                The country the ETF is registered in. (provider: fmp)
+            actively_trading : Optional[Literal[True, False]]
+                Whether the ETF is actively trading. (provider: fmp)
+
+            Example
+            -------
+            >>> from openbb import obb
+            >>> obb.etf.search(query="Vanguard")
+        """  # noqa: E501
+
+        return self._run(
+            "/etf/search",
+            **filter_inputs(
+                provider_choices={
+                    "provider": provider,
+                },
+                standard_params={
+                    "query": query,
+                },
+                extra_params=kwargs,
+            )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         )
 
     @validate
@@ -626,7 +1108,11 @@ class ROUTER_etf(Container):
         ],
         provider: Optional[Literal["fmp"]] = None,
         **kwargs
+<<<<<<< HEAD
     ) -> OBBject[List[Data]]:
+=======
+    ) -> OBBject:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """ETF Sector weighting.
 
         Parameters
@@ -662,6 +1148,7 @@ class ROUTER_etf(Container):
         Example
         -------
         >>> from openbb import obb
+<<<<<<< HEAD
         >>> obb.etf.sectors(symbol="AAPL")
         """  # noqa: E501
 
@@ -678,4 +1165,20 @@ class ROUTER_etf(Container):
         return self._run(
             "/etf/sectors",
             **inputs,
+=======
+        >>> obb.etf.sectors(symbol="SPY")
+        """  # noqa: E501
+
+        return self._run(
+            "/etf/sectors",
+            **filter_inputs(
+                provider_choices={
+                    "provider": provider,
+                },
+                standard_params={
+                    "symbol": ",".join(symbol) if isinstance(symbol, list) else symbol,
+                },
+                extra_params=kwargs,
+            )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         )

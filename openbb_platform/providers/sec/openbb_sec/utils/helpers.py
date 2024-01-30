@@ -1,4 +1,8 @@
 """SEC Helpers module"""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from datetime import timedelta
 from io import BytesIO
 from typing import Dict, List, Optional
@@ -13,6 +17,7 @@ from openbb_sec.utils.definitions import HEADERS, QUARTERS, SEC_HEADERS, TAXONOM
 cache_dir = get_user_cache_directory()
 
 sec_session_companies = requests_cache.CachedSession(
+<<<<<<< HEAD
     f"{cache_dir}/http/sec_companies", expire_after=timedelta(days=7)
 )
 sec_session_frames = requests_cache.CachedSession(
@@ -20,6 +25,21 @@ sec_session_frames = requests_cache.CachedSession(
 )
 sec_session_ftd = requests_cache.CachedSession(f"{cache_dir}/http/sec_ftd")
 
+=======
+    f"{cache_dir}/http/sec_companies", expire_after=timedelta(days=2)
+)
+sec_session_frames = requests_cache.CachedSession(
+    f"{cache_dir}/http/sec_frames", expire_after=timedelta(days=2)
+)
+sec_session_ftd = requests_cache.CachedSession(f"{cache_dir}/http/sec_ftd")
+
+sec_session_etf = requests_cache.CachedSession(f"{cache_dir}/http/sec_etf")
+
+sec_session_company_filings = requests_cache.CachedSession(
+    f"{cache_dir}/http/sec_company_filings", expire_after=timedelta(days=1)
+)
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 def get_all_companies(use_cache: bool = True) -> pd.DataFrame:
     """Gets all company names, tickers, and CIK numbers registered with the SEC.
@@ -108,7 +128,11 @@ def symbol_map(symbol: str, use_cache: bool = True) -> str:
     symbols = get_all_companies(use_cache=use_cache)
 
     if symbol not in symbols["symbol"].to_list():
+<<<<<<< HEAD
         symbols = get_mf_and_etf_map().astype(str)
+=======
+        symbols = get_mf_and_etf_map(use_cache=use_cache).astype(str)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         if symbol not in symbols["symbol"].to_list():
             return ""
 
@@ -121,7 +145,11 @@ def symbol_map(symbol: str, use_cache: bool = True) -> str:
     return str(cik_ + cik)
 
 
+<<<<<<< HEAD
 def cik_map(cik: int) -> str:
+=======
+def cik_map(cik: int, use_cache: bool = True) -> str:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     """
     Converts a CIK number to a ticker symbol.  Enter CIK as an integer with no leading zeros.
 
@@ -138,7 +166,11 @@ def cik_map(cik: int) -> str:
     """
     _cik = str(cik)
     symbol = ""
+<<<<<<< HEAD
     companies = get_all_companies().astype(str)
+=======
+    companies = get_all_companies(use_cache=use_cache).astype(str)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     if _cik in companies["cik"].to_list():
         symbol = companies[companies["cik"] == _cik]["symbol"].iloc[0]
     else:
@@ -317,3 +349,96 @@ def get_ftd_urls() -> Dict:
         results = ftd_urls.to_dict()
 
     return results
+<<<<<<< HEAD
+=======
+
+
+def get_series_id(
+    symbol: Optional[str] = None, cik: Optional[str] = None, use_cache: bool = True
+):
+    """
+    This function maps the fund to the series and class IDs for validating the correct filing.
+    For an exact match, use a symbol.
+    """
+    symbol = symbol if symbol else ""
+    cik = cik if cik else ""
+
+    results = pd.DataFrame()
+    if not symbol and not cik:
+        raise ValueError("Either symbol or cik must be provided.")
+
+    target = symbol if symbol else cik
+    choice = "cik" if not symbol else "symbol"
+    funds = get_mf_and_etf_map(use_cache=use_cache).astype(str)
+
+    results = funds[
+        funds["cik"].str.contains(target, case=False)
+        | funds["seriesId"].str.contains(target, case=False)
+        | funds["classId"].str.contains(target, case=False)
+        | funds["symbol"].str.contains(target, case=False)
+    ]
+
+    if len(results) > 0:
+        results = results[results[choice if not symbol else choice] == target]
+
+        return results
+
+
+def get_nport_candidates(symbol: str, use_cache: bool = True) -> List[Dict]:
+    """Gets a list of all NPORT-P filings for a given fund's symbol."""
+
+    results = []
+    _series_id = get_series_id(symbol, use_cache=use_cache)
+    try:
+        series_id = (
+            symbol_map(symbol, use_cache)
+            if _series_id is None or len(_series_id) == 0
+            else _series_id["seriesId"].iloc[0]
+        )
+    except IndexError:
+        raise ValueError("Fund not found for, the symbol: " + symbol)
+    if series_id == "" or series_id is None:
+        raise ValueError("Fund not found for, the symbol: " + symbol)
+
+    url = f"https://efts.sec.gov/LATEST/search-index?q={series_id}&dateRange=all&forms=NPORT-P"
+
+    def request_data(url: str = url, use_cache: bool = use_cache):
+        r = (
+            sec_session_companies.get(url, timeout=5, headers=HEADERS)
+            if use_cache is True
+            else requests.get(url, headers=HEADERS, timeout=5)
+        )
+        return r
+
+    r = request_data(url, use_cache=use_cache)
+
+    if r.status_code != 200:
+        if r.status_code == 500:
+            r = request_data()
+            if r.status_code != 200:
+                raise RuntimeError(
+                    f"Request failed with status code {str(r.status_code)}"
+                )
+        if r.status_code not in (200, 500):
+            raise RuntimeError(f"Request failed with status code {str(r.status_code)}")
+    r_json = r.json()
+
+    if "hits" in r_json and len(r_json["hits"]["hits"]) > 0:
+        hits = r_json["hits"]["hits"]
+        results = [
+            {
+                "name": d["_source"]["display_names"][0],
+                "cik": d["_source"]["ciks"][0],
+                "file_date": d["_source"]["file_date"],
+                "period_ending": d["_source"]["period_ending"],
+                "form_type": d["_source"]["form"],
+                "primary_doc": f"https://www.sec.gov/Archives/edgar/data/{int(d['_source']['ciks'][0])}/{d['_id'].replace('-', '').replace(':', '/')}",  # noqa
+            }
+            for d in hits
+        ]
+    return (
+        sorted(results, key=lambda d: d["file_date"], reverse=True)
+        if len(results) > 0
+        else results
+    )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe

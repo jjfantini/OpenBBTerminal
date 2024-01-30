@@ -105,6 +105,7 @@ def test_check_and_get_charting_extension_name(
             assert result == expected_result
 
 
+<<<<<<< HEAD
 @patch("openbb_core.app.charting_service.entry_points")
 @pytest.mark.parametrize(
     "charting_extension, expected_result",
@@ -115,15 +116,53 @@ def test_check_and_get_charting_extension_name(
 )
 def test_check_charting_extension_installed(
     mock_entry_points, charting_service, charting_extension, expected_result
+=======
+@patch("openbb_core.app.charting_service.ExtensionLoader")
+@pytest.mark.parametrize(
+    "entry_point_name, extension_name, expected_result",
+    [
+        (
+            "mock_extension",
+            "mock_extension",
+            True,
+        ),  # Extension is installed and names match
+        (
+            "mock_extension",
+            "another_extension",
+            False,
+        ),  # Extension is installed but names don't match
+        (None, "mock_extension", False),  # Extension is not installed
+    ],
+)
+def test_check_charting_extension_installed(
+    mock_extension_loader,
+    charting_service,
+    entry_point_name,
+    extension_name,
+    expected_result,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 ):
     class MockEntryPoint:
         def __init__(self, name):
             self.name = name
 
+<<<<<<< HEAD
     mock_entry_points.return_value = [MockEntryPoint("mock_extension")]
 
     # Call the function and assert the result
     result = charting_service._check_charting_extension_installed(charting_extension)
+=======
+    # Set the return value of get_core_entry_point
+    if entry_point_name is not None:
+        mock_extension_loader.return_value.get_core_entry_point.return_value = (
+            MockEntryPoint(entry_point_name)
+        )
+    else:
+        mock_extension_loader.return_value.get_core_entry_point.return_value = None
+
+    # Call the function and assert the result
+    result = charting_service._check_charting_extension_installed(extension_name)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     assert result == expected_result
 
 
@@ -135,9 +174,15 @@ def test_check_charting_extension_installed(
     ],
 )
 @patch("openbb_core.app.charting_service.import_module")
+<<<<<<< HEAD
 @patch("openbb_core.app.charting_service.entry_points")
 def test_get_extension_router(
     mock_entry_points,
+=======
+@patch("openbb_core.app.charting_service.ExtensionLoader")
+def test_get_extension_router(
+    mock_extension_loader,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     mock_import_module,
     charting_service,
     extension_name,
@@ -148,7 +193,13 @@ def test_get_extension_router(
             self.name = name
             self.module = module
 
+<<<<<<< HEAD
     mock_entry_points.return_value = [MockEntryPoint("mock_extension", "mock_module")]
+=======
+    mock_extension_loader.return_value.get_core_entry_point.return_value = (
+        MockEntryPoint("mock_extension", "mock_module")
+    )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     mock_import_module.return_value = "mock_module"
 
     if expected_result == ChartingServiceError:

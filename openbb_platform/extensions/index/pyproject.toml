@@ -1,6 +1,10 @@
 [tool.poetry]
 name = "openbb-index"
+<<<<<<< HEAD
 version = "1.0.0"
+=======
+version = "1.1.1"
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 description = "Index extension for OpenBB"
 authors = ["OpenBB Team <hello@openbb.co>"]
 readme = "README.md"
@@ -8,7 +12,11 @@ packages = [{ include = "openbb_index" }]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+<<<<<<< HEAD
 openbb-core = "^1.0.0"
+=======
+openbb-core = "^1.1.1"
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 [build-system]
 requires = ["poetry-core"]

@@ -1,4 +1,8 @@
 """Test if there are any missing providers for python interface integration tests."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 import importlib.util
 import inspect
 import os
@@ -295,6 +299,39 @@ def check_missing_integration_tests(test_type: Literal["api", "python"]) -> List
     return missing_integration_tests
 
 
+<<<<<<< HEAD
+=======
+def check_outdated_integration_tests(test_type: Literal["api", "python"]) -> List[str]:
+    """Check if there are any outdated integration tests."""
+    cm = CommandMap(coverage_sep=".")
+    routes = [route[1:].replace("/", "_") for route in cm.map]
+    outdated_integration_tests: List[str] = []
+
+    if test_type == "api":
+        functions = get_module_functions(get_integration_tests(test_type="api"))
+    else:
+        functions = get_module_functions(get_integration_tests(test_type="python"))
+
+    for function, f_callable in functions.items():
+        if function.startswith("test_"):
+            route = function.replace("test_", "", 1)
+            try:
+                if f_callable.pytestmark[1].name != "skip":
+                    args = f_callable.pytestmark[1].args[1]
+                else:
+                    continue
+            except IndexError:
+                continue
+            if route not in routes and len(args) > 0:
+                # If it doesn't have any args it is because it is not installed.
+                outdated_integration_tests.append(
+                    f"Outdated {test_type} integration test for route {route}"
+                )
+
+    return outdated_integration_tests
+
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 def check_missing_integration_test_providers(functions: Dict[str, Any]) -> List[str]:
     """Check if there are any missing providers for integration tests."""
     return check_integration_tests(functions, check_missing_providers)

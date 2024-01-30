@@ -1,6 +1,9 @@
 """Polygon Company News Model."""
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from typing import Any, Dict, List, Literal, Optional
 
 from openbb_core.provider.abstract.fetcher import Fetcher
@@ -84,7 +87,11 @@ class PolygonCompanyNewsFetcher(
         return PolygonCompanyNewsQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: PolygonCompanyNewsQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -113,7 +120,11 @@ class PolygonCompanyNewsFetcher(
 
         url = f"{base_url}?{query_str}&apiKey={api_key}"
 
+<<<<<<< HEAD
         return get_data_many(url, "results", **kwargs)
+=======
+        return await get_data_many(url, "results", **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

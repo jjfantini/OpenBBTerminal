@@ -1,14 +1,23 @@
 ### THIS FILE IS AUTO-GENERATED. DO NOT EDIT. ###
 
 import datetime
+<<<<<<< HEAD
 from typing import List, Literal, Optional, Union
+=======
+from typing import Literal, Optional, Union
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 from openbb_core.app.model.custom_parameter import OpenBBCustomParameter
 from openbb_core.app.model.obbject import OBBject
 from openbb_core.app.static.container import Container
+<<<<<<< HEAD
 from openbb_core.app.static.decorators import validate
 from openbb_core.app.static.filters import filter_inputs
 from openbb_core.provider.abstract.data import Data
+=======
+from openbb_core.app.static.utils.decorators import validate
+from openbb_core.app.static.utils.filters import filter_inputs
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from typing_extensions import Annotated
 
 
@@ -51,7 +60,11 @@ class ROUTER_economy_gdp(Container):
         ] = "real",
         provider: Optional[Literal["oecd"]] = None,
         **kwargs
+<<<<<<< HEAD
     ) -> OBBject[List[Data]]:
+=======
+    ) -> OBBject:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """Forecasted GDP Data.
 
         Parameters
@@ -98,6 +111,7 @@ class ROUTER_economy_gdp(Container):
         >>> obb.economy.gdp.forecast(period="annual", type="real")
         """  # noqa: E501
 
+<<<<<<< HEAD
         inputs = filter_inputs(
             provider_choices={
                 "provider": provider,
@@ -114,6 +128,22 @@ class ROUTER_economy_gdp(Container):
         return self._run(
             "/economy/gdp/forecast",
             **inputs,
+=======
+        return self._run(
+            "/economy/gdp/forecast",
+            **filter_inputs(
+                provider_choices={
+                    "provider": provider,
+                },
+                standard_params={
+                    "period": period,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                    "type": type,
+                },
+                extra_params=kwargs,
+            )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         )
 
     @validate
@@ -139,7 +169,11 @@ class ROUTER_economy_gdp(Container):
         ] = None,
         provider: Optional[Literal["oecd"]] = None,
         **kwargs
+<<<<<<< HEAD
     ) -> OBBject[List[Data]]:
+=======
+    ) -> OBBject:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """Nominal GDP Data.
 
         Parameters
@@ -184,6 +218,7 @@ class ROUTER_economy_gdp(Container):
         >>> obb.economy.gdp.nominal(units="usd")
         """  # noqa: E501
 
+<<<<<<< HEAD
         inputs = filter_inputs(
             provider_choices={
                 "provider": provider,
@@ -199,6 +234,21 @@ class ROUTER_economy_gdp(Container):
         return self._run(
             "/economy/gdp/nominal",
             **inputs,
+=======
+        return self._run(
+            "/economy/gdp/nominal",
+            **filter_inputs(
+                provider_choices={
+                    "provider": provider,
+                },
+                standard_params={
+                    "units": units,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                },
+                extra_params=kwargs,
+            )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         )
 
     @validate
@@ -224,7 +274,11 @@ class ROUTER_economy_gdp(Container):
         ] = None,
         provider: Optional[Literal["oecd"]] = None,
         **kwargs
+<<<<<<< HEAD
     ) -> OBBject[List[Data]]:
+=======
+    ) -> OBBject:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """Real GDP Data.
 
         Parameters
@@ -269,6 +323,7 @@ class ROUTER_economy_gdp(Container):
         >>> obb.economy.gdp.real(units="yoy")
         """  # noqa: E501
 
+<<<<<<< HEAD
         inputs = filter_inputs(
             provider_choices={
                 "provider": provider,
@@ -284,4 +339,19 @@ class ROUTER_economy_gdp(Container):
         return self._run(
             "/economy/gdp/real",
             **inputs,
+=======
+        return self._run(
+            "/economy/gdp/real",
+            **filter_inputs(
+                provider_choices={
+                    "provider": provider,
+                },
+                standard_params={
+                    "units": units,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                },
+                extra_params=kwargs,
+            )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         )

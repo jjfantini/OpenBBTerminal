@@ -1,5 +1,9 @@
 """FMP Insider Trading Model."""
 
+<<<<<<< HEAD
+=======
+import math
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from typing import Any, Dict, List, Optional
 
 from openbb_core.provider.abstract.fetcher import Fetcher
@@ -7,10 +11,16 @@ from openbb_core.provider.standard_models.insider_trading import (
     InsiderTradingData,
     InsiderTradingQueryParams,
 )
+<<<<<<< HEAD
 from openbb_core.provider.utils.helpers import get_querystring
 from openbb_fmp.utils.definitions import TRANSACTION_TYPES, TRANSACTION_TYPES_DICT
 from openbb_fmp.utils.helpers import get_data_many
 from pydantic import Field
+=======
+from openbb_core.provider.utils.helpers import amake_requests, get_querystring
+from openbb_fmp.utils.definitions import TRANSACTION_TYPES, TRANSACTION_TYPES_DICT
+from pydantic import Field, model_validator
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 
 class FMPInsiderTradingQueryParams(InsiderTradingQueryParams):
@@ -25,6 +35,17 @@ class FMPInsiderTradingQueryParams(InsiderTradingQueryParams):
         alias="transactionType",
     )
 
+<<<<<<< HEAD
+=======
+    @model_validator(mode="after")
+    @classmethod
+    def validate_transaction_type(cls, values: "FMPInsiderTradingQueryParams"):
+        """Validate the transaction type."""
+        if isinstance(values.transaction_type, list):
+            values.transaction_type = ",".join(values.transaction_type)
+        return values
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 class FMPInsiderTradingData(InsiderTradingData):
     """FMP Insider Trading Data."""
@@ -56,13 +77,18 @@ class FMPInsiderTradingFetcher(
         return FMPInsiderTradingQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: FMPInsiderTradingQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
     ) -> List[Dict]:
         """Return the raw data from the FMP endpoint."""
         api_key = credentials.get("fmp_api_key") if credentials else ""
+<<<<<<< HEAD
         query.transaction_type = (
             TRANSACTION_TYPES_DICT[query.transaction_type]
             if query.transaction_type
@@ -83,6 +109,22 @@ class FMPInsiderTradingFetcher(
             page += 1
 
         return data[: query.limit]
+=======
+
+        transaction_type = TRANSACTION_TYPES_DICT.get(query.transaction_type, None)
+        query = query.model_copy(update={"transaction_type": transaction_type})
+
+        base_url = "https://financialmodelingprep.com/api/v4/insider-trading"
+        query_str = get_querystring(query.model_dump(by_alias=True), ["page"])
+
+        pages = math.ceil(query.limit / 100)
+        urls = [
+            f"{base_url}?{query_str}&page={page}&apikey={api_key}"
+            for page in range(pages)
+        ]
+
+        return await amake_requests(urls, raise_for_status=True, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

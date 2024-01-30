@@ -155,7 +155,11 @@ class FMPEquityScreenerFetcher(
         return FMPEquityScreenerQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: FMPEquityScreenerQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -169,7 +173,11 @@ class FMPEquityScreenerFetcher(
             query=query,
             exclude=["query", "is_symbol", "industry"],
         ).replace(" ", "%20")
+<<<<<<< HEAD
         return get_data(url, **kwargs)
+=======
+        return await get_data(url, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

@@ -1,6 +1,9 @@
 """FMP Analyst Estimates Model."""
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from typing import Any, Dict, List, Optional
 
 from openbb_core.provider.abstract.fetcher import Fetcher
@@ -36,7 +39,11 @@ class FMPAnalystEstimatesFetcher(
         return FMPAnalystEstimatesQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: FMPAnalystEstimatesQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -48,7 +55,11 @@ class FMPAnalystEstimatesFetcher(
             3, f"analyst-estimates/{query.symbol}", api_key, query, ["symbol"]
         )
 
+<<<<<<< HEAD
         return get_data_many(url, **kwargs)
+=======
+        return await get_data_many(url, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

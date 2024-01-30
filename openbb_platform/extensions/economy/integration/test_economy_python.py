@@ -1,6 +1,10 @@
 """Test economy extension."""
 
 import pytest
+<<<<<<< HEAD
+=======
+from extensions.tests.conftest import parametrize
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_core.app.model.obbject import OBBject
 
 
@@ -17,7 +21,11 @@ def obb(pytestconfig):  # pylint: disable=inconsistent-return-statements
 # pylint: disable=redefined-outer-name
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         ({"start_date": "2023-01-01", "end_date": "2023-06-06", "provider": "fmp"}),
@@ -51,7 +59,11 @@ def test_economy_calendar(params, obb):
     assert len(result.results) > 0
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         (
@@ -74,10 +86,17 @@ def test_economy_cpi(params, obb):
     assert len(result.results) > 0
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
     "params",
     [
         ({}),
+=======
+@parametrize(
+    "params",
+    [
+        ({"provider": "fmp"}),
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     ],
 )
 @pytest.mark.integration
@@ -88,7 +107,11 @@ def test_economy_risk_premium(params, obb):
     assert len(result.results) > 0
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         (
@@ -121,7 +144,11 @@ def test_economy_gdp_forecast(params, obb):
     assert len(result.results) > 0
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         ({"units": "usd", "start_date": "2021-01-01", "end_date": "2023-06-06"}),
@@ -146,7 +173,11 @@ def test_economy_gdp_nominal(params, obb):
     assert len(result.results) > 0
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         ({"units": "yoy", "start_date": "2023-01-01", "end_date": "2023-06-06"}),
@@ -171,7 +202,11 @@ def test_economy_gdp_real(params, obb):
     assert len(result.results) > 0
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         (
@@ -210,7 +245,11 @@ def test_economy_balance_of_payments(params, obb):
     assert len(result.results) > 0
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         (
@@ -267,7 +306,11 @@ def test_economy_fred_search(params, obb):
     assert len(result.results) > 0
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         (
@@ -303,3 +346,30 @@ def test_economy_fred_series(params, obb):
     assert result
     assert isinstance(result, OBBject)
     assert len(result.results) > 0
+<<<<<<< HEAD
+=======
+
+
+@parametrize(
+    "params",
+    [
+        ({"start_date": "2023-01-01", "end_date": "2023-06-06", "adjusted": True}),
+        (
+            {
+                "provider": "federal_reserve",
+                "start_date": "2023-01-01",
+                "end_date": "2023-06-06",
+                "adjusted": True,
+            }
+        ),
+    ],
+)
+@pytest.mark.integration
+def test_economy_money_measures(params, obb):
+    params = {p: v for p, v in params.items() if v}
+
+    result = obb.economy.money_measures(**params)
+    assert result
+    assert isinstance(result, OBBject)
+    assert len(result.results) > 0
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe

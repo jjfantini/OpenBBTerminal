@@ -165,7 +165,11 @@ class IntrinioCalendarIpoFetcher(
         return IntrinioCalendarIpoQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: IntrinioCalendarIpoQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -177,7 +181,13 @@ class IntrinioCalendarIpoFetcher(
         query_str = get_querystring(query.model_dump(by_alias=True), [])
         url = f"{base_url}?{query_str}&api_key={api_key}"
 
+<<<<<<< HEAD
         return get_data_one(url, **kwargs)["initial_public_offerings"]
+=======
+        data = await get_data_one(url, **kwargs)
+
+        return data.get("initial_public_offerings", [])
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

@@ -1,4 +1,8 @@
 """Test the Query class."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 # pylint: disable=redefined-outer-name
 
 from dataclasses import dataclass
@@ -120,6 +124,10 @@ def query_instance():
     )
 
 
+<<<<<<< HEAD
+=======
+@pytest.mark.asyncio
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 async def test_execute_method_fake_credentials(query_instance: Query, mock_registry):
     """Test execute method without setting credentials."""
     mock_fetch_result = MockBaseModel()

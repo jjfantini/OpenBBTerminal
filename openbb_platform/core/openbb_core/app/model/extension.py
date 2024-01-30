@@ -1,11 +1,23 @@
+<<<<<<< HEAD
+=======
+"""Extension class for OBBject extensions."""
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 import warnings
 from typing import Callable, List, Optional
 
 
 class Extension:
+<<<<<<< HEAD
     """Serves as extension entry point and must be created by each extension package.
 
     See README.md for more information on how to create an extension.
+=======
+    """
+    Serves as OBBject extension entry point and must be created by each extension package.
+
+    See https://docs.openbb.co/platform/development/developer-guidelines/obbject_extensions.
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     """
 
     def __init__(
@@ -37,7 +49,11 @@ class Extension:
 
     @staticmethod
     def register_accessor(name, cls) -> Callable:
+<<<<<<< HEAD
         """Register a custom accessor"""
+=======
+        """Register a custom accessor."""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         def decorator(accessor):
             if hasattr(cls, name):
@@ -56,13 +72,24 @@ class Extension:
 
 
 class CachedAccessor:
+<<<<<<< HEAD
     """CachedAccessor"""
 
     def __init__(self, name: str, accessor) -> None:
+=======
+    """CachedAccessor."""
+
+    def __init__(self, name: str, accessor) -> None:
+        """Initialize the cached accessor."""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         self._name = name
         self._accessor = accessor
 
     def __get__(self, obj, cls):
+<<<<<<< HEAD
+=======
+        """Get the cached accessor."""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         if obj is None:
             return self._accessor
         accessor_obj = self._accessor(obj)

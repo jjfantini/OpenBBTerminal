@@ -47,7 +47,11 @@ class FMPCompanyOverviewFetcher(
         return FMPCompanyOverviewQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: FMPCompanyOverviewQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -58,7 +62,11 @@ class FMPCompanyOverviewFetcher(
         base_url = "https://financialmodelingprep.com/api/v3"
         url = f"{base_url}/profile/{query.symbol}?apikey={api_key}"
 
+<<<<<<< HEAD
         return get_data_one(url, **kwargs)
+=======
+        return await get_data_one(url, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

@@ -1,4 +1,8 @@
 """Disc router for Equities."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 # pylint: disable=unused-argument
 from openbb_core.app.model.command_context import CommandContext
 from openbb_core.app.model.obbject import OBBject

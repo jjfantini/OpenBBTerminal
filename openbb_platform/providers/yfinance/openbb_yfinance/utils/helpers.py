@@ -1,5 +1,9 @@
 """Yahoo Finance helpers module."""
 
+<<<<<<< HEAD
+=======
+# pylint: disable=unused-argument
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from datetime import (
     date as dateType,
     datetime,
@@ -10,6 +14,10 @@ from typing import Any, Literal, Optional, Union
 import pandas as pd
 import yfinance as yf
 from dateutil.relativedelta import relativedelta
+<<<<<<< HEAD
+=======
+from openbb_core.provider.utils.errors import EmptyDataError
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_yfinance.utils.references import MONTHS
 
 
@@ -51,7 +59,11 @@ def get_futures_curve(symbol: str, date: Optional[dateType]) -> pd.DataFrame:
         future_symbol = (
             f"{symbol}{MONTHS[future.month]}{str(future.year)[-2:]}.{exchange}"
         )
+<<<<<<< HEAD
         data = yf.download(future_symbol, progress=False, ignore_tz=True)
+=======
+        data = yf.download(future_symbol, progress=False, ignore_tz=True, threads=False)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         if data.empty:
             empty_count += 1
@@ -91,7 +103,11 @@ def yf_download(
     keepna: bool = False,
     repair: bool = False,
     rounding: bool = False,
+<<<<<<< HEAD
     group_by: Literal["symbol", "column"] = "column",
+=======
+    group_by: Literal["symbol", "column"] = "symbol",
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     adjusted: bool = False,
     **kwargs: Any,
 ) -> pd.DataFrame:
@@ -115,6 +131,7 @@ def yf_download(
     if adjusted is False:
         kwargs = dict(auto_adjust=False, back_adjust=False)
 
+<<<<<<< HEAD
     data = yf.download(
         tickers=symbol,
         start=_start_date,
@@ -131,6 +148,43 @@ def yf_download(
         group_by=group_by,
         **kwargs,
     )
+=======
+    try:
+        data = yf.download(
+            tickers=symbol,
+            start=_start_date,
+            end=None,
+            interval=interval,
+            period=period,
+            prepost=prepost,
+            actions=actions,
+            progress=progress,
+            ignore_tz=ignore_tz,
+            keepna=keepna,
+            repair=repair,
+            rounding=rounding,
+            group_by=group_by,
+            threads=False,
+            **kwargs,
+        )
+    except ValueError as exc:
+        raise EmptyDataError() from exc
+
+    tickers = symbol.split(",")
+    if len(tickers) > 1:
+        _data = pd.DataFrame()
+        for ticker in tickers:
+            temp = data[ticker].copy().dropna(how="all")
+            for i in temp.index:
+                temp.loc[i, "symbol"] = ticker
+            temp = temp.reset_index().rename(
+                columns={"Date": "date", "Datetime": "date"}
+            )
+            _data = pd.concat([_data, temp])
+        index_keys = ["date", "symbol"] if "symbol" in _data.columns else ["date"]
+        _data = _data.set_index(index_keys).sort_index()
+        data = _data
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     if not data.empty:
         data = data.reset_index()
         data = data.rename(columns={"Date": "date", "Datetime": "date"})
@@ -159,11 +213,17 @@ def yf_download(
             "5y",
             "10y",
         ]:
+<<<<<<< HEAD
             data["date"] = (
                 data["date"].dt.tz_localize(None).dt.strftime("%Y-%m-%d %H:%M:%S")
             )
         if interval not in ["1m", "2m", "5m", "15m", "30m", "90m", "60m", "1h"]:
             data["date"] = data["date"].dt.tz_localize(None).dt.strftime("%Y-%m-%d")
+=======
+            data["date"] = data["date"].dt.strftime("%Y-%m-%d %H:%M:%S")
+        if interval not in ["1m", "2m", "5m", "15m", "30m", "90m", "60m", "1h"]:
+            data["date"] = data["date"].dt.strftime("%Y-%m-%d")
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         if adjusted is False:
             data = data.drop(columns=["Adj Close"])

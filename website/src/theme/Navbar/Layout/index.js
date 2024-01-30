@@ -58,7 +58,27 @@ export default function NavbarLayout({ children }) {
           "#511d11",
         );
       }
+<<<<<<< HEAD
     } else if (cleanedPath.startsWith("/bot")) {
+=======
+    }
+    else if (
+      cleanedPath.startsWith("/excel")
+    ) {
+      if (document.documentElement.getAttribute('data-theme') === 'dark') {
+        document.documentElement.style.setProperty(
+          "--ifm-color-primary",
+          "#16A34A",
+        );
+      } else {
+        document.documentElement.style.setProperty(
+          "--ifm-color-primary",
+          "#14532D",
+        );
+      }
+    }
+    else if (cleanedPath.startsWith("/bot")) {
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
       if (document.documentElement.getAttribute('data-theme') === 'dark') {
         document.documentElement.style.setProperty(
           "--ifm-color-primary",
@@ -81,6 +101,10 @@ export default function NavbarLayout({ children }) {
         {
           header_docs_terminal: cleanedPath.startsWith("/terminal"),
           header_docs_pro: cleanedPath.startsWith("/pro"),
+<<<<<<< HEAD
+=======
+          header_docs_excel: cleanedPath.startsWith("/excel"),
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
           header_docs_sdk:
             cleanedPath.startsWith("/sdk") ||
             cleanedPath.startsWith("/platform"),
@@ -90,7 +114,12 @@ export default function NavbarLayout({ children }) {
             !cleanedPath.startsWith("/sdk") &&
             !cleanedPath.startsWith("/platform") &&
             !cleanedPath.startsWith("/bot") &&
+<<<<<<< HEAD
             !cleanedPath.startsWith("/pro"),
+=======
+            !cleanedPath.startsWith("/pro") &&
+            !cleanedPath.startsWith("/excel"),
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         },
         "navbar",
         "navbar--fixed-top",

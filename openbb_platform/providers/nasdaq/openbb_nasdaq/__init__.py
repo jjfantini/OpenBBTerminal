@@ -1,4 +1,8 @@
 """Nasdaq provider module."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_core.provider.abstract.provider import Provider
 from openbb_nasdaq.models.calendar_dividend import NasdaqCalendarDividendFetcher
 from openbb_nasdaq.models.calendar_earnings import NasdaqCalendarEarningsFetcher
@@ -6,6 +10,10 @@ from openbb_nasdaq.models.calendar_ipo import NasdaqCalendarIpoFetcher
 from openbb_nasdaq.models.cot import NasdaqCotFetcher
 from openbb_nasdaq.models.cot_search import NasdaqCotSearchFetcher
 from openbb_nasdaq.models.economic_calendar import NasdaqEconomicCalendarFetcher
+<<<<<<< HEAD
+=======
+from openbb_nasdaq.models.equity_search import NasdaqEquitySearchFetcher
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_nasdaq.models.sp500_multiples import NasdaqSP500MultiplesFetcher
 from openbb_nasdaq.models.top_retail import NasdaqTopRetailFetcher
 
@@ -23,6 +31,10 @@ unmatched technology, insights and markets expertise.""",
         "COT": NasdaqCotFetcher,
         "COTSearch": NasdaqCotSearchFetcher,
         "EconomicCalendar": NasdaqEconomicCalendarFetcher,
+<<<<<<< HEAD
+=======
+        "EquitySearch": NasdaqEquitySearchFetcher,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         "SP500Multiples": NasdaqSP500MultiplesFetcher,
         "TopRetail": NasdaqTopRetailFetcher,
     },

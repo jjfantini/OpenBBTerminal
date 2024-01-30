@@ -26,30 +26,53 @@ This will install the following data providers:
 |----------------|-------------|----------------------|------------------------------------|
 | openbb-benzinga | [Benzinga](https://www.benzinga.com/apis/en-ca/) data connector | pip install openbb-benzinga | Paid |
 | openbb-biztoc | [Biztoc](https://api.biztoc.com/#biztoc-default) News data connector | pip install openbb-biztoc | Free |
+<<<<<<< HEAD
 | openbb-ecb | [ECB](https://data.ecb.europa.eu/) data connector | pip install openbb-ecb | None |
 | openbb-finra | [FINRA](https://www.finra.org/finra-data) data connector | pip install openbb-finra | None / Free |
+=======
+| openbb-ecb | [ECB](https://data.ecb.europa.eu/) data connector | pip install openbb-ecb | Free |
+| openbb-finra | [FINRA](https://www.finra.org/finra-data) data connector | pip install openbb-finra | Free |
+| openbb-finviz | [Finviz](https://finviz.com) data connector | pip install openbb-finra | Free |
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 | openbb-fmp | [FMP](https://site.financialmodelingprep.com/developer/) data connector | pip install openbb-fmp | Free |
 | openbb-fred | [FRED](https://fred.stlouisfed.org/) data connector | pip install openbb-fred | Free |
 | openbb-intrinio | [Intrinio](https://intrinio.com/pricing) data connector | pip install openbb-intrinio | Paid |
 | openbb-oecd | [OECD](https://data.oecd.org/) data connector | pip install openbb-oecd | Free |
 | openbb-polygon | [Polygon](https://polygon.io/) data connector | pip install openbb-polygon | Free |
+<<<<<<< HEAD
 | openbb-sec | [SEC](https://www.sec.gov/edgar/sec-api-documentation) data connector | pip install openbb-sec | None |
 | openbb-tiingo | [Tiingo](https://www.tiingo.com/about/pricing) data connector | pip install openbb-tiingo | Free |
 | openbb-tradingeconomics | [TradingEconomics](https://tradingeconomics.com/api) data connector | pip install openbb-tradingeconomics | Paid |
 | openbb-ultima | [Ultima Insights](https://ultimainsights.ai/openbb) data connector | pip install openbb-ultima | Paid |
 
+=======
+| openbb-sec | [SEC](https://www.sec.gov/edgar/sec-api-documentation) data connector | pip install openbb-sec | Free |
+| openbb-tiingo | [Tiingo](https://www.tiingo.com/about/pricing) data connector | pip install openbb-tiingo | Free |
+| openbb-tradingeconomics | [TradingEconomics](https://tradingeconomics.com/api) data connector | pip install openbb-tradingeconomics | Paid |
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 To install extensions that expand the core functionalities specify the extension name or use `all` to install all.
 
 ```bash
+<<<<<<< HEAD
 # Install single extension, e.g. openbb-charting and yahoo finance
+=======
+# Install a single extension, e.g. openbb-charting and yahoo finance
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 pip install openbb[charting]
 pip install openbb-yfinance
 ```
 
+<<<<<<< HEAD
 Alternatively, you can install all extensions at once.    
 ```bash
 pip install openbb[all] 
+=======
+Alternatively, you can install all extensions at once.
+
+```bash
+pip install openbb[all]
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 ```
 
 > Note: These instruction are specific to v4. For installation instructions and documentation for v3 go to our [website](https://docs.openbb.co/sdk).
@@ -82,7 +105,11 @@ To fully leverage the OpenBB Platform you need to get some API keys to connect w
 
 ### 1. OpenBB Hub
 
+<<<<<<< HEAD
 Set your keys at [OpenBB Hub](https://my.openbb.co/app/sdk/api-keys) and get your personal access token from https://my.openbb.co/app/sdk/pat to connect with your account.
+=======
+Set your keys at [OpenBB Hub](https://my.openbb.co/app/sdk/api-keys) and get your personal access token from <https://my.openbb.co/app/sdk/pat> to connect with your account.
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 ```python
 >>> from openbb import obb

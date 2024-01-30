@@ -1,6 +1,9 @@
 """Executive Compensation Standard Model."""
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from datetime import (
     date as dateType,
     datetime,
@@ -21,6 +24,17 @@ class ExecutiveCompensationQueryParams(QueryParams):
     """Executive Compensation Query."""
 
     symbol: str = Field(description=QUERY_DESCRIPTIONS.get("symbol", ""))
+<<<<<<< HEAD
+=======
+    start_date: Optional[dateType] = Field(
+        default=None,
+        description=QUERY_DESCRIPTIONS.get("start_date", ""),
+    )
+    end_date: Optional[dateType] = Field(
+        default=None,
+        description=QUERY_DESCRIPTIONS.get("end_date", ""),
+    )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @field_validator("symbol", mode="before", check_fields=False)
     @classmethod

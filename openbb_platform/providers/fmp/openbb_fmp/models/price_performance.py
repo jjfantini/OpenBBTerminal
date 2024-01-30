@@ -1,5 +1,9 @@
 """FMP Price Performance Model."""
 
+<<<<<<< HEAD
+=======
+# pylint: disable=unused-argument
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from typing import Any, Dict, List, Optional
 
 from openbb_core.provider.abstract.fetcher import Fetcher
@@ -8,7 +12,11 @@ from openbb_core.provider.standard_models.recent_performance import (
     RecentPerformanceQueryParams,
 )
 from openbb_fmp.utils.helpers import create_url, get_data_many
+<<<<<<< HEAD
 from pydantic import Field
+=======
+from pydantic import Field, model_validator
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 
 class FMPPricePerformanceQueryParams(RecentPerformanceQueryParams):
@@ -35,6 +43,18 @@ class FMPPricePerformanceData(RecentPerformanceData):
         "ten_year": "10Y",
     }
 
+<<<<<<< HEAD
+=======
+    @model_validator(mode="before")
+    @classmethod
+    def replace_zero(cls, values):  # pylint: disable=no-self-argument
+        """Replace zero with None and convert percents to normalized values."""
+        for k, v in values.items():
+            if k != "symbol":
+                values[k] = None if v == 0 else float(v) / 100
+        return values
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 class FMPPricePerformanceFetcher(
     Fetcher[
@@ -50,7 +70,11 @@ class FMPPricePerformanceFetcher(
         return FMPPricePerformanceQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: FMPPricePerformanceQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -64,7 +88,11 @@ class FMPPricePerformanceFetcher(
             api_key=api_key,
             exclude=["symbol"],
         )
+<<<<<<< HEAD
         return get_data_many(url, **kwargs)
+=======
+        return await get_data_many(url, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

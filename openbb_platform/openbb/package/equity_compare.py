@@ -5,9 +5,14 @@ from typing import List, Literal, Optional, Union
 from openbb_core.app.model.custom_parameter import OpenBBCustomParameter
 from openbb_core.app.model.obbject import OBBject
 from openbb_core.app.static.container import Container
+<<<<<<< HEAD
 from openbb_core.app.static.decorators import validate
 from openbb_core.app.static.filters import filter_inputs
 from openbb_core.provider.abstract.data import Data
+=======
+from openbb_core.app.static.utils.decorators import validate
+from openbb_core.app.static.utils.filters import filter_inputs
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from typing_extensions import Annotated
 
 
@@ -28,7 +33,11 @@ class ROUTER_equity_compare(Container):
         ],
         provider: Optional[Literal["fmp"]] = None,
         **kwargs
+<<<<<<< HEAD
     ) -> OBBject[Data]:
+=======
+    ) -> OBBject:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """Equity Peers. Company peers.
 
         Parameters
@@ -65,6 +74,7 @@ class ROUTER_equity_compare(Container):
         >>> obb.equity.compare.peers(symbol="AAPL")
         """  # noqa: E501
 
+<<<<<<< HEAD
         inputs = filter_inputs(
             provider_choices={
                 "provider": provider,
@@ -78,4 +88,17 @@ class ROUTER_equity_compare(Container):
         return self._run(
             "/equity/compare/peers",
             **inputs,
+=======
+        return self._run(
+            "/equity/compare/peers",
+            **filter_inputs(
+                provider_choices={
+                    "provider": provider,
+                },
+                standard_params={
+                    "symbol": ",".join(symbol) if isinstance(symbol, list) else symbol,
+                },
+                extra_params=kwargs,
+            )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         )

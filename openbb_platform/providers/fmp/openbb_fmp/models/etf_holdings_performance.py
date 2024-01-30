@@ -35,14 +35,22 @@ class FMPEtfHoldingsPerformanceFetcher(
         return FMPEtfHoldingsPerformanceQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: FMPEtfHoldingsPerformanceQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
     ) -> List[Dict]:
         """Return the raw data from the FMP endpoint."""
         # Get latest available holdings filing date
+<<<<<<< HEAD
         dates = FMPEtfHoldingsDateFetcher().extract_data(
+=======
+        dates = await FMPEtfHoldingsDateFetcher().aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
             FMPEtfHoldingsDateFetcher.transform_query(query.model_dump()),
             credentials,
             **kwargs,
@@ -50,7 +58,11 @@ class FMPEtfHoldingsPerformanceFetcher(
         if dates is None:
             return []
         # Get holdings for that date
+<<<<<<< HEAD
         holdings = FMPEtfHoldingsFetcher().extract_data(
+=======
+        holdings = await FMPEtfHoldingsFetcher().aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
             FMPEtfHoldingsFetcher.transform_query(
                 {"symbol": query.symbol, "date": max([d["date"] for d in dates])}
             ),
@@ -70,7 +82,11 @@ class FMPEtfHoldingsPerformanceFetcher(
             holdings_str = (
                 ",".join(holding_chunk) if len(holding_chunk) > 1 else holding_chunk[0]
             )
+<<<<<<< HEAD
             _performance = FMPPricePerformanceFetcher().extract_data(
+=======
+            _performance = await FMPPricePerformanceFetcher().aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
                 FMPPricePerformanceFetcher.transform_query({"symbol": holdings_str}),
                 credentials,
                 **kwargs,

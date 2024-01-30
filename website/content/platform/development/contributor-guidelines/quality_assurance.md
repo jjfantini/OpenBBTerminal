@@ -62,7 +62,11 @@ python openbb_platform/extensions/tests/utils/integration_tests_api_generator.py
 When testing the API interface, you'll need to run the OpenBB Platform locally before running the tests. To do so, you can run the following command:
 
 ```bash
+<<<<<<< HEAD
 uvicorn openbb_platform.platform.core.openbb_core.api.rest_api:app --host 0.0.0.0 --port 8000 --reload
+=======
+uvicorn openbb_core.api.rest_api:app --host 0.0.0.0 --port 8000 --reload
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 ```
 
 These automated tests are a great way to reduce the amount of code you need to write, but they are not a replacement for manual testing and might require tweaking. That's why we have unit tests that test the generated integration tests to ensure they cover all providers and parameters.

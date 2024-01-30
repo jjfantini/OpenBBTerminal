@@ -1,4 +1,8 @@
 """Pydantic models for Quantitative Analysis."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from pydantic import BaseModel
 
 

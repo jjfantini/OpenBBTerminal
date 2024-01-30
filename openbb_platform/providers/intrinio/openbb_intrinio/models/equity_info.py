@@ -7,7 +7,14 @@ from openbb_core.provider.standard_models.equity_info import (
     EquityInfoData,
     EquityInfoQueryParams,
 )
+<<<<<<< HEAD
 from openbb_intrinio.utils.helpers import get_data_one
+=======
+from openbb_core.provider.utils.helpers import (
+    amake_requests,
+)
+from openbb_intrinio.utils.helpers import response_callback
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from pydantic import Field
 
 
@@ -34,7 +41,11 @@ class IntrinioEquityInfoData(EquityInfoData):
 class IntrinioEquityInfoFetcher(
     Fetcher[
         IntrinioEquityInfoQueryParams,
+<<<<<<< HEAD
         IntrinioEquityInfoData,
+=======
+        List[IntrinioEquityInfoData],
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     ]
 ):
     """Transform the query, extract and transform the data from the Intrinio endpoints."""
@@ -44,23 +55,49 @@ class IntrinioEquityInfoFetcher(
         """Transform the query."""
         return IntrinioEquityInfoQueryParams(**params)
 
+<<<<<<< HEAD
     @staticmethod
     def extract_data(
         query: IntrinioEquityInfoQueryParams,  # pylint: disable=unused-argument
+=======
+    # pylint: disable=W0613:unused-argument
+    @staticmethod
+    async def aextract_data(
+        query: IntrinioEquityInfoQueryParams,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
     ) -> Dict:
         """Return the raw data from the Intrinio endpoint."""
         api_key = credentials.get("intrinio_api_key") if credentials else ""
         base_url = "https://api-v2.intrinio.com"
+<<<<<<< HEAD
         url = f"{base_url}/companies/{query.symbol}?api_key={api_key}"
         return get_data_one(url, **kwargs)
 
+=======
+
+        urls = [
+            f"{base_url}/companies/{s.strip()}?api_key={api_key}"
+            for s in query.symbol.split(",")
+        ]
+
+        return await amake_requests(urls, response_callback, **kwargs)
+
+    # pylint: disable=W0613:unused-argument
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     @staticmethod
     def transform_data(
         query: IntrinioEquityInfoQueryParams,
         data: List[Dict],
+<<<<<<< HEAD
         **kwargs: Any,  # pylint: disable=unused-argument
     ) -> IntrinioEquityInfoData:
         """Transforms the data."""
         return IntrinioEquityInfoData.model_validate(data)
+=======
+        **kwargs: Any,
+    ) -> List[IntrinioEquityInfoData]:
+        """Transforms the data."""
+        return [IntrinioEquityInfoData.model_validate(d) for d in data]
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe

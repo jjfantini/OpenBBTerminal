@@ -1,5 +1,11 @@
 """REST API for the OpenBB Platform."""
+<<<<<<< HEAD
 import logging
+=======
+
+import logging
+from contextlib import asynccontextmanager
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -17,6 +23,34 @@ logger = logging.getLogger("uvicorn.error")
 
 system = SystemService().system_settings
 
+<<<<<<< HEAD
+=======
+
+@asynccontextmanager
+async def lifespan(_: FastAPI):
+    """Startup event."""
+    auth = "ENABLED" if Env().API_AUTH else "DISABLED"
+    banner = rf"""
+
+                   ███╗
+  █████████████████╔══█████████████████╗       OpenBB Platform v{system.version}
+  ███╔══════════███║  ███╔══════════███║
+  █████████████████║  █████████████████║       Authentication: {auth}
+  ╚═════════════███║  ███╔═════════════╝
+     ██████████████║  ██████████████╗
+     ███╔═══════███║  ███╔═══════███║
+     ██████████████║  ██████████████║
+     ╚═════════════╝  ╚═════════════╝
+Investment research for everyone, anywhere.
+
+    https://my.openbb.co/app/platform
+
+"""
+    logger.info(banner)
+    yield
+
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 app = FastAPI(
     title=system.api_settings.title,
     description=system.api_settings.description,
@@ -38,7 +72,13 @@ app = FastAPI(
         }
         for s in system.api_settings.servers
     ],
+<<<<<<< HEAD
 )
+=======
+    lifespan=lifespan,
+)
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 app.add_middleware(
     CORSMiddleware,
     allow_origins=system.api_settings.cors.allow_origins,
@@ -47,13 +87,22 @@ app.add_middleware(
 )
 AppLoader.from_routers(
     app=app,
+<<<<<<< HEAD
     routers=[AuthService().router, router_system, router_coverage, router_commands]
     if Env().DEV_MODE
     else [router_commands],
+=======
+    routers=(
+        [AuthService().router, router_system, router_coverage, router_commands]
+        if Env().DEV_MODE
+        else [router_commands]
+    ),
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     prefix=system.api_settings.prefix,
 )
 
 
+<<<<<<< HEAD
 @app.on_event("startup")
 async def startup():
     """Startup event."""
@@ -77,6 +126,8 @@ Investment research for everyone, anywhere.
     logger.info(banner)
 
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 @app.exception_handler(Exception)
 async def api_exception_handler(_: Request, exc: Exception):
     """Exception handler for all other exceptions."""

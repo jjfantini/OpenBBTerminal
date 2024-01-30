@@ -1,6 +1,9 @@
 """FMP Economic Calendar Model."""
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
@@ -9,7 +12,11 @@ from openbb_core.provider.standard_models.economic_calendar import (
     EconomicCalendarData,
     EconomicCalendarQueryParams,
 )
+<<<<<<< HEAD
 from openbb_core.provider.utils.helpers import make_request
+=======
+from openbb_core.provider.utils.helpers import amake_request
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from pydantic import Field, field_validator
 
 
@@ -80,19 +87,27 @@ class FMPEconomicCalendarFetcher(
         return FMPEconomicCalendarQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: FMPEconomicCalendarQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
     ) -> List[Dict]:
         """Return the data from the FMP endpoint."""
+<<<<<<< HEAD
         response = []
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         api_key = credentials.get("fmp_api_key") if credentials else ""
 
         base_url = "https://financialmodelingprep.com/api/v3/economic_calendar?"
 
         url = f"{base_url}from={query.start_date}&to={query.end_date}&apikey={api_key}"
 
+<<<<<<< HEAD
         data = make_request(url)
 
         if data.ok:
@@ -102,6 +117,14 @@ class FMPEconomicCalendarFetcher(
 
     @staticmethod
     def transform_data(
+=======
+        return await amake_request(url, **kwargs)
+
+    # pylint: disable=unused-argument
+    @staticmethod
+    def transform_data(
+        query: FMPEconomicCalendarQueryParams,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         data: List[Dict],
         **kwargs: Any,
     ) -> List[FMPEconomicCalendarData]:

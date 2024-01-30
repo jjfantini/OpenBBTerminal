@@ -22,7 +22,11 @@ def vcr_config():
 @pytest.mark.record_http
 @pytest.mark.skip(reason="This is a premium endpoint.")
 def test_av_equity_historical_fetcher(credentials=test_credentials):
+<<<<<<< HEAD
     params = params = {
+=======
+    params = {
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         "symbol": "AAPL",
         "start_date": date(2023, 1, 1),
         "end_date": date(2023, 1, 10),

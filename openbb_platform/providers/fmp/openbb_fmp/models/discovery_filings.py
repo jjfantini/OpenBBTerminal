@@ -8,8 +8,12 @@ from openbb_core.provider.standard_models.discovery_filings import (
     DiscoveryFilingsData,
     DiscoveryFilingsQueryParams,
 )
+<<<<<<< HEAD
 from openbb_core.provider.utils.helpers import get_querystring
 from openbb_fmp.utils.helpers import get_data_many
+=======
+from openbb_core.provider.utils.helpers import amake_requests, get_querystring
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from pydantic import Field
 
 
@@ -52,7 +56,11 @@ class FMPDiscoveryFilingsFetcher(
         return FMPDiscoveryFilingsQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: FMPDiscoveryFilingsQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -66,11 +74,21 @@ class FMPDiscoveryFilingsFetcher(
 
         # FMP only allows 1000 results per page
         pages = math.ceil(query.limit / 1000)
+<<<<<<< HEAD
         for page in range(pages):
             query_str += f"&page={page}"
             url = f"{base_url}?{query_str}&apikey={api_key}"
             response = get_data_many(url, **kwargs)
             data.extend(response)
+=======
+
+        urls = [
+            f"{base_url}?{query_str}&page={page}&apikey={api_key}"
+            for page in range(pages)
+        ]
+
+        data = await amake_requests(urls, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         return data[: query.limit]
 

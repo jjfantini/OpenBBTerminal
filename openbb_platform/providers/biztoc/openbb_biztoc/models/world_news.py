@@ -1,4 +1,8 @@
 """Biztoc World News Model."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from datetime import datetime, timedelta
 from typing import Any, Dict, List, Literal, Optional
 
@@ -15,9 +19,15 @@ from pydantic import Field, field_validator
 class BiztocWorldNewsQueryParams(WorldNewsQueryParams):
     """Biztoc World News Query."""
 
+<<<<<<< HEAD
     filter: Literal[
         "crypto", "hot", "latest", "main", "media", "source", "tag"
     ] = Field(default="latest", description="Filter by type of news.")
+=======
+    filter: Literal["crypto", "hot", "latest", "main", "media", "source", "tag"] = (
+        Field(default="latest", description="Filter by type of news.")
+    )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     source: str = Field(
         description="Filter by a specific publisher. Only valid when filter is set to source.",
         default="bloomberg",

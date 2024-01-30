@@ -5,8 +5,12 @@ import warnings
 from functools import lru_cache
 from typing import Dict
 
+<<<<<<< HEAD
 from importlib_metadata import entry_points
 
+=======
+from openbb_core.app.extension_loader import ExtensionLoader
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_core.app.model.abstract.warning import OpenBBWarning
 from openbb_core.env import Env
 from openbb_core.provider.abstract.provider import Provider
@@ -41,6 +45,7 @@ class RegistryLoader:
     def from_extensions() -> Registry:
         """Load providers from entry points."""
         registry = Registry()
+<<<<<<< HEAD
         for entry_point in sorted(entry_points(group="openbb_provider_extension")):
             try:
                 entry = entry_point.load()
@@ -48,6 +53,14 @@ class RegistryLoader:
                     registry.include_provider(provider=entry)
             except Exception as e:
                 msg = f"Error loading extension: {entry_point.name}\n"
+=======
+
+        for name, entry in ExtensionLoader().provider_objects.items():
+            try:
+                registry.include_provider(provider=entry)
+            except Exception as e:
+                msg = f"Error loading extension: {name}\n"
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
                 if Env().DEBUG_MODE:
                     traceback.print_exception(type(e), e, e.__traceback__)
                     raise LoadingError(msg + f"\033[91m{e}\033[0m") from e

@@ -2,7 +2,11 @@
 
 ## Overview
 
+<<<<<<< HEAD
 The Core extension serves as the foundational component of the OpenBB Platform. It encapsulates essential functionalities and serves as a infrastructural base for other extensions. This extension is vital for maintaining the integrity and standardization of the platform.
+=======
+The Core extension serves as the foundational component of the OpenBB Platform. It encapsulates essential functionalities and serves as an infrastructural base for other extensions. This extension is vital for maintaining the integrity and standardization of the platform.
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 ## Key Features
 
@@ -27,7 +31,11 @@ Installing through pip:
 pip install openbb-core
 ```
 
+<<<<<<< HEAD
 > Note that, the openbb-core is a infrastructural component of the OpenBB Platform. It is not intended to be used as a standalone package.
+=======
+> Note that, the openbb-core is an infrastructural component of the OpenBB Platform. It is not intended to be used as a standalone package.
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 ### Usage
 

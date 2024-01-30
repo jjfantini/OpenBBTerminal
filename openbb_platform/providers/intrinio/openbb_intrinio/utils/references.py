@@ -17,6 +17,31 @@ SOURCES = Literal[
     "delayed_sip",
 ]
 
+<<<<<<< HEAD
+=======
+VENUES = {
+    "A": "NYSE MKT LLC",
+    "B": "NASDAQ OMX BX, Inc.",
+    "C": "National Stock Exchange Inc. (NSX)",
+    "D": "FINRA ADF",
+    "I": "International Securities Exchange, LLC",
+    "J": "Bats EDGA Exchange, INC",
+    "K": "Bats EDGX Exchange, Inc.",
+    "M": "Chicago Stock Exchange, Inc. (CHX)",
+    "N": "New York Stock Exchange LLC",
+    "P": "NYSE Arca, Inc.",
+    "S": "Consolidated Tape System",
+    "T": "NASDAQ (Tape A, B securities)",
+    "Q": "NASDAQ (Tape C securities)",
+    "V": "The Investors' Exchange, LLC (IEX)",
+    "W": "Chicago Broad Options Exchange, Inc. (CBOE)",
+    "X": "NASDAQ OMX PSX, Inc. LLC",
+    "Y": "Bats BYX Exchange, Inc.",
+    "Z": "Bats BZX Exchange, Inc.",
+    "u": "Other OTC Markets",
+}
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 class IntrinioCompany(Data):
     """Intrinio Company Data."""
@@ -65,7 +90,11 @@ class IntrinioSecurity(Data):
         description="The country-composite OpenFIGI identifier.", default=None
     )
     share_class_figi: Optional[str] = Field(
+<<<<<<< HEAD
         description="The global-composite OpenFIGI identifier.",
+=======
+        description="The global-composite OpenFIGI identifier.", default=None
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     )
     primary_listing: Optional[bool] = Field(
         description="""

@@ -86,13 +86,23 @@ def test_log_startup(logging_service):
         )
         logging_service._system_settings = "your_system_settings"
 
+<<<<<<< HEAD
         logging_service._log_startup(route="test_route")
+=======
+        logging_service._log_startup(
+            route="test_route", custom_headers={"X-OpenBB-Test": "test"}
+        )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         expected_log_data = {
             "route": "test_route",
             "PREFERENCES": "your_preferences",
             "KEYS": {"username": "defined", "password": "defined"},
             "SYSTEM": "your_system_settings",
+<<<<<<< HEAD
+=======
+            "custom_headers": {"X-OpenBB-Test": "test"},
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         }
         mock_info.assert_called_once_with(
             "STARTUP: %s ",
@@ -102,7 +112,11 @@ def test_log_startup(logging_service):
 
 
 @pytest.mark.parametrize(
+<<<<<<< HEAD
     "user_settings, system_settings, route, func, kwargs, exec_info",
+=======
+    "user_settings, system_settings, route, func, kwargs, exec_info, custom_headers",
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     [
         (
             "mock_settings",
@@ -111,6 +125,10 @@ def test_log_startup(logging_service):
             "mock_func",
             {},
             None,
+<<<<<<< HEAD
+=======
+            None,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         ),
         (
             "mock_settings",
@@ -119,6 +137,10 @@ def test_log_startup(logging_service):
             "mock_func",
             {},
             (OpenBBError, OpenBBError("mock_error")),
+<<<<<<< HEAD
+=======
+            {"X-OpenBB-Test": "test"},
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         ),
         (
             "mock_settings",
@@ -127,11 +149,26 @@ def test_log_startup(logging_service):
             "mock_func",
             {},
             None,
+<<<<<<< HEAD
+=======
+            {"X-OpenBB-Test1": "test1", "X-OpenBB-Test2": "test2"},
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         ),
     ],
 )
 def test_log(
+<<<<<<< HEAD
     logging_service, user_settings, system_settings, route, func, kwargs, exec_info
+=======
+    logging_service,
+    user_settings,
+    system_settings,
+    route,
+    func,
+    kwargs,
+    exec_info,
+    custom_headers,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 ):
     with patch(
         "openbb_core.app.logs.logging_service.LoggingSettings",
@@ -148,6 +185,10 @@ def test_log(
                     func=func,
                     kwargs=kwargs,
                     exec_info=exec_info,
+<<<<<<< HEAD
+=======
+                    custom_headers=custom_headers,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
                 )
                 assert mock_log_startup.assert_called_once
 
@@ -165,6 +206,10 @@ def test_log(
                 func=mock_callable,
                 kwargs=kwargs,
                 exec_info=exec_info,
+<<<<<<< HEAD
+=======
+                custom_headers=custom_headers,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
             )
 
             message_label = "ERROR" if exec_info else "CMD"
@@ -173,6 +218,10 @@ def test_log(
                     "route": route,
                     "input": kwargs,
                     "error": str(exec_info[1]) if exec_info else None,
+<<<<<<< HEAD
+=======
+                    "custom_headers": custom_headers,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
                 }
             )
             log_message = f"{message_label}: {log_message}"

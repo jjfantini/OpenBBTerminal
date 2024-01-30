@@ -77,5 +77,9 @@ async def sic_search(
     standard_params: StandardParams,
     extra_params: ExtraParams,
 ) -> OBBject[BaseModel]:
+<<<<<<< HEAD
     """Fuzzy search for Industry Titles, Reporting Office, and SIC Codes."""
+=======
+    """Search for Industry Titles, Reporting Office, and SIC Codes."""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     return await OBBject.from_query(Query(**locals()))

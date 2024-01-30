@@ -1,11 +1,17 @@
 """FMP Key Metrics Model."""
 
+<<<<<<< HEAD
 from concurrent.futures import ThreadPoolExecutor
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from datetime import (
     date as dateType,
     datetime,
 )
+<<<<<<< HEAD
 from itertools import repeat
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from typing import Any, Dict, List, Optional
 
 from openbb_core.provider.abstract.data import ForceInt
@@ -15,7 +21,15 @@ from openbb_core.provider.standard_models.key_metrics import (
     KeyMetricsQueryParams,
 )
 from openbb_core.provider.utils.descriptions import DATA_DESCRIPTIONS
+<<<<<<< HEAD
 from openbb_fmp.utils.helpers import get_data_many, get_data_one
+=======
+from openbb_core.provider.utils.helpers import (
+    ClientResponse,
+    ClientSession,
+    amake_requests,
+)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from pydantic import Field
 
 
@@ -210,7 +224,11 @@ class FMPKeyMetricsFetcher(
         return FMPKeyMetricsQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: FMPKeyMetricsQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -219,6 +237,7 @@ class FMPKeyMetricsFetcher(
         api_key = credentials.get("fmp_api_key") if credentials else ""
         base_url = "https://financialmodelingprep.com/api/v3"
 
+<<<<<<< HEAD
         data: List[Dict] = []
 
         def multiple_symbols(symbol: str, data: List[Dict]) -> None:
@@ -231,12 +250,26 @@ class FMPKeyMetricsFetcher(
             ttm_url = f"{base_url}/key-metrics-ttm/{symbol}?&apikey={api_key}"
             if query.with_ttm and (metrics_ttm := get_data_one(ttm_url, **kwargs)):
                 data.append(
+=======
+        async def response_callback(
+            response: ClientResponse, session: ClientSession
+        ) -> List[Dict]:
+            results = await response.json()
+            symbol = response.url.parts[-1]
+
+            # TTM data
+            ttm_url = f"{base_url}/key-metrics-ttm/{symbol}?&apikey={api_key}"
+            if query.with_ttm and (metrics_ttm := await session.get_one(ttm_url)):
+                results.insert(
+                    0,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
                     {
                         "symbol": symbol,
                         "period": "TTM",
                         "date": datetime.now().strftime("%Y-%m-%d"),
                         "calendar_year": datetime.now().year,
                         **{k.replace("TTM", ""): v for k, v in metrics_ttm.items()},
+<<<<<<< HEAD
                     }
                 )
 
@@ -246,6 +279,20 @@ class FMPKeyMetricsFetcher(
             executor.map(multiple_symbols, query.symbol.split(","), repeat(data))
 
         return data
+=======
+                    },
+                )
+
+            return results
+
+        urls = [
+            f"{base_url}/key-metrics/{symbol}?"
+            f"period={query.period}&limit={query.limit}&apikey={api_key}"
+            for symbol in query.symbol.split(",")
+        ]
+
+        return await amake_requests(urls, response_callback=response_callback, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

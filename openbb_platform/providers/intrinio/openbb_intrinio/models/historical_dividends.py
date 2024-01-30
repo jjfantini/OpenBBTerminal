@@ -1,5 +1,9 @@
 """Intrinio Historical Dividends Model."""
 
+<<<<<<< HEAD
+=======
+# pylint: disable=unused-argument
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
@@ -21,10 +25,18 @@ class IntrinioHistoricalDividendsQueryParams(HistoricalDividendsQueryParams):
     Source: https://docs.intrinio.com/documentation/web_api/get_security_stock_price_adjustments_v2
     """
 
+<<<<<<< HEAD
     limit: Optional[int] = Field(
         default=100,
         description=QUERY_DESCRIPTIONS.get("limit", ""),
         alias="page_size",
+=======
+    __alias_dict__ = {"limit": "page_size"}
+
+    limit: Optional[int] = Field(
+        default=100,
+        description=QUERY_DESCRIPTIONS.get("limit", ""),
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     )
 
 
@@ -69,7 +81,11 @@ class IntrinioHistoricalDividendsFetcher(
         return IntrinioHistoricalDividendsQueryParams(**transformed_params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: IntrinioHistoricalDividendsQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -81,7 +97,11 @@ class IntrinioHistoricalDividendsFetcher(
         query_str = get_querystring(query.model_dump(), ["symbol"])
         url = f"{base_url}/{query.symbol}/prices/adjustments?{query_str}&api_key={api_key}"
 
+<<<<<<< HEAD
         return get_data_many(url, "stock_price_adjustments", **kwargs)
+=======
+        return await get_data_many(url, "stock_price_adjustments", **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

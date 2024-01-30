@@ -11,7 +11,16 @@ from openbb_core.provider.standard_models.fred_series import (
     SeriesQueryParams,
 )
 from openbb_core.provider.utils.descriptions import QUERY_DESCRIPTIONS
+<<<<<<< HEAD
 from openbb_core.provider.utils.helpers import async_make_request, get_querystring
+=======
+from openbb_core.provider.utils.helpers import (
+    ClientResponse,
+    ClientSession,
+    amake_requests,
+    get_querystring,
+)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from pydantic import Field
 
 _warn = warnings.warn
@@ -73,11 +82,18 @@ class FredSeriesQueryParams(SeriesQueryParams):
             eop = End of Period
         """,
     )
+<<<<<<< HEAD
     transform: Literal[
         None, "chg", "ch1", "pch", "pc1", "pca", "cch", "cca", "log"
     ] = Field(
         default=None,
         description="""
+=======
+    transform: Literal[None, "chg", "ch1", "pch", "pc1", "pca", "cch", "cca", "log"] = (
+        Field(
+            default=None,
+            description="""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         Transformation type
             None = No transformation
             chg = Change
@@ -89,6 +105,10 @@ class FredSeriesQueryParams(SeriesQueryParams):
             cca = Continuously Compounded Annual Rate of Change
             log = Natural Log
         """,
+<<<<<<< HEAD
+=======
+        )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     )
     limit: int = Field(description=QUERY_DESCRIPTIONS.get("limit", ""), default=100000)
 
@@ -111,12 +131,17 @@ class FredSeriesFetcher(
         return FredSeriesQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     async def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: FredSeriesQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
     ) -> Dict:
         """Extract data."""
+<<<<<<< HEAD
 
         api_key = credentials.get("fred_api_key") if credentials else ""
         base_url = "https://api.stlouisfed.org/fred/series/observations?"
@@ -146,12 +171,46 @@ class FredSeriesFetcher(
                 [d.pop("realtime_end") for d in data]
                 data = (
                     pd.DataFrame(data)
+=======
+        api_key = credentials.get("fred_api_key") if credentials else ""
+
+        base_url = "https://api.stlouisfed.org/fred/series/observations"
+        metadata_url = "https://api.stlouisfed.org/fred/series"
+
+        querystring = get_querystring(query.model_dump(), ["series_id"])
+        series_ids = query.symbol.split(",") if "," in query.symbol else [query.symbol]
+
+        urls = [
+            f"{base_url}?series_id={series_id}&{querystring}&file_type=json&api_key={api_key}"
+            for series_id in series_ids
+        ]
+
+        async def callback(response: ClientResponse, session: ClientSession) -> Dict:
+            observations_response = await response.json()
+            series_id = response.url.query.get("series_id")
+
+            metadata_response = await session.get_json(
+                f"{metadata_url}?series_id={series_id}&file_type=json&api_key={api_key}",
+                timeout=5,
+            )
+            _metadata = metadata_response.get("seriess", [{}])[0]
+
+            observations = observations_response.get("observations")
+            try:
+                for d in observations:
+                    d.pop("realtime_start")
+                    d.pop("realtime_end")
+
+                data = (
+                    pd.DataFrame(observations)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
                     .replace(".", None)
                     .set_index("date")["value"]
                     .astype(float)
                     .dropna()
                     .to_dict()
                 )
+<<<<<<< HEAD
             except KeyError:
                 data = {}
             except TypeError:
@@ -180,6 +239,35 @@ class FredSeriesFetcher(
 
         return results
 
+=======
+            except (KeyError, TypeError):
+                return {}
+
+            return {
+                series_id: {
+                    "title": _metadata.get("title"),
+                    "units": _metadata.get("units"),
+                    "frequency": _metadata.get("frequency"),
+                    "seasonal_adjustment": _metadata.get("seasonal_adjustment"),
+                    "notes": _metadata.get("notes"),
+                    "data": data,
+                }
+            }
+
+        results = await amake_requests(urls, callback, timeout=5, **kwargs)
+
+        metadata, data = {}, {}
+        for item in results:
+            for series_id, result in item.items():
+                data[series_id] = result.pop("data")
+                metadata[series_id] = result
+
+        _warn(json.dumps(metadata))
+
+        return data
+
+    # pylint: disable=unused-argument
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     @staticmethod
     def transform_data(
         query: FredSeriesQueryParams, data: Dict, **kwargs: Any

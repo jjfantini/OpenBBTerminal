@@ -51,7 +51,11 @@ class IntrinioHistoricalAttributesFetcher(
         return IntrinioHistoricalAttributesQueryParams(**transformed_params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: IntrinioHistoricalAttributesQueryParams,  # pylint: disable=unused-argument
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -63,7 +67,11 @@ class IntrinioHistoricalAttributesFetcher(
         query_str = get_querystring(query.model_dump(by_alias=True), ["symbol", "tag"])
 
         url = f"{base_url}/historical_data/{query.symbol}/{query.tag}?{query_str}&api_key={api_key}"
+<<<<<<< HEAD
         return get_data_many(url, "historical_data")
+=======
+        return await get_data_many(url, "historical_data")
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

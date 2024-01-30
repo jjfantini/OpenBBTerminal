@@ -1,7 +1,10 @@
 """Intrinio Company News Model."""
 
+<<<<<<< HEAD
 
 from concurrent.futures import ThreadPoolExecutor
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
@@ -10,8 +13,16 @@ from openbb_core.provider.standard_models.company_news import (
     CompanyNewsData,
     CompanyNewsQueryParams,
 )
+<<<<<<< HEAD
 from openbb_core.provider.utils.helpers import get_querystring
 from openbb_intrinio.utils.helpers import get_data_many
+=======
+from openbb_core.provider.utils.helpers import (
+    ClientResponse,
+    amake_requests,
+    get_querystring,
+)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from pydantic import Field, field_validator
 
 
@@ -37,7 +48,11 @@ class IntrinioCompanyNewsData(CompanyNewsData):
         "text": "summary",
     }
 
+<<<<<<< HEAD
     id: str = Field(description="Intrinio ID for the article.")
+=======
+    id: str = Field(description="Article ID.")
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @field_validator("publication_date", mode="before", check_fields=False)
     def date_validate(cls, v):  # pylint: disable=E0213
@@ -59,13 +74,18 @@ class IntrinioCompanyNewsFetcher(
         return IntrinioCompanyNewsQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: IntrinioCompanyNewsQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
     ) -> List[Dict]:
         """Return the raw data from the Intrinio endpoint."""
         api_key = credentials.get("intrinio_api_key") if credentials else ""
+<<<<<<< HEAD
         results: List[Dict] = []
 
         def get_data(symbol):
@@ -81,6 +101,28 @@ class IntrinioCompanyNewsFetcher(
 
         results = [item for sublist in results for item in sublist]
         return results
+=======
+
+        base_url = "https://api-v2.intrinio.com/companies"
+        query_str = get_querystring(query.model_dump(by_alias=True), ["symbols"])
+
+        async def callback(response: ClientResponse, _: Any) -> List[Dict]:
+            """Return the response."""
+            if response.status != 200:
+                return []
+
+            symbol = response.url.parts[-2]
+            data = await response.json()
+
+            return [{**d, "symbol": symbol} for d in data.get("news", [])]
+
+        urls = [
+            f"{base_url}/{symbol}/news?{query_str}&api_key={api_key}"
+            for symbol in [s.strip() for s in query.symbols.split(",")]
+        ]
+
+        return await amake_requests(urls, callback, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

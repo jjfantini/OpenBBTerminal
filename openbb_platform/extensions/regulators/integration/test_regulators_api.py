@@ -2,6 +2,10 @@ import base64
 
 import pytest
 import requests
+<<<<<<< HEAD
+=======
+from extensions.tests.conftest import parametrize
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_core.env import Env
 from openbb_core.provider.utils.helpers import get_querystring
 
@@ -18,7 +22,11 @@ def headers():
 # pylint: disable=redefined-outer-name
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         ({"symbol": "TSLA", "provider": "sec"}),
@@ -36,7 +44,11 @@ def test_regulators_sec_cik_map(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         ({"query": "berkshire hathaway", "provider": "sec"}),
@@ -53,7 +65,11 @@ def test_regulators_sec_institutions_search(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         ({"query": "2022", "provider": "sec", "url": ""}),
@@ -77,7 +93,11 @@ def test_regulators_sec_schema_files(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         ({"query": "0000909832", "provider": "sec"}),
@@ -95,7 +115,11 @@ def test_regulators_sec_symbol_map(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [({"provider": "sec"})],
 )
@@ -110,7 +134,11 @@ def test_regulators_sec_rss_litigation(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [({"query": "oil", "use_cache": False, "provider": "sec"})],
 )
@@ -125,7 +153,11 @@ def test_regulators_sec_sic_search(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         ({"query": "grain", "provider": "nasdaq"}),
@@ -142,7 +174,11 @@ def test_regulators_cftc_cot_search(params, headers):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         (

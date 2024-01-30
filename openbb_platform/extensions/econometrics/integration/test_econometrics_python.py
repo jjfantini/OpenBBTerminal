@@ -1,8 +1,16 @@
 """Test econometrics extension."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 import random
 from typing import Literal
 
 import pytest
+<<<<<<< HEAD
+=======
+from extensions.tests.conftest import parametrize
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_core.app.model.obbject import OBBject
 from openbb_econometrics.utils import mock_multi_index_data
 
@@ -58,7 +66,11 @@ def get_data(menu: Literal["equity", "crypto"]):
     return funcs[menu]()
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params, data_type",
     [
         ({"data": ""}, "equity"),
@@ -77,7 +89,11 @@ def test_econometrics_correlation_matrix(params, data_type, obb):
     assert len(result.results) > 0
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params, data_type",
     [
         (
@@ -102,7 +118,11 @@ def test_econometrics_ols_regression(params, data_type, obb):
     assert len(result.results) > 0
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params, data_type",
     [
         (
@@ -126,7 +146,11 @@ def test_econometrics_ols_regression_summary(params, data_type, obb):
     assert len(result.results) > 0
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params, data_type",
     [
         (
@@ -150,7 +174,11 @@ def test_econometrics_autocorrelation(params, data_type, obb):
     assert isinstance(result, OBBject)
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params, data_type",
     [
         (
@@ -184,7 +212,11 @@ def test_econometrics_residual_autocorrelation(params, data_type, obb):
     assert isinstance(result, OBBject)
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params, data_type",
     [
         (
@@ -215,7 +247,11 @@ def test_econometrics_cointegration(params, data_type, obb):
     assert len(result.results) > 0
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params, data_type",
     [
         (
@@ -250,7 +286,11 @@ def test_econometrics_causality(params, data_type, obb):
     assert len(result.results) > 0
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params, data_type",
     [
         ({"data": "", "column": "close", "regression": "c"}, "equity"),
@@ -271,7 +311,11 @@ def test_econometrics_unit_root(params, data_type, obb):
     assert isinstance(result, OBBject)
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         {"data": "", "y_column": "income", "x_columns": ["age"]},
@@ -290,7 +334,11 @@ def test_econometrics_panel_random_effects(params, obb):
     assert len(result.results) > 0
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         {"data": "", "y_column": "income", "x_columns": ["age"]},
@@ -309,7 +357,11 @@ def test_econometrics_panel_between(params, obb):
     assert len(result.results) > 0
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         {"data": "", "y_column": "income", "x_columns": ["age"]},
@@ -328,7 +380,11 @@ def test_econometrics_panel_pooled(params, obb):
     assert len(result.results) > 0
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         {"data": "", "y_column": "income", "x_columns": ["age"]},
@@ -347,7 +403,11 @@ def test_econometrics_panel_fixed(params, obb):
     assert len(result.results) > 0
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         {"data": "", "y_column": "income", "x_columns": ["age"]},
@@ -366,7 +426,11 @@ def test_econometrics_panel_first_difference(params, obb):
     assert len(result.results) > 0
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         {"data": "", "y_column": "income", "x_columns": ["age"]},

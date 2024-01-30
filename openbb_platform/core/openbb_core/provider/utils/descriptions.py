@@ -11,6 +11,11 @@ QUERY_DESCRIPTIONS = {
     "countries": "The country or countries to get data.",
     "units": "The unit of measurement for the data.",
     "frequency": "The frequency of the data.",
+<<<<<<< HEAD
+=======
+    "symbol_list_warning": "Lists of symbols are not allowed for this function. "
+    + "Multiple symbols will be ignored in favour of the first symbol.",
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 }
 
 DATA_DESCRIPTIONS = {

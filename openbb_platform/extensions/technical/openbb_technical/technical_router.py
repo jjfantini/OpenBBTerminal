@@ -1,4 +1,9 @@
 """Technical Analysis Router."""
+<<<<<<< HEAD
+=======
+
+# pylint: disable=too-many-lines
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from typing import List, Literal, Optional
 
 import pandas as pd
@@ -17,10 +22,13 @@ from pydantic import NonNegativeFloat, NonNegativeInt, PositiveFloat, PositiveIn
 from . import helpers
 
 # TODO: Split this into multiple files
+<<<<<<< HEAD
 
 # pylint: disable=too-many-lines
 
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 router = Router(prefix="")
 
 

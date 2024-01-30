@@ -26,9 +26,15 @@ class TiingoCurrencyHistoricalQueryParams(CurrencyHistoricalQueryParams):
         "end_date": "endDate",
     }
 
+<<<<<<< HEAD
     interval: Literal[
         "1min", "5min", "15min", "30min", "1hour", "4hour", "1day"
     ] = Field(default="1day", description="Data granularity.", alias="resampleFreq")
+=======
+    interval: Literal["1min", "5min", "15min", "30min", "1hour", "4hour", "1day"] = (
+        Field(default="1day", description="Data granularity.", alias="resampleFreq")
+    )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 
 class TiingoCurrencyHistoricalData(CurrencyHistoricalData):
@@ -57,7 +63,11 @@ class TiingoCurrencyHistoricalFetcher(
 
         return TiingoCurrencyHistoricalQueryParams(**transformed_params)
 
+<<<<<<< HEAD
     # pylint: disable=protected-access
+=======
+    # pylint: disable=protected-access,unused-argument
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     @staticmethod
     def extract_data(
         query: TiingoCurrencyHistoricalQueryParams,

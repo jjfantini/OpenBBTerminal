@@ -1,4 +1,8 @@
 """The OpenBB Platform System Settings."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 import json
 import platform as pl  # I do this so that the import doesn't conflict with the variable name
 from pathlib import Path

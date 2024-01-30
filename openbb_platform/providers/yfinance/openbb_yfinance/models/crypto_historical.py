@@ -1,4 +1,8 @@
 """Yahoo Finance Crypto Historical Price Model."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 # ruff: noqa: SIM105
 
 
@@ -63,7 +67,11 @@ class YFinanceCryptoHistoricalFetcher(
         if params.get("end_date") is None:
             transformed_params["end_date"] = now
 
+<<<<<<< HEAD
         return YFinanceCryptoHistoricalQueryParams(**params)
+=======
+        return YFinanceCryptoHistoricalQueryParams(**transformed_params)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def extract_data(
@@ -72,12 +80,29 @@ class YFinanceCryptoHistoricalFetcher(
         **kwargs: Any,
     ) -> List[Dict]:
         """Return the raw data from the Yahoo Finance endpoint."""
+<<<<<<< HEAD
         if "-" not in query.symbol:
             position = len(query.symbol) - 3
             query.symbol = query.symbol[:position] + "-" + query.symbol[position:]
 
         data = yf_download(
             query.symbol,
+=======
+
+        tickers = query.symbol.split(",")
+        new_tickers = []
+        for ticker in tickers:
+            if "-" not in ticker:
+                new_ticker = ticker[:-3] + "-" + ticker[-3:]
+            if "-" in ticker:
+                new_ticker = ticker
+            new_tickers.append(new_ticker)
+
+        symbols = ",".join(new_tickers)
+
+        data = yf_download(
+            symbols,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
             start=query.start_date,
             end=query.end_date,
             interval=query.interval,
@@ -99,12 +124,18 @@ class YFinanceCryptoHistoricalFetcher(
                 data.set_index("date", inplace=True)
                 data.index = to_datetime(data.index)
 
+<<<<<<< HEAD
             start_date_dt = datetime.combine(query.start_date, datetime.min.time())
             end_date_dt = datetime.combine(query.end_date, datetime.min.time())
 
             data = data[
                 (data.index >= start_date_dt + timedelta(days=days))
                 & (data.index <= end_date_dt)
+=======
+            data = data[
+                (data.index >= to_datetime(query.start_date))
+                & (data.index <= to_datetime(query.end_date + timedelta(days=days)))
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
             ]
 
         data.reset_index(inplace=True)

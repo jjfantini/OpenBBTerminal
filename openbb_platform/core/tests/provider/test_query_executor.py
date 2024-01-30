@@ -1,4 +1,8 @@
 """Test the Query Executor."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 # pylint: disable=W0621
 
 from unittest.mock import MagicMock, patch
@@ -104,6 +108,10 @@ def test_filter_credentials_missing_dont_require(mock_query_executor):
     assert filtered_credentials == {}
 
 
+<<<<<<< HEAD
+=======
+@pytest.mark.asyncio
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 async def test_execute_success(mock_query_executor: QueryExecutor):
     """Test if the method can execute a query successfully."""
     mock_result = {"data": "test_data"}
@@ -111,9 +119,13 @@ async def test_execute_success(mock_query_executor: QueryExecutor):
     params = {"param1": "value1"}
     credentials = {"api_key": SecretStr("12345")}
 
+<<<<<<< HEAD
     async with patch.object(
         Fetcher, "fetch_data", return_value=mock_result
     ) as mock_fetch:
+=======
+    with patch.object(Fetcher, "fetch_data", return_value=mock_result) as mock_fetch:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         result = await mock_query_executor.execute(
             "test_provider", "test_fetcher", params, credentials
         )

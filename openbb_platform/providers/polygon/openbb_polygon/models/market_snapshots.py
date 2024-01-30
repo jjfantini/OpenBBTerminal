@@ -9,7 +9,11 @@ from openbb_core.provider.standard_models.market_snapshots import (
     MarketSnapshotsData,
     MarketSnapshotsQueryParams,
 )
+<<<<<<< HEAD
 from openbb_polygon.utils.helpers import get_data
+=======
+from openbb_polygon.utils.helpers import get_data_many
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from pydantic import Field, field_validator
 
 
@@ -101,7 +105,11 @@ class PolygonMarketSnapshotsFetcher(
         return PolygonMarketSnapshotsQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: PolygonMarketSnapshotsQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -110,9 +118,14 @@ class PolygonMarketSnapshotsFetcher(
         api_key = credentials.get("polygon_api_key") if credentials else ""
 
         url = f"https://api.polygon.io/v2/snapshot/locale/us/markets/stocks/tickers?apiKey={api_key}"
+<<<<<<< HEAD
         response = get_data(url, **kwargs)
 
         return response["tickers"]
+=======
+
+        return await get_data_many(url, "tickers", **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

@@ -1,6 +1,9 @@
 """Intrinio Currency Available Pairs Model."""
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from typing import Any, Dict, List, Optional
 
 from openbb_core.provider.abstract.fetcher import Fetcher
@@ -47,7 +50,11 @@ class IntrinioCurrencyPairsFetcher(
         return IntrinioCurrencyPairsQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: IntrinioCurrencyPairsQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -58,7 +65,11 @@ class IntrinioCurrencyPairsFetcher(
         base_url = "https://api-v2.intrinio.com"
         url = f"{base_url}/forex/pairs?api_key={api_key}"
 
+<<<<<<< HEAD
         return get_data_many(url, "pairs", **kwargs)
+=======
+        return await get_data_many(url, "pairs", **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

@@ -74,7 +74,11 @@
 - [ ] I have performed a self-review of my own code.
 - [ ] I have commented my code, particularly in hard-to-understand areas.
 - [ ] I have adhered to the GitFlow naming convention and my branch name is in the format of `feature/feature-name` or `hotfix/hotfix-name`.
+<<<<<<< HEAD
 - [ ] I ensure that I am following th [CONTRIBUTING guidelines](https://github.com/OpenBB-finance/OpenBBTerminal/blob/main/CONTRIBUTING.md).
+=======
+- [ ] I ensure that I am following the [CONTRIBUTING guidelines](https://github.com/OpenBB-finance/OpenBBTerminal/blob/main/CONTRIBUTING.md).
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
   - [ ] (If applicable) I have updated tests following [these guidelines](/openbb_platform/CONTRIBUTING.md#qa-your-extension).
 
 </details>

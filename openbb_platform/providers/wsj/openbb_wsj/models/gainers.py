@@ -67,6 +67,10 @@ class WSJGainersData(ETFPerformanceData):
 class WSJGainersFetcher(Fetcher[WSJGainersQueryParams, List[WSJGainersData]]):
     """Transform the query, extract and transform the data from the WSJ endpoints."""
 
+<<<<<<< HEAD
+=======
+    # pylint: disable=unused-argument
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     @staticmethod
     def transform_query(params: Dict[str, Any]) -> WSJGainersQueryParams:
         """Transform query params."""
@@ -99,8 +103,14 @@ class WSJGainersFetcher(Fetcher[WSJGainersQueryParams, List[WSJGainersData]]):
         data = data[: query.limit]
         data = sorted(
             data,
+<<<<<<< HEAD
             key=lambda x: x["percentChange"]
             if query.sort == "asc"
             else -x["percentChange"],
+=======
+            key=lambda x: (
+                x["percentChange"] if query.sort == "asc" else -x["percentChange"]
+            ),
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         )
         return [WSJGainersData.model_validate(d) for d in data]

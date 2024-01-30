@@ -5,6 +5,10 @@ from typing import Literal
 
 import pytest
 import requests
+<<<<<<< HEAD
+=======
+from extensions.tests.conftest import parametrize
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_core.env import Env
 from openbb_core.provider.utils.helpers import get_querystring
 
@@ -64,7 +68,11 @@ def get_data(menu: Literal["equity", "crypto"]):
     return funcs[menu]()
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params, data_type",
     [
         ({"data": "", "target": "close"}, "equity"),
@@ -83,7 +91,11 @@ def test_quantitative_normality(params, data_type):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params, data_type",
     [
         ({"data": "", "target": "high"}, "equity"),
@@ -102,7 +114,11 @@ def test_quantitative_capm(params, data_type):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params, data_type",
     [
         (
@@ -137,7 +153,11 @@ def test_quantitative_omega_ratio(params, data_type):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params, data_type",
     [
         ({"data": "", "target": "close", "window": "5"}, "equity"),
@@ -156,7 +176,11 @@ def test_quantitative_kurtosis(params, data_type):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params, data_type",
     [
         (
@@ -191,7 +215,11 @@ def test_quantitative_unitroot_test(params, data_type):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params, data_type",
     [
         ({"data": "", "target": "close", "rfr": "", "window": ""}, "equity"),
@@ -210,7 +238,11 @@ def test_quantitative_sharpe_ratio(params, data_type):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params, data_type",
     [
         (
@@ -247,7 +279,11 @@ def test_quantitative_sortino_ratio(params, data_type):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params, data_type",
     [
         ({"data": "", "target": "close", "window": "220"}, "equity"),
@@ -265,7 +301,11 @@ def test_quantitative_skewness(params, data_type):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params, data_type",
     [
         (
@@ -300,7 +340,11 @@ def test_quantitative_quantile(params, data_type):
     assert result.status_code == 200
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params, data_type",
     [
         ({"data": "", "target": "close"}, "equity"),

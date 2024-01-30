@@ -33,7 +33,11 @@ class FMPEtfCountriesFetcher(
         return FMPEtfCountriesQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: FMPEtfCountriesQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -52,7 +56,11 @@ class FMPEtfCountriesFetcher(
                 endpoint=f"etf-country-weightings/{symbol}",
                 api_key=api_key,
             )
+<<<<<<< HEAD
             result = get_data_many(url, **kwargs)
+=======
+            result = await get_data_many(url, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
             df = pd.DataFrame(result).set_index("country")
             if len(df) > 0:
                 for i in df.index:

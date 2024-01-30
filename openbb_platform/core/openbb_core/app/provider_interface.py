@@ -1,4 +1,8 @@
 """Provider Interface."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from dataclasses import dataclass, make_dataclass
 from difflib import SequenceMatcher
 from typing import Any, Callable, Dict, List, Literal, Optional, Tuple, Type, Union
@@ -245,18 +249,34 @@ class ProviderInterface(metaclass=SingletonMeta):
                 title=provider_name,
                 description=description,
                 alias=field.alias or None,
+<<<<<<< HEAD
+=======
+                json_schema_extra=field.json_schema_extra,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
             )
         elif provider_name:
             default: FieldInfo = Field(
                 default=default or None,
                 title=provider_name,
                 description=description,
+<<<<<<< HEAD
                 validation_alias=AliasChoices(
                     field.alias,
                     *list(set(alias_dict.get(name, []))),
                 )
                 if alias_dict.get(name, [])
                 else None,
+=======
+                validation_alias=(
+                    AliasChoices(
+                        field.alias,
+                        *list(set(alias_dict.get(name, []))),
+                    )
+                    if alias_dict.get(name, [])
+                    else None
+                ),
+                json_schema_extra=field.json_schema_extra,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
             )
 
         return DataclassField(new_name, type_, default)
@@ -479,6 +499,10 @@ class ProviderInterface(metaclass=SingletonMeta):
             fields.update(extra.model_fields)
 
             fields_dict: Dict[str, Tuple[Any, Any]] = {}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
             for name, field in fields.items():
                 fields_dict[name] = (
                     field.annotation,
@@ -488,6 +512,10 @@ class ProviderInterface(metaclass=SingletonMeta):
                         description=field.description,
                         alias=field.alias,
                         validation_alias=field.validation_alias,
+<<<<<<< HEAD
+=======
+                        json_schema_extra=field.json_schema_extra,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
                     ),
                 )
 

@@ -1,8 +1,12 @@
 """Polygon Equity Historical Price Model."""
 
+<<<<<<< HEAD
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 from itertools import repeat
+=======
+from datetime import datetime
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from typing import Any, Dict, List, Literal, Optional
 
 from dateutil.relativedelta import relativedelta
@@ -12,7 +16,15 @@ from openbb_core.provider.standard_models.equity_historical import (
     EquityHistoricalQueryParams,
 )
 from openbb_core.provider.utils.descriptions import QUERY_DESCRIPTIONS
+<<<<<<< HEAD
 from openbb_polygon.utils.helpers import get_data
+=======
+from openbb_core.provider.utils.helpers import (
+    ClientResponse,
+    ClientSession,
+    amake_requests,
+)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from pydantic import (
     Field,
     PositiveInt,
@@ -107,7 +119,11 @@ class PolygonEquityHistoricalFetcher(
         return PolygonEquityHistoricalQueryParams(**transformed_params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(  # pylint: disable=protected-access
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: PolygonEquityHistoricalQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -115,6 +131,7 @@ class PolygonEquityHistoricalFetcher(
         """Return the raw data from the Polygon endpoint."""
         api_key = credentials.get("polygon_api_key") if credentials else ""
 
+<<<<<<< HEAD
         data: List = []
 
         # if there are more than 20 symbols, we need to increase the timeout
@@ -128,11 +145,16 @@ class PolygonEquityHistoricalFetcher(
 
             # pylint: disable=protected-access
             url = (
+=======
+        urls = [
+            (
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
                 "https://api.polygon.io/v2/aggs/ticker/"
                 f"{symbol.upper()}/range/{query._multiplier}/{query._timespan}/"
                 f"{query.start_date}/{query.end_date}?adjusted={query.adjusted}"
                 f"&sort={query.sort}&limit={query.limit}&apiKey={api_key}"
             )
+<<<<<<< HEAD
 
             response = get_data(url, **kwargs)
 
@@ -144,6 +166,25 @@ class PolygonEquityHistoricalFetcher(
                 response = get_data(url, **kwargs)
                 results.extend(response.get("results", []))
                 next_url = response.get("next_url", None)
+=======
+            for symbol in query.symbol.split(",")
+        ]
+
+        async def callback(
+            response: ClientResponse, session: ClientSession
+        ) -> List[Dict]:
+            data = await response.json()
+
+            symbol = response.url.parts[4]
+            next_url = data.get("next_url", None)
+            results: list = data.get("results", [])
+
+            while next_url:
+                url = f"{next_url}&apiKey={api_key}"
+                data = await session.get_json(url)
+                results.extend(data.get("results", []))
+                next_url = data.get("next_url", None)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
             for r in results:
                 r["t"] = datetime.fromtimestamp(r["t"] / 1000)
@@ -152,12 +193,18 @@ class PolygonEquityHistoricalFetcher(
                 if "," in query.symbol:
                     r["symbol"] = symbol
 
+<<<<<<< HEAD
             data.extend(results)
 
         with ThreadPoolExecutor() as executor:
             executor.map(multiple_symbols, query.symbol.split(","), repeat(data))
 
         return data
+=======
+            return results
+
+        return await amake_requests(urls, callback, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

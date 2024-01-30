@@ -1,17 +1,35 @@
 """Provider helpers."""
+<<<<<<< HEAD
 import asyncio
 import random
 import re
 import zlib
+=======
+
+import asyncio
+import re
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from functools import partial
 from inspect import iscoroutinefunction
 from typing import Awaitable, Callable, List, Literal, Optional, TypeVar, Union, cast
 
+<<<<<<< HEAD
 import aiohttp
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 import requests
 from anyio import start_blocking_portal
 from typing_extensions import ParamSpec
 
+<<<<<<< HEAD
+=======
+from openbb_core.provider.utils.client import (
+    ClientResponse,
+    ClientSession,
+    get_user_agent,
+)
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 T = TypeVar("T")
 P = ParamSpec("P")
 
@@ -50,6 +68,7 @@ def get_querystring(items: dict, exclude: List[str]) -> str:
     return f"{querystring}" if querystring else ""
 
 
+<<<<<<< HEAD
 def get_user_agent() -> str:
     """Get a not very random user agent."""
     user_agent_strings = [
@@ -66,11 +85,18 @@ def get_user_agent() -> str:
 
 
 async def async_make_request(
+=======
+async def amake_request(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     url: str,
     method: Literal["GET", "POST"] = "GET",
     timeout: int = 10,
     response_callback: Optional[
+<<<<<<< HEAD
         Callable[[aiohttp.ClientResponse], Awaitable[Union[dict, List[dict]]]]
+=======
+        Callable[[ClientResponse, ClientSession], Awaitable[Union[dict, List[dict]]]]
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     ] = None,
     **kwargs,
 ) -> Union[dict, List[dict]]:
@@ -85,8 +111,15 @@ async def async_make_request(
         HTTP method to use.  Can be "GET" or "POST", by default "GET"
     timeout : int, optional
         Timeout in seconds, by default 10.  Can be overwritten by user setting, request_timeout
+<<<<<<< HEAD
     response_callback : Callable[[aiohttp.ClientResponse], Awaitable[Union[dict, List[dict]]]], optional
         Callback to run on the response, by default None
+=======
+    response_callback : Callable[[ClientResponse, ClientSession], Awaitable[Union[dict, List[dict]]]], optional
+        Async callback with response and session as arguments that returns the json, by default None
+    session : ClientSession, optional
+        Custom session to use for requests, by default None
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 
     Returns
@@ -94,6 +127,7 @@ async def async_make_request(
     Union[dict, List[dict]]
         Response json
     """
+<<<<<<< HEAD
 
     kwargs["timeout"] = kwargs.pop("preferences", {}).get("request_timeout", timeout)
     kwargs["headers"] = kwargs.get(
@@ -132,6 +166,83 @@ async def async_make_request(
             )  # pylint: disable=protected-access
 
         return await response_callback(response)
+=======
+    if method.upper() not in ["GET", "POST"]:
+        raise ValueError("Method must be GET or POST")
+
+    kwargs["timeout"] = kwargs.pop("preferences", {}).get("request_timeout", timeout)
+
+    response_callback = response_callback or (
+        lambda r, _: asyncio.ensure_future(r.json())
+    )
+
+    with_session = kwargs.pop("with_session", "session" in kwargs)
+    session: ClientSession = kwargs.pop("session", ClientSession())
+
+    try:
+        response = await session.request(method, url, **kwargs)
+        return await response_callback(response, session)
+    finally:
+        if not with_session:
+            await session.close()
+
+
+async def amake_requests(
+    urls: Union[str, List[str]],
+    response_callback: Optional[
+        Callable[[ClientResponse, ClientSession], Awaitable[Union[dict, List[dict]]]]
+    ] = None,
+    **kwargs,
+):
+    """Make multiple requests asynchronously.
+
+    Parameters
+    ----------
+    urls : Union[str, List[str]]
+        List of urls to make requests to
+    method : Literal["GET", "POST"], optional
+        HTTP method to use.  Can be "GET" or "POST", by default "GET"
+    timeout : int, optional
+        Timeout in seconds, by default 10.  Can be overwritten by user setting, request_timeout
+    response_callback : Callable[[ClientResponse, ClientSession], Awaitable[Union[dict, List[dict]]]], optional
+        Async callback with response and session as arguments that returns the json, by default None
+    session : ClientSession, optional
+        Custom session to use for requests, by default None
+
+    Returns
+    -------
+    Union[dict, List[dict]]
+        Response json
+    """
+    session: ClientSession = kwargs.pop("session", ClientSession())
+    kwargs["response_callback"] = response_callback
+
+    urls = urls if isinstance(urls, list) else [urls]
+
+    try:
+        results = []
+
+        for result in await asyncio.gather(
+            *[amake_request(url, session=session, **kwargs) for url in urls],
+            return_exceptions=True,
+        ):
+            is_exception = isinstance(result, Exception)
+
+            if is_exception and kwargs.get("raise_for_status", False):
+                raise result
+
+            if is_exception or not result:
+                continue
+
+            results.extend(  # type: ignore
+                result if isinstance(result, list) else [result]
+            )
+
+        return results
+
+    finally:
+        await session.close()
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 
 def make_request(
@@ -220,4 +331,11 @@ def run_async(
         return cast(T, func(*args, **kwargs))
 
     with start_blocking_portal() as portal:
+<<<<<<< HEAD
         return portal.call(partial(func, *args, **kwargs))
+=======
+        try:
+            return portal.call(partial(func, *args, **kwargs))
+        finally:
+            portal.call(portal.stop)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe

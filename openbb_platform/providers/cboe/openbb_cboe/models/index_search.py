@@ -3,8 +3,12 @@
 from datetime import time
 from typing import Any, Dict, List, Optional
 
+<<<<<<< HEAD
 import pandas as pd
 from openbb_cboe.utils.helpers import Europe, get_cboe_index_directory
+=======
+from openbb_cboe.utils.helpers import get_index_directory
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_core.provider.abstract.fetcher import Fetcher
 from openbb_core.provider.standard_models.index_search import (
     IndexSearchData,
@@ -19,14 +23,22 @@ class CboeIndexSearchQueryParams(IndexSearchQueryParams):
     Source: https://www.cboe.com/
     """
 
+<<<<<<< HEAD
     europe: bool = Field(
         description="Filter for European indices. False for US indices.", default=False
+=======
+    use_cache: bool = Field(
+        default=True,
+        description="When True, the Cboe Index directory will be cached for 24 hours."
+        + " Set as False to bypass.",
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     )
 
 
 class CboeIndexSearchData(IndexSearchData):
     """CBOE Index Search Data."""
 
+<<<<<<< HEAD
     isin: Optional[str] = Field(
         description="ISIN code for the index. Valid only for European indices.",
         default=None,
@@ -35,6 +47,15 @@ class CboeIndexSearchData(IndexSearchData):
         description="Region for the index. Valid only for European indices",
         default=None,
     )
+=======
+    __alias_dict__ = {
+        "symbol": "index_symbol",
+        "data_delay": "mkt_data_delay",
+        "open_time": "calc_start_time",
+        "close_time": "calc_end_time",
+    }
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     description: Optional[str] = Field(
         description="Description for the index.", default=None
     )
@@ -81,12 +102,17 @@ class CboeIndexSearchFetcher(
         return CboeIndexSearchQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: CboeIndexSearchQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
     ) -> List[Dict]:
         """Return the raw data from the CBOE endpoint."""
+<<<<<<< HEAD
         symbols = pd.DataFrame()
         if query.europe is True:
             symbols = pd.DataFrame(Europe.list_indices())
@@ -96,6 +122,21 @@ class CboeIndexSearchFetcher(
         target = "name" if not query.is_symbol else "symbol"
         idx = symbols[target].str.contains(query.query, case=False)
         result = symbols[idx]
+=======
+
+        symbols = await get_index_directory(use_cache=query.use_cache, **kwargs)
+        symbols.drop(columns=["source"], inplace=True)
+        if query.is_symbol is True:
+            result = symbols[
+                symbols["index_symbol"].str.contains(query.query, case=False)
+            ]
+        else:
+            result = symbols[
+                symbols["name"].str.contains(query.query, case=False)
+                | symbols["index_symbol"].str.contains(query.query, case=False)
+                | symbols["description"].str.contains(query.query, case=False)
+            ]
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         return result.to_dict("records")
 

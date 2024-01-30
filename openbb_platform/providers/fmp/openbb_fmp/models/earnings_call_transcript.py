@@ -1,6 +1,9 @@
 """FMP Earnings Call Transcript Model."""
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
@@ -51,7 +54,11 @@ class FMPEarningsCallTranscriptFetcher(
         return FMPEarningsCallTranscriptQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: FMPEarningsCallTranscriptQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -67,7 +74,11 @@ class FMPEarningsCallTranscriptFetcher(
             ["symbol"],
         )
 
+<<<<<<< HEAD
         return get_data_many(url, **kwargs)
+=======
+        return await get_data_many(url, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

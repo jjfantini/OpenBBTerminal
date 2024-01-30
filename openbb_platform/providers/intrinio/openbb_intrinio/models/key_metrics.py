@@ -7,7 +7,14 @@ from openbb_core.provider.standard_models.key_metrics import (
     KeyMetricsData,
     KeyMetricsQueryParams,
 )
+<<<<<<< HEAD
 from openbb_intrinio.utils.helpers import get_data_one
+=======
+from openbb_core.provider.utils.helpers import (
+    ClientResponse,
+    amake_requests,
+)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from pydantic import Field
 
 
@@ -52,14 +59,21 @@ class IntrinioKeyMetricsFetcher(
         return IntrinioKeyMetricsQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: IntrinioKeyMetricsQueryParams,  # pylint: disable=unused-argument
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
     ) -> Dict:
         """Return the raw data from the Intrinio endpoint."""
         api_key = credentials.get("intrinio_api_key") if credentials else ""
+<<<<<<< HEAD
         data: Dict = {}
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         tags = [
             "beta",
             "volume",
@@ -70,10 +84,25 @@ class IntrinioKeyMetricsFetcher(
             "pricetoearnings",
         ]
 
+<<<<<<< HEAD
         data["symbol"] = query.symbol
         for tag in tags:
             url = f"https://api-v2.intrinio.com/companies/{query.symbol}/data_point/{tag}?api_key={api_key}"
             data[tag] = get_data_one(url).get("value")
+=======
+        urls = [
+            f"https://api-v2.intrinio.com/companies/{query.symbol}/data_point/{tag}?api_key={api_key}"
+            for tag in tags
+        ]
+
+        async def callback(response: ClientResponse, _: Any) -> Dict:
+            """Return the response."""
+            return {response.url.parts[-1]: await response.json()}
+
+        data: Dict = {"symbol": query.symbol}
+        for result in await amake_requests(urls, callback, **kwargs):
+            data.update(result)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         return data
 

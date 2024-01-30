@@ -1,6 +1,9 @@
 """Benzinga World News Model."""
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 import math
 from datetime import datetime
 from typing import Any, Dict, List, Literal, Optional
@@ -10,11 +13,17 @@ from openbb_core.provider.standard_models.world_news import (
     WorldNewsData,
     WorldNewsQueryParams,
 )
+<<<<<<< HEAD
 from openbb_core.provider.utils.helpers import get_querystring
 from pydantic import Field, field_validator
 
 from ..utils.helpers import get_data
 
+=======
+from openbb_core.provider.utils.helpers import amake_requests, get_querystring
+from pydantic import Field, field_validator
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 class BenzingaWorldNewsQueryParams(WorldNewsQueryParams):
     """Benzinga World News Query.
@@ -83,7 +92,11 @@ class BenzingaWorldNewsData(WorldNewsData):
 
     __alias_dict__ = {"date": "created", "text": "body", "images": "image"}
 
+<<<<<<< HEAD
     id: str = Field(description="ID of the news.")
+=======
+    id: str = Field(description="Article ID.")
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     author: Optional[str] = Field(default=None, description="Author of the news.")
     teaser: Optional[str] = Field(description="Teaser of the news.", default=None)
     channels: Optional[str] = Field(
@@ -134,7 +147,11 @@ class BenzingaWorldNewsFetcher(
         return BenzingaWorldNewsQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: BenzingaWorldNewsQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -147,6 +164,7 @@ class BenzingaWorldNewsFetcher(
         querystring = get_querystring(query.model_dump(by_alias=True), ["order"])
 
         pages = math.ceil(query.limit / 100)
+<<<<<<< HEAD
         data = []
 
         for page in range(pages):
@@ -157,6 +175,17 @@ class BenzingaWorldNewsFetcher(
         data = data[: query.limit]
 
         return data
+=======
+
+        urls = [
+            f"{base_url}?{querystring}&page={page}&token={token}"
+            for page in range(pages)
+        ]
+
+        data = await amake_requests(urls, **kwargs)
+
+        return data[: query.limit]
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

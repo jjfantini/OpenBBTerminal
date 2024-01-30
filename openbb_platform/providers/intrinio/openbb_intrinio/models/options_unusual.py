@@ -73,7 +73,11 @@ class IntrinioOptionsUnusualFetcher(
         return IntrinioOptionsUnusualQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: IntrinioOptionsUnusualQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -89,7 +93,11 @@ class IntrinioOptionsUnusualFetcher(
             if query.symbol
             else base_url + f"?source={query.source}&api_key={api_key}"
         )
+<<<<<<< HEAD
         response = get_data_one(url, **kwargs)
+=======
+        response = await get_data_one(url, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         if "trades" in response:
             data = sorted(

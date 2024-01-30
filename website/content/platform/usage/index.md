@@ -27,7 +27,11 @@ import HeadTitle from '@site/src/components/General/HeadTitle.tsx';
 
 <HeadTitle title="Overview - Usage | OpenBB Platform Docs" />
 
+<<<<<<< HEAD
 At its base, the OpenBB Platform supplies core architecture and services for connecting data providers and extensions, consumable as a Python client and Fast API. The extension framework provides interoperability between as many, or few, services required.  Optional extras are not included with the base installation, and these include:
+=======
+At its base, the OpenBB Platform supplies core architecture and services for connecting data providers and extensions, consumable through the Python client or the Fast API. The extension framework provides interoperability between as many, or few, services required.  Optional extras are not included with the base installation, and these include:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 - Charting libraries and views
 - Data cleaning
@@ -37,6 +41,7 @@ At its base, the OpenBB Platform supplies core architecture and services for con
 
 ## Authorization
 
+<<<<<<< HEAD
 By default, authorization is not required to initialize and use the core services. Most data providers, however,  require an API key to access their data. They can be stored locally, or securely on the OpenBB Hub for convenient remote access. Refer to our Developer Guidelines for best practices within a production environment.
 
 ### OpenBB Hub
@@ -60,6 +65,29 @@ obb.account.login(email="your_email", password="your_password", remember_me=True
 obb.user.credentials.polygon_api_key = "new_key"
 
 # Save account changes
+=======
+By default, authorization is not required to initialize and use the core services. Most data providers, however, require an API key to access their data. The API keys can be stored locally, or securely on the OpenBB Hub for convenient remote access. Refer to our Developer Guidelines for best practices within a production environment.
+
+### OpenBB Hub
+
+Data provider credentials and user preferences can be securely stored on the OpenBB Hub and accessed in Python using a revokable Personal Access Token (PAT). Login to the [Hub](https://my.openbb.co/) to manage this method of remote authorization.
+
+The OpenBB Hub is a convenient solution for accessing data in temporary Python environments, like Google Colab ([example notebook](https://github.com/OpenBB-finance/OpenBBTerminal/blob/develop/examples/googleColab.ipynb)). Login with:
+
+```python
+from openbb import obb
+
+# Login with personal access token
+obb.account.login(pat="my_pat", remember_me=True)
+
+# Alternatively, login with email and password
+obb.account.login(email="my_email", password="my_password", remember_me=True)
+
+# Change a credential
+obb.user.credentials.polygon_api_key = "my_api_key"
+
+# Save account changes to the Hub
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 obb.account.save()
 
 # Refresh account with latest changes
@@ -71,6 +99,7 @@ obb.account.logout()
 
 Set `remember_me` as `False` to discard all credentials at the end of the session.
 
+<<<<<<< HEAD
 ### Fast API
 
 Activate the Python environment and then start the server from a Terminal command line with:
@@ -110,6 +139,8 @@ response.json()
 
 Refer to the Developer Guidelines for custom authorization procedures.
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 ### Local Environment
 
 Credentials and user preferences  are stored locally, `~/.openbb_platform/`, as a JSON file, `user_settings.json`.  It is read upon initializing the Python client, or when the Fast API is authorized. If the file does not exist, create it with any text editor. The schema below can be copy/pasted if required, providers not listed here are added using the same format:
@@ -117,6 +148,7 @@ Credentials and user preferences  are stored locally, `~/.openbb_platform/`, as 
 ```json
 {
   "credentials": {
+<<<<<<< HEAD
     "fmp_api_key": "REPLACE",
     "polygon_api_key": "REPLACE",
     "benzinga_api_key": "REPLACE",
@@ -124,6 +156,15 @@ Credentials and user preferences  are stored locally, `~/.openbb_platform/`, as 
     "nasdaq_api_key": "REPLACE",
     "intrinio_api_key": "REPLACE",
     "alpha_vantage_api_key": "REPLACE",
+=======
+    "fmp_api_key": "REPLACE_ME",
+    "polygon_api_key": "REPLACE_ME",
+    "benzinga_api_key": "REPLACE_ME",
+    "fred_api_key": "REPLACE_ME",
+    "nasdaq_api_key": "REPLACE_ME",
+    "intrinio_api_key": "REPLACE_ME",
+    "alpha_vantage_api_key": "REPLACE_ME",
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     }
 }
 ```
@@ -131,7 +172,11 @@ Credentials and user preferences  are stored locally, `~/.openbb_platform/`, as 
 To set keys from the Python client for the current session only, access the Credentials class:
 
 ```python
+<<<<<<< HEAD
 obb.user.credentials.intrinio_api_key = "REPLACE_WITH_KEY"
+=======
+obb.user.credentials.intrinio_api_key = "my_api_key"
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 ```
 
 ## Environment Variables
@@ -186,6 +231,10 @@ HTTP_PROXY="http://10.10.10.10:8000"
 | table_style           | dark                             | ["dark", "light"]         | "The default color style to use with the OpenBB Charting Extension tables. Options are "dark" and "light""   |
 | request_timeout       | 15                               | Any positive integer.  | Specifies the timeout duration for HTTP requests.  |
 | metadata              | True                             | [True, False]        | Enables or disables the collection of metadata  which provides information about operations  including arguments  duration  route  and timestamp. Disabling this feature may improve performance in cases where contextual information is not needed or when the additional computation time and storage space are a concern.  |
+<<<<<<< HEAD
+=======
+| field_order           | False                            | [True, False]        | Enables or disables the information on the field order defined with Pydantic models. Useful for frontend as the API returns JSON which is an unordered collection.  |
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 | output_type           | OBBject                          | ["OBBject", "dataframe", "numpy", "dict", "chart", "polars"] | Specifies the type of data the application will output when a command or endpoint is accessed. Note that choosing data formats only available in Python  such as `dataframe` | `numpy` or `polars` will render the application's API non-functional. |
 
 User settings can be set from the Python interface directly.

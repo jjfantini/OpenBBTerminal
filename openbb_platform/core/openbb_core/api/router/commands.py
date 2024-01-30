@@ -1,9 +1,15 @@
 import inspect
 from functools import partial, wraps
 from inspect import Parameter, Signature, signature
+<<<<<<< HEAD
 from typing import Any, Callable, Dict, Tuple, TypeVar
 
 from fastapi import APIRouter, Depends
+=======
+from typing import Any, Callable, Dict, Optional, Tuple, TypeVar
+
+from fastapi import APIRouter, Depends, Header
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from fastapi.routing import APIRoute
 from openbb_core.app.charting_service import ChartingService
 from openbb_core.app.command_runner import CommandRunner
@@ -70,6 +76,22 @@ def build_new_signature(path: str, func: Callable) -> Signature:
             )
         )
 
+<<<<<<< HEAD
+=======
+    if custom_headers := SystemService().system_settings.api_settings.custom_headers:
+        for name, default in custom_headers.items():
+            new_parameter_list.append(
+                Parameter(
+                    name.replace("-", "_"),
+                    kind=Parameter.POSITIONAL_OR_KEYWORD,
+                    default=default,
+                    annotation=Annotated[
+                        Optional[str], Header(include_in_schema=False)
+                    ],
+                )
+            )
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     if Env().API_AUTH:
         new_parameter_list.append(
             Parameter(

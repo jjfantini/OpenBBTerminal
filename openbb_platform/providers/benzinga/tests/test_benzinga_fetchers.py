@@ -1,5 +1,9 @@
 import pytest
 from openbb_benzinga.models.company_news import BenzingaCompanyNewsFetcher
+<<<<<<< HEAD
+=======
+from openbb_benzinga.models.price_target import BenzingaPriceTargetFetcher
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_benzinga.models.world_news import BenzingaWorldNewsFetcher
 from openbb_core.app.service.user_service import UserService
 
@@ -34,3 +38,15 @@ def test_benzinga_company_news_fetcher(credentials=test_credentials):
     fetcher = BenzingaCompanyNewsFetcher()
     result = fetcher.test(params, credentials)
     assert result is None
+<<<<<<< HEAD
+=======
+
+
+@pytest.mark.record_http
+def test_benzinga_price_target_fetcher(credentials=test_credentials):
+    params = {"symbol": "AAPL"}
+
+    fetcher = BenzingaPriceTargetFetcher()
+    result = fetcher.test(params, credentials)
+    assert result is None
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe

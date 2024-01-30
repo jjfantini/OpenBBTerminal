@@ -25,7 +25,11 @@ async def cot_search(
 ) -> OBBject[BaseModel]:
     """Curated Commitment of Traders Reports.
 
+<<<<<<< HEAD
     Fuzzy search and list of curated Commitment of Traders Reports series information.
+=======
+    Search a list of curated Commitment of Traders Reports series information.
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     """
     return await OBBject.from_query(Query(**locals()))
 

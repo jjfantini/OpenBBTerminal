@@ -6,9 +6,14 @@ from typing import List, Literal, Optional, Union
 from openbb_core.app.model.custom_parameter import OpenBBCustomParameter
 from openbb_core.app.model.obbject import OBBject
 from openbb_core.app.static.container import Container
+<<<<<<< HEAD
 from openbb_core.app.static.decorators import validate
 from openbb_core.app.static.filters import filter_inputs
 from openbb_core.provider.abstract.data import Data
+=======
+from openbb_core.app.static.utils.decorators import validate
+from openbb_core.app.static.utils.filters import filter_inputs
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from typing_extensions import Annotated
 
 
@@ -40,7 +45,11 @@ class ROUTER_equity_calendar(Container):
         ] = None,
         provider: Optional[Literal["fmp"]] = None,
         **kwargs
+<<<<<<< HEAD
     ) -> OBBject[List[Data]]:
+=======
+    ) -> OBBject:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """Upcoming and Historical Dividend Calendar.
 
         Parameters
@@ -95,6 +104,7 @@ class ROUTER_equity_calendar(Container):
         >>> obb.equity.calendar.dividend()
         """  # noqa: E501
 
+<<<<<<< HEAD
         inputs = filter_inputs(
             provider_choices={
                 "provider": provider,
@@ -109,6 +119,20 @@ class ROUTER_equity_calendar(Container):
         return self._run(
             "/equity/calendar/dividend",
             **inputs,
+=======
+        return self._run(
+            "/equity/calendar/dividend",
+            **filter_inputs(
+                provider_choices={
+                    "provider": provider,
+                },
+                standard_params={
+                    "start_date": start_date,
+                    "end_date": end_date,
+                },
+                extra_params=kwargs,
+            )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         )
 
     @validate
@@ -128,7 +152,11 @@ class ROUTER_equity_calendar(Container):
         ] = None,
         provider: Optional[Literal["fmp"]] = None,
         **kwargs
+<<<<<<< HEAD
     ) -> OBBject[List[Data]]:
+=======
+    ) -> OBBject:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """Upcoming and Historical earnings calendar.
 
         Parameters
@@ -168,9 +196,15 @@ class ROUTER_equity_calendar(Container):
             The earnings-per-share from the same previously reported period.
         eps_consensus : Optional[float]
             The analyst conesus earnings-per-share estimate.
+<<<<<<< HEAD
         actual_eps : Optional[float]
             The actual earnings per share announced. (provider: fmp)
         actual_revenue : Optional[float]
+=======
+        eps_actual : Optional[float]
+            The actual earnings per share announced. (provider: fmp)
+        revenue_actual : Optional[float]
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
             The actual reported revenue. (provider: fmp)
         revenue_consensus : Optional[float]
             The revenue forecast consensus. (provider: fmp)
@@ -187,6 +221,7 @@ class ROUTER_equity_calendar(Container):
         >>> obb.equity.calendar.earnings()
         """  # noqa: E501
 
+<<<<<<< HEAD
         inputs = filter_inputs(
             provider_choices={
                 "provider": provider,
@@ -201,6 +236,20 @@ class ROUTER_equity_calendar(Container):
         return self._run(
             "/equity/calendar/earnings",
             **inputs,
+=======
+        return self._run(
+            "/equity/calendar/earnings",
+            **filter_inputs(
+                provider_choices={
+                    "provider": provider,
+                },
+                standard_params={
+                    "start_date": start_date,
+                    "end_date": end_date,
+                },
+                extra_params=kwargs,
+            )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         )
 
     @validate
@@ -228,7 +277,11 @@ class ROUTER_equity_calendar(Container):
         ] = 100,
         provider: Optional[Literal["intrinio"]] = None,
         **kwargs
+<<<<<<< HEAD
     ) -> OBBject[List[Data]]:
+=======
+    ) -> OBBject:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """Upcoming and Historical IPO Calendar.
 
         Parameters
@@ -354,6 +407,7 @@ class ROUTER_equity_calendar(Container):
         >>> obb.equity.calendar.ipo(limit=100)
         """  # noqa: E501
 
+<<<<<<< HEAD
         inputs = filter_inputs(
             provider_choices={
                 "provider": provider,
@@ -370,6 +424,22 @@ class ROUTER_equity_calendar(Container):
         return self._run(
             "/equity/calendar/ipo",
             **inputs,
+=======
+        return self._run(
+            "/equity/calendar/ipo",
+            **filter_inputs(
+                provider_choices={
+                    "provider": provider,
+                },
+                standard_params={
+                    "symbol": ",".join(symbol) if isinstance(symbol, list) else symbol,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                    "limit": limit,
+                },
+                extra_params=kwargs,
+            )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         )
 
     @validate
@@ -389,7 +459,11 @@ class ROUTER_equity_calendar(Container):
         ] = None,
         provider: Optional[Literal["fmp"]] = None,
         **kwargs
+<<<<<<< HEAD
     ) -> OBBject[List[Data]]:
+=======
+    ) -> OBBject:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """Calendar Splits. Show Stock Split Calendar.
 
         Parameters
@@ -436,6 +510,7 @@ class ROUTER_equity_calendar(Container):
         >>> obb.equity.calendar.splits()
         """  # noqa: E501
 
+<<<<<<< HEAD
         inputs = filter_inputs(
             provider_choices={
                 "provider": provider,
@@ -450,4 +525,18 @@ class ROUTER_equity_calendar(Container):
         return self._run(
             "/equity/calendar/splits",
             **inputs,
+=======
+        return self._run(
+            "/equity/calendar/splits",
+            **filter_inputs(
+                provider_choices={
+                    "provider": provider,
+                },
+                standard_params={
+                    "start_date": start_date,
+                    "end_date": end_date,
+                },
+                extra_params=kwargs,
+            )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         )

@@ -1,6 +1,10 @@
 """Test currency extension."""
 
 import pytest
+<<<<<<< HEAD
+=======
+from extensions.tests.conftest import parametrize
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_core.app.model.obbject import OBBject
 
 # pylint: disable=redefined-outer-name
@@ -17,7 +21,11 @@ def obb(pytestconfig):
         return openbb.obb
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         (
@@ -52,7 +60,11 @@ def test_currency_search(params, obb):
     assert len(result.results) > 0
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
+=======
+@parametrize(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     "params",
     [
         (
@@ -147,9 +159,15 @@ def test_currency_price_historical(params, obb):
     assert len(result.results) > 0
 
 
+<<<<<<< HEAD
 @pytest.mark.parametrize(
     "params",
     [({})],
+=======
+@parametrize(
+    "params",
+    [({"provider": "ecb"})],
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 )
 @pytest.mark.integration
 def test_currency_reference_rates(params, obb):

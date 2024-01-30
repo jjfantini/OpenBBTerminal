@@ -6,6 +6,7 @@ Publishing checklist:
 
 1. Ensure all unit tests pass: `pytest openbb_platform -m "not integration"`
 2. Ensure all integration tests pass: `pytest openbb_platform -m integration`
+<<<<<<< HEAD
 3. Run the publishing script: `python build/pypi/openbb_platform/publish.py`
 
     Consider using the `--dry-run` flag to check if everything is correct before publishing.
@@ -34,6 +35,22 @@ Publishing checklist:
             When publishing this package:
             - Bump the dependency package versions
             - Re-build the static assets that are bundled with the package
+=======
+3. Run `python -c "import openbb; openbb.build()"` to build the static assets. Make sure that only required extensions are installed.
+
+> **Note** Run `python -c "import openbb"` after building the static to check that no additional static is being built.
+
+4. Run the following commands for publishing the packages to PyPI:
+
+    Consider using the `--dry-run` flag to check if everything is correct before publishing.
+    Also, it might be a good idea to run the script in batches to ensure that the packages are published correctly and the dependencies pick the correct versions.
+
+    1. For the core package run: `python build/pypi/openbb_platform/publish.py --core`
+    2. For the extension and provider packages run: `python build/pypi/openbb_platform/publish.py --extensions`
+    3. For the `openbb` package, do the following
+         - Bump the dependency package versions
+         - Re-build the static assets that are bundled with the package
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     > Note that, in order for packages to pick up the latest versions of dependencies, it might be necessary to clear the local cache of the dependencies:
     >
@@ -41,8 +58,13 @@ Publishing checklist:
     >
     > Also, sometimes there might be some delay in the PyPI API, so it might be necessary to wait a few minutes before publishing the next package.
 
+<<<<<<< HEAD
 4. Update poetry files: `python build/pypi/openbb_platform/poetry_update.py`
 5. Open a PR so that changes are reflected on the main branch
+=======
+5. Update poetry files: `python build/pypi/openbb_platform/poetry_update.py`
+6. Open a PR so that changes are reflected on the main branch
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 Finally, check if everything works:
 

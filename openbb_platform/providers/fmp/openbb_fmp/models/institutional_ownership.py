@@ -140,7 +140,11 @@ class FMPInstitutionalOwnershipFetcher(
         return FMPInstitutionalOwnershipQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: FMPInstitutionalOwnershipQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -149,7 +153,12 @@ class FMPInstitutionalOwnershipFetcher(
         api_key = credentials.get("fmp_api_key") if credentials else ""
 
         url = create_url(4, "institutional-ownership/symbol-ownership", api_key, query)
+<<<<<<< HEAD
         return get_data_many(url, **kwargs)
+=======
+
+        return await get_data_many(url, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

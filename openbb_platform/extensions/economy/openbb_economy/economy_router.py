@@ -1,4 +1,8 @@
 """Economy Router."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_core.app.model.command_context import CommandContext
 from openbb_core.app.model.obbject import OBBject
 from openbb_core.app.provider_interface import (
@@ -36,7 +40,11 @@ async def cpi(
     standard_params: StandardParams,
     extra_params: ExtraParams,
 ) -> OBBject[BaseModel]:
+<<<<<<< HEAD
     """Consumer Price Index (CPI) Data."""
+=======
+    """Consumer Price Index (CPI).  Returns either the rescaled index value, or a rate of change (inflation)."""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     return await OBBject.from_query(Query(**locals()))
 
 
@@ -70,7 +78,11 @@ async def fred_search(
     extra_params: ExtraParams,
 ) -> OBBject[BaseModel]:
     """
+<<<<<<< HEAD
     Search for FRED series or economic releases by ID or fuzzy query.
+=======
+    Search for FRED series or economic releases by ID or string.
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     This does not return the observation values, only the metadata.
     Use this function to find series IDs for `fred_series()`.
     """
@@ -86,3 +98,17 @@ async def fred_series(
 ) -> OBBject[BaseModel]:
     """Get data by series ID from FRED."""
     return await OBBject.from_query(Query(**locals()))
+<<<<<<< HEAD
+=======
+
+
+@router.command(model="MoneyMeasures")
+async def money_measures(
+    cc: CommandContext,
+    provider_choices: ProviderChoices,
+    standard_params: StandardParams,
+    extra_params: ExtraParams,
+) -> OBBject[BaseModel]:
+    """Money Measures."""
+    return await OBBject.from_query(Query(**locals()))
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe

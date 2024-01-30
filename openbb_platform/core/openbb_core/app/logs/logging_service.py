@@ -135,7 +135,15 @@ class LoggingService(metaclass=SingletonMeta):
 
         return handlers_manager
 
+<<<<<<< HEAD
     def _log_startup(self, route: Optional[str] = None) -> None:
+=======
+    def _log_startup(
+        self,
+        route: Optional[str] = None,
+        custom_headers: Optional[Dict[str, Any]] = None,
+    ) -> None:
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         """
         Log startup information.
         """
@@ -146,9 +154,17 @@ class LoggingService(metaclass=SingletonMeta):
                 undefined = "undefined"
 
             return {
+<<<<<<< HEAD
                 c: CredentialsDefinition.defined.value
                 if credentials[c]
                 else CredentialsDefinition.undefined.value
+=======
+                c: (
+                    CredentialsDefinition.defined.value
+                    if credentials[c]
+                    else CredentialsDefinition.undefined.value
+                )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
                 for c in credentials
             }
 
@@ -165,6 +181,10 @@ class LoggingService(metaclass=SingletonMeta):
                         else {}
                     ),
                     "SYSTEM": self._system_settings,
+<<<<<<< HEAD
+=======
+                    "custom_headers": custom_headers,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
                 },
                 default=to_jsonable_python,
             ),
@@ -180,6 +200,10 @@ class LoggingService(metaclass=SingletonMeta):
         exec_info: Optional[
             Tuple[Type[BaseException], BaseException, Optional[TracebackType]]
         ] = None,
+<<<<<<< HEAD
+=======
+        custom_headers: Optional[Dict[str, Any]] = None,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     ):
         """
         Log command output and relevant information.
@@ -208,7 +232,11 @@ class LoggingService(metaclass=SingletonMeta):
         self._handlers_manager.update_handlers(self._logging_settings)
 
         if "login" in route:
+<<<<<<< HEAD
             self._log_startup(route)
+=======
+            self._log_startup(route, custom_headers)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         else:
             logger = logging.getLogger(__name__)
 
@@ -230,6 +258,10 @@ class LoggingService(metaclass=SingletonMeta):
                     "route": route,
                     "input": kwargs,
                     "error": str(openbb_error.original) if openbb_error else None,
+<<<<<<< HEAD
+=======
+                    "custom_headers": custom_headers,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
                 },
                 default=to_jsonable_python,
             )

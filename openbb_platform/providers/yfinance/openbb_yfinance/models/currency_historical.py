@@ -1,4 +1,8 @@
 """Yahoo Finance Currency Price Model."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 # ruff: noqa: SIM105
 
 
@@ -48,12 +52,23 @@ class YFinanceCurrencyHistoricalFetcher(
         params: Dict[str, Any]
     ) -> YFinanceCurrencyHistoricalQueryParams:
         """Transform the query."""
+<<<<<<< HEAD
         transformed_params = params
         transformed_params["symbol"] = (
             f"{transformed_params['symbol'].upper()}=X"
             if "=X" not in transformed_params["symbol"].upper()
             else transformed_params["symbol"].upper()
         )
+=======
+
+        transformed_params = params
+        symbols = params["symbol"].split(",")
+        new_symbols = [
+            f"{s.upper()}=X" if "=X" not in s.upper() else s.upper() for s in symbols
+        ]
+        transformed_params["symbol"] = ",".join(new_symbols)
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         now = datetime.now().date()
 
         if params.get("start_date") is None:
@@ -94,12 +109,18 @@ class YFinanceCurrencyHistoricalFetcher(
                 data.set_index("date", inplace=True)
                 data.index = to_datetime(data.index)
 
+<<<<<<< HEAD
             start_date_dt = datetime.combine(query.start_date, datetime.min.time())
             end_date_dt = datetime.combine(query.end_date, datetime.min.time())
 
             data = data[
                 (data.index >= start_date_dt + timedelta(days=days))
                 & (data.index <= end_date_dt)
+=======
+            data = data[
+                (data.index >= to_datetime(query.start_date))
+                & (data.index <= to_datetime(query.end_date + timedelta(days=days)))
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
             ]
 
         data.reset_index(inplace=True)

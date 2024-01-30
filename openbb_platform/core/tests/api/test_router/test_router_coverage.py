@@ -1,6 +1,9 @@
 """Test coverage for the router module."""
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from unittest.mock import patch
 
 from openbb_core.api.router.coverage import get_command_coverage, get_provider_coverage

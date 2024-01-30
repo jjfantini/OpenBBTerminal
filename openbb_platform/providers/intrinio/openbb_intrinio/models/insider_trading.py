@@ -4,7 +4,11 @@ from datetime import (
     date as dateType,
     datetime,
 )
+<<<<<<< HEAD
 from typing import Any, Dict, List, Literal, Optional
+=======
+from typing import Any, Dict, List, Literal, Optional, Union
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 from dateutil.relativedelta import relativedelta
 from openbb_core.provider.abstract.fetcher import Fetcher
@@ -15,7 +19,11 @@ from openbb_core.provider.standard_models.insider_trading import (
 from openbb_core.provider.utils.descriptions import QUERY_DESCRIPTIONS
 from openbb_core.provider.utils.helpers import get_querystring
 from openbb_intrinio.utils.helpers import get_data_many
+<<<<<<< HEAD
 from pydantic import Field
+=======
+from pydantic import Field, model_validator
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 
 class IntrinioInsiderTradingQueryParams(InsiderTradingQueryParams):
@@ -57,6 +65,7 @@ class IntrinioInsiderTradingData(InsiderTradingData):
     company_name: str = Field(description="Name of the company.")
     conversion_exercise_price: Optional[float] = Field(
         default=None,
+<<<<<<< HEAD
         description="Conversion/Exercise price of the insider trading.",
     )
     deemed_execution_date: Optional[dateType] = Field(
@@ -70,12 +79,31 @@ class IntrinioInsiderTradingData(InsiderTradingData):
     expiration_date: Optional[dateType] = Field(
         default=None,
         description="Expiration date of the insider trading.",
+=======
+        description="Conversion/Exercise price of the shares.",
+    )
+    deemed_execution_date: Optional[dateType] = Field(
+        default=None,
+        description="Deemed execution date of the trade.",
+    )
+    exercise_date: Optional[dateType] = Field(
+        default=None,
+        description="Exercise date of the trade.",
+    )
+    expiration_date: Optional[dateType] = Field(
+        default=None,
+        description="Expiration date of the derivative.",
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     )
     underlying_security_title: Optional[str] = Field(
         default=None,
         description="Name of the underlying non-derivative security related to this derivative transaction.",
     )
+<<<<<<< HEAD
     underlying_shares: Optional[int] = Field(
+=======
+    underlying_shares: Optional[Union[int, float]] = Field(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         default=None,
         description="Number of underlying shares related to this derivative transaction.",
     )
@@ -83,6 +111,7 @@ class IntrinioInsiderTradingData(InsiderTradingData):
         default=None,
         description="Nature of ownership of the insider trading.",
     )
+<<<<<<< HEAD
     director: bool = Field(description="Whether the owner is a director.")
     officer: bool = Field(description="Whether the owner is an officer.")
     ten_percent_owner: bool = Field(description="Whether the owner is a 10% owner.")
@@ -97,6 +126,34 @@ class IntrinioInsiderTradingData(InsiderTradingData):
         description="Report line number of the insider trading.",
     )
     filing_url: str = Field(description="URL of the filing.")
+=======
+    director: Optional[bool] = Field(
+        default=None, description="Whether the owner is a director."
+    )
+    officer: Optional[bool] = Field(
+        default=None, description="Whether the owner is an officer."
+    )
+    ten_percent_owner: Optional[bool] = Field(
+        default=None, description="Whether the owner is a 10% owner."
+    )
+    other_relation: Optional[bool] = Field(
+        default=None, description="Whether the owner is having another relation."
+    )
+    derivative_transaction: Optional[bool] = Field(
+        default=None,
+        description="Whether the owner is having a derivative transaction.",
+    )
+    report_line_number: Optional[int] = Field(
+        default=None, description="Report line number of the insider trading."
+    )
+    filing_url: Optional[str] = Field(default=None, description="URL of the filing.")
+
+    @model_validator(mode="before")
+    @classmethod
+    def empty_strings(cls, values):  # pylint: disable=no-self-argument
+        """Check for empty strings and replace with None."""
+        return {k: None if v == "" else v for k, v in values.items()}
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 
 class IntrinioInsiderTradingFetcher(
@@ -121,7 +178,11 @@ class IntrinioInsiderTradingFetcher(
         return IntrinioInsiderTradingQueryParams(**transformed_params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: IntrinioInsiderTradingQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -133,7 +194,11 @@ class IntrinioInsiderTradingFetcher(
         query_str = get_querystring(query.model_dump(by_alias=True), ["symbol"])
         url = f"{base_url}/{query.symbol}/insider_transaction_filings?{query_str}&api_key={api_key}"
 
+<<<<<<< HEAD
         return get_data_many(url, "transaction_filings", **kwargs)
+=======
+        return await get_data_many(url, "transaction_filings", **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

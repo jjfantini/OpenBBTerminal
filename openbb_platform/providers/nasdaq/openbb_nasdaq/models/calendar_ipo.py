@@ -86,6 +86,10 @@ class NasdaqCalendarIpoData(CalendarIpoData):
     )
     @classmethod
     def validate_date(cls, v: str):
+<<<<<<< HEAD
+=======
+        """Validate the date if available is a date object."""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         v = v.replace("N/A", "")
         return datetime.strptime(v, "%m/%d/%Y").date() if v else None
 
@@ -96,6 +100,10 @@ class NasdaqCalendarIpoData(CalendarIpoData):
     )
     @classmethod
     def validate_offer_amount(cls, v: str):
+<<<<<<< HEAD
+=======
+        """Validate the offer amount if available is a float."""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         return float(str(v).replace("$", "").replace(",", "")) if v else None
 
     @field_validator(
@@ -105,6 +113,10 @@ class NasdaqCalendarIpoData(CalendarIpoData):
     )
     @classmethod
     def validate_share_count(cls, v: str):
+<<<<<<< HEAD
+=======
+        """Validate the share count if available is an int."""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         return int(str(v).replace(",", "")) if v else None
 
 
@@ -135,20 +147,33 @@ class NasdaqCalendarIpoFetcher(
 
     @staticmethod
     def extract_data(
+<<<<<<< HEAD
         query: NasdaqCalendarIpoQueryParams,
         credentials: Optional[Dict[str, str]],  # pylint: disable=unused-argument
         **kwargs: Any,
     ) -> List[Dict]:
         """Return the raw data from the Nasdaq endpoint."""
 
+=======
+        query: NasdaqCalendarIpoQueryParams,  # pylint: disable=unused-argument
+        credentials: Optional[Dict[str, str]],
+        **kwargs: Any,
+    ) -> List[Dict]:
+        """Return the raw data from the Nasdaq endpoint."""
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         data = []
         dates = sorted(
             list(
                 set(
+<<<<<<< HEAD
                     [
                         date.strftime("%Y-%m")
                         for date in date_range(query.start_date, query.end_date)
                     ]
+=======
+                    date.strftime("%Y-%m")
+                    for date in date_range(query.start_date, query.end_date)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
                 )
             )
         )

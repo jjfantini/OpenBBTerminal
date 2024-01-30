@@ -1,6 +1,9 @@
 """FMP Cash Flow Statement Growth Model."""
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
@@ -53,7 +56,11 @@ class FMPCashFlowStatementGrowthFetcher(
         return FMPCashFlowStatementGrowthQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: FMPCashFlowStatementGrowthQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -65,7 +72,11 @@ class FMPCashFlowStatementGrowthFetcher(
             3, f"cash-flow-statement-growth/{query.symbol}", api_key, query, ["symbol"]
         )
 
+<<<<<<< HEAD
         return get_data_many(url, **kwargs)
+=======
+        return await get_data_many(url, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

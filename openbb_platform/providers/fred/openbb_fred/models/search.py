@@ -1,15 +1,29 @@
+<<<<<<< HEAD
 """FRED Releases Search Model."""
 
 from typing import Any, Dict, List, Literal, Optional, Union
 
 import pandas as pd
+=======
+"""FRED Search Model."""
+
+from typing import Any, Dict, List, Literal, Optional, Union
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_core.provider.abstract.fetcher import Fetcher
 from openbb_core.provider.standard_models.fred_search import (
     SearchData,
     SearchQueryParams,
 )
 from openbb_core.provider.utils.descriptions import QUERY_DESCRIPTIONS
+<<<<<<< HEAD
 from openbb_core.provider.utils.helpers import async_make_request, get_querystring
+=======
+from openbb_core.provider.utils.helpers import (
+    amake_request,
+    get_querystring,
+)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from pydantic import Field, NonNegativeInt
 
 
@@ -88,19 +102,30 @@ class FredSearchFetcher(
         return transformed_params
 
     @staticmethod
+<<<<<<< HEAD
     async def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: FredSearchQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
     ) -> List[Dict]:
         """Extract the raw data."""
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         api_key = credentials.get("fred_api_key") if credentials else ""
 
         if query.is_release is True:
             url = f"https://api.stlouisfed.org/fred/releases?api_key={api_key}&file_type=json"
 
+<<<<<<< HEAD
             response = await async_make_request(url, timeout=5, **kwargs)
+=======
+            response = await amake_request(url, timeout=5, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
             return response.get("releases")  #  type: ignore[return-value, union-attr]
 
@@ -119,7 +144,11 @@ class FredSearchFetcher(
         querystring = get_querystring(query.model_dump(), exclude).replace(" ", "+")
 
         url = url + querystring + f"&file_type=json&api_key={api_key}"
+<<<<<<< HEAD
         response = await async_make_request(url, timeout=5, **kwargs)
+=======
+        response = await amake_request(url, timeout=5, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         return response.get("seriess")  #  type: ignore[return-value, union-attr]
 
@@ -128,6 +157,7 @@ class FredSearchFetcher(
         query: FredSearchQueryParams, data: List[Dict], **kwargs: Any
     ) -> List[FredSearchData]:
         """Transform data."""
+<<<<<<< HEAD
 
         df = pd.DataFrame()
         if data is not None:
@@ -151,3 +181,12 @@ class FredSearchFetcher(
                 ]
 
         return [FredSearchData.model_validate(d) for d in df.to_dict("records")]
+=======
+        for observation in data:
+            id_column_name = "release_id" if query.is_release is True else "series_id"
+            observation[id_column_name] = observation.pop("id")
+            observation.pop("realtime_start", None)
+            observation.pop("realtime_end", None)
+
+        return [FredSearchData.model_validate(d) for d in data]
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe

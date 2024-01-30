@@ -1,5 +1,9 @@
 """Unit tests for FMP provider modules."""
 
+<<<<<<< HEAD
+=======
+import re
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from datetime import date
 
 import pytest
@@ -49,6 +53,10 @@ from openbb_fmp.models.income_statement_growth import FMPIncomeStatementGrowthFe
 from openbb_fmp.models.index_constituents import (
     FMPIndexConstituentsFetcher,
 )
+<<<<<<< HEAD
+=======
+from openbb_fmp.models.index_historical import FMPIndexHistoricalFetcher
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_fmp.models.insider_trading import FMPInsiderTradingFetcher
 from openbb_fmp.models.institutional_ownership import FMPInstitutionalOwnershipFetcher
 from openbb_fmp.models.key_executives import FMPKeyExecutivesFetcher
@@ -70,6 +78,18 @@ test_credentials = UserService().default_user_settings.credentials.model_dump(
 )
 
 
+<<<<<<< HEAD
+=======
+def response_filter(response):
+    if "Location" in response["headers"]:
+        response["headers"]["Location"] = [
+            re.sub(r"apikey=[^&]+", "apikey=MOCK_API_KEY", x)
+            for x in response["headers"]["Location"]
+        ]
+    return response
+
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 @pytest.fixture(scope="module")
 def vcr_config():
     return {
@@ -77,6 +97,10 @@ def vcr_config():
         "filter_query_parameters": [
             ("apikey", "MOCK_API_KEY"),
         ],
+<<<<<<< HEAD
+=======
+        "before_record_response": response_filter,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     }
 
 
@@ -129,6 +153,22 @@ def test_fmp_market_indices_fetcher(credentials=test_credentials):
 
 
 @pytest.mark.record_http
+<<<<<<< HEAD
+=======
+def test_fmp_index_historical_fetcher(credentials=test_credentials):
+    params = {
+        "symbol": "^DJI",
+        "start_date": date(2023, 1, 1),
+        "end_date": date(2023, 1, 10),
+    }
+
+    fetcher = FMPIndexHistoricalFetcher()
+    result = fetcher.test(params, credentials)
+    assert result is None
+
+
+@pytest.mark.record_http
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 def test_fmp_equity_historical_fetcher(credentials=test_credentials):
     params = {
         "symbol": "AAPL",

@@ -17,7 +17,10 @@ def vcr_config():
     }
 
 
+<<<<<<< HEAD
 @pytest.mark.skip(reason="Recording gives strange non json response")
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 @pytest.mark.freeze_time("2023-11-08")
 @pytest.mark.record_http
 def test_stockgrid_short_volume_fetcher(credentials=test_credentials):

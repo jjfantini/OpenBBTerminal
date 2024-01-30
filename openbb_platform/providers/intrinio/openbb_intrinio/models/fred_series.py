@@ -1,5 +1,9 @@
 """Intrinio FRED Series Model."""
 
+<<<<<<< HEAD
+=======
+import asyncio
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
@@ -9,8 +13,17 @@ from openbb_core.provider.standard_models.fred_series import (
     SeriesData,
     SeriesQueryParams,
 )
+<<<<<<< HEAD
 from openbb_core.provider.utils.helpers import get_querystring
 from openbb_intrinio.utils.helpers import async_get_data_one
+=======
+from openbb_core.provider.utils.helpers import (
+    ClientResponse,
+    ClientSession,
+    amake_requests,
+    get_querystring,
+)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from pydantic import Field
 
 
@@ -61,7 +74,11 @@ class IntrinioFredSeriesFetcher(
         return IntrinioFredSeriesQueryParams(**transformed_params)
 
     @staticmethod
+<<<<<<< HEAD
     async def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: IntrinioFredSeriesQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -79,6 +96,7 @@ class IntrinioFredSeriesFetcher(
             f"?{query_str}&api_key={api_key}"
         )
 
+<<<<<<< HEAD
         data = await async_get_data_one(url, query.limit, query.sleep, **kwargs)
 
         if query.all_pages:
@@ -104,6 +122,29 @@ class IntrinioFredSeriesFetcher(
             return all_data
 
         return data.get("historical_data", [])
+=======
+        async def callback(response: ClientResponse, session: ClientSession) -> dict:
+            """Return the response."""
+            init_response = await response.json()
+
+            all_data: list = init_response.get("historical_data", [])
+
+            if query.all_pages:
+                next_page = init_response.get("next_page", None)
+                while next_page:
+                    if query.limit > 100:
+                        await asyncio.sleep(query.sleep)
+
+                    url = response.url.update_query(next_page=next_page).human_repr()
+                    response_data = await session.get_json(url)
+
+                    all_data.extend(response_data.get("historical_data", []))
+                    next_page = response_data.get("next_page", None)
+
+            return all_data
+
+        return await amake_requests([url], callback, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

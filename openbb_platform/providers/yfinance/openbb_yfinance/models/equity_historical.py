@@ -1,4 +1,9 @@
 """Yahoo Finance Equity Historical Price Model."""
+<<<<<<< HEAD
+=======
+
+# pylint: disable=unused-argument
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 # ruff: noqa: SIM105
 
 from datetime import datetime, timedelta
@@ -112,7 +117,13 @@ class YFinanceEquityHistoricalFetcher(
             query.interval = "1mo"
         elif query.interval == "3M":
             query.interval = "3mo"
+<<<<<<< HEAD
 
+=======
+        kwargs = (
+            {"auto_adjust": True, "back_adjust": True} if query.adjusted is True else {}
+        )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         # pylint: disable=protected-access
         data = yf_download(
             symbol=query.symbol,
@@ -129,6 +140,10 @@ class YFinanceEquityHistoricalFetcher(
             rounding=query._rounding,
             group_by=query._group_by,
             adjusted=query.adjusted,
+<<<<<<< HEAD
+=======
+            **kwargs,
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         )
 
         if data.empty:

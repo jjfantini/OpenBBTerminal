@@ -1,6 +1,9 @@
 """Trading Economics Economic Calendar Model."""
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from datetime import datetime
 from typing import Any, Dict, List, Literal, Optional, Set, Union
 
@@ -9,7 +12,11 @@ from openbb_core.provider.standard_models.economic_calendar import (
     EconomicCalendarData,
     EconomicCalendarQueryParams,
 )
+<<<<<<< HEAD
 from openbb_core.provider.utils.helpers import make_request
+=======
+from openbb_core.provider.utils.helpers import ClientResponse, amake_request
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_tradingeconomics.utils import url_generator
 from openbb_tradingeconomics.utils.countries import country_list
 from pandas import to_datetime
@@ -108,7 +115,11 @@ class TEEconomicCalendarFetcher(
         return TEEconomicCalendarQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: TEEconomicCalendarQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -133,10 +144,21 @@ class TEEconomicCalendarFetcher(
                 "No url generated. Check combination of input parameters."
             )
         url = f"{url}{api_key}"
+<<<<<<< HEAD
         response = make_request(url, **kwargs)
         if response.status_code != 200:
             raise RuntimeError(f"Error in TE request -> {response.text}")
         return response.json()
+=======
+
+        async def callback(response: ClientResponse, _: Any) -> List[Dict]:
+            """Return the response."""
+            if response.status != 200:
+                raise RuntimeError(f"Error in TE request -> {await response.text()}")
+            return await response.json()
+
+        return await amake_request(url, response_callback=callback, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

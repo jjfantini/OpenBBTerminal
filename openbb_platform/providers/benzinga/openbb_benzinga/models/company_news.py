@@ -1,17 +1,27 @@
 """Benzinga Company News Model."""
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 import math
 from datetime import datetime
 from typing import Any, Dict, List, Literal, Optional
 
+<<<<<<< HEAD
 from openbb_benzinga.utils.helpers import get_data
+=======
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from openbb_core.provider.abstract.fetcher import Fetcher
 from openbb_core.provider.standard_models.company_news import (
     CompanyNewsData,
     CompanyNewsQueryParams,
 )
+<<<<<<< HEAD
 from openbb_core.provider.utils.helpers import get_querystring
+=======
+from openbb_core.provider.utils.helpers import amake_requests, get_querystring
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 from pydantic import Field, field_validator
 
 
@@ -89,11 +99,19 @@ class BenzingaCompanyNewsData(CompanyNewsData):
         "images": "image",
     }
 
+<<<<<<< HEAD
     id: str = Field(description="ID of the news.")
     author: Optional[str] = Field(default=None, description="Author of the news.")
     teaser: Optional[str] = Field(description="Teaser of the news.", default=None)
     images: Optional[List[Dict[str, str]]] = Field(
         default=None, description="Images associated with the news."
+=======
+    id: str = Field(description="Article ID.")
+    author: Optional[str] = Field(default=None, description="Author of the article.")
+    teaser: Optional[str] = Field(description="Teaser of the news.", default=None)
+    images: Optional[List[Dict[str, str]]] = Field(
+        default=None, description="URL to the images of the news."
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
     )
     channels: Optional[str] = Field(
         default=None,
@@ -149,7 +167,11 @@ class BenzingaCompanyNewsFetcher(
         return BenzingaCompanyNewsQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: BenzingaCompanyNewsQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -163,6 +185,7 @@ class BenzingaCompanyNewsFetcher(
         querystring = get_querystring(query.model_dump(by_alias=True), ["order"])
 
         pages = math.ceil(query.limit / 100) if query.limit else 1
+<<<<<<< HEAD
         data = []
 
         for page in range(pages):
@@ -173,6 +196,17 @@ class BenzingaCompanyNewsFetcher(
         data = data[: query.limit]
 
         return data
+=======
+
+        urls = [
+            f"{base_url}?{querystring}&page={page}&token={token}"
+            for page in range(pages)
+        ]
+
+        data = await amake_requests(urls, **kwargs)
+
+        return data[: query.limit]
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

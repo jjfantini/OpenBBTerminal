@@ -43,7 +43,11 @@ class FMPEtfHoldingsDateFetcher(
         return FMPEtfHoldingsDateQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: FMPEtfHoldingsDateQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -58,7 +62,11 @@ class FMPEtfHoldingsDateFetcher(
             query=query,
         )
 
+<<<<<<< HEAD
         return get_data_many(url, **kwargs)
+=======
+        return await get_data_many(url, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @staticmethod
     def transform_data(

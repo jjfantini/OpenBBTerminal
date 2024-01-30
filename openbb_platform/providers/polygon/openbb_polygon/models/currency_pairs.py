@@ -115,7 +115,11 @@ class PolygonCurrencyPairsFetcher(
         return PolygonCurrencyPairsQueryParams(**transform_params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: PolygonCurrencyPairsQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -134,7 +138,11 @@ class PolygonCurrencyPairsFetcher(
         all_data: List[Dict] = []
 
         while "next_url" in data:
+<<<<<<< HEAD
             data = get_data(request_url, **kwargs)
+=======
+            data = await get_data(request_url, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
             if isinstance(data, list):
                 raise ValueError("Expected a dict, got a list")

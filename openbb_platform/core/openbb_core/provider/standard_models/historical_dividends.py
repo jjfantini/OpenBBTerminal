@@ -1,8 +1,13 @@
 """Historical Dividends Standard Model."""
 
+<<<<<<< HEAD
 
 from datetime import date as dateType
 from typing import List, Set, Union
+=======
+from datetime import date as dateType
+from typing import List, Optional, Set, Union
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 from pydantic import Field, field_validator
 
@@ -18,6 +23,15 @@ class HistoricalDividendsQueryParams(QueryParams):
     """Historical Dividends Query."""
 
     symbol: str = Field(description=QUERY_DESCRIPTIONS.get("symbol", ""))
+<<<<<<< HEAD
+=======
+    start_date: Optional[dateType] = Field(
+        default=None, description=QUERY_DESCRIPTIONS.get("start_date", "")
+    )
+    end_date: Optional[dateType] = Field(
+        default=None, description=QUERY_DESCRIPTIONS.get("end_date", "")
+    )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
     @field_validator("symbol", mode="before", check_fields=False)
     def upper_symbol(cls, v: Union[str, List[str], Set[str]]):  # pylint: disable=E0213

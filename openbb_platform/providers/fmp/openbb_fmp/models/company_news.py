@@ -52,7 +52,11 @@ class FMPCompanyNewsFetcher(
         return FMPCompanyNewsQueryParams(**params)
 
     @staticmethod
+<<<<<<< HEAD
     def extract_data(
+=======
+    async def aextract_data(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         query: FMPCompanyNewsQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
@@ -63,7 +67,11 @@ class FMPCompanyNewsFetcher(
         base_url = "https://financialmodelingprep.com/api/v3/stock_news"
         data = []
         url = f"{base_url}?page={query.page}&tickers={query.symbols}&limit={query.limit}&apikey={api_key}"
+<<<<<<< HEAD
         response = get_data_many(url, **kwargs)
+=======
+        response = await get_data_many(url, **kwargs)
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
         if len(response) > 0:
             data = sorted(response, key=lambda x: x["publishedDate"], reverse=True)

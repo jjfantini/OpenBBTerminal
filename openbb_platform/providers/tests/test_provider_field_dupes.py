@@ -1,4 +1,8 @@
 """Test for common fields in the provider models that should be standard."""
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 import glob
 import importlib
 import inspect

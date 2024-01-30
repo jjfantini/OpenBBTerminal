@@ -1,5 +1,6 @@
 """Balance Sheet Standard Model."""
 
+<<<<<<< HEAD
 
 from datetime import (
     date as dateType,
@@ -8,20 +9,39 @@ from datetime import (
 from typing import List, Literal, Optional, Set, Union
 
 from pydantic import Field, NonNegativeInt, StrictFloat, field_validator
+=======
+import warnings
+from datetime import date as dateType
+from typing import Optional
+
+from pydantic import Field, NonNegativeInt, field_validator
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 from openbb_core.provider.abstract.data import Data
 from openbb_core.provider.abstract.query_params import QueryParams
 from openbb_core.provider.utils.descriptions import (
+<<<<<<< HEAD
     DATA_DESCRIPTIONS,
     QUERY_DESCRIPTIONS,
 )
 
+=======
+    QUERY_DESCRIPTIONS,
+)
+
+_warn = warnings.warn
+
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 class BalanceSheetQueryParams(QueryParams):
     """Balance Sheet Query."""
 
     symbol: str = Field(description=QUERY_DESCRIPTIONS.get("symbol", ""))
+<<<<<<< HEAD
     period: Optional[Literal["annual", "quarter"]] = Field(
+=======
+    period: str = Field(
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
         default="annual",
         description=QUERY_DESCRIPTIONS.get("period", ""),
     )
@@ -29,6 +49,7 @@ class BalanceSheetQueryParams(QueryParams):
         default=5, description=QUERY_DESCRIPTIONS.get("limit", "")
     )
 
+<<<<<<< HEAD
     # pylint: disable=inconsistent-return-statements
     @field_validator("symbol", mode="before", check_fields=False)
     @classmethod
@@ -48,11 +69,23 @@ class BalanceSheetQueryParams(QueryParams):
                         f"Invalid symbol: {symbol}. Must be either a ticker or CIK."
                     )
             return ",".join(symbols)
+=======
+    @field_validator("symbol", mode="before", check_fields=False)
+    @classmethod
+    def upper_symbol(cls, v: str):
+        """Convert symbol to uppercase."""
+        if "," in v:
+            _warn(
+                f"{QUERY_DESCRIPTIONS.get('symbol_list_warning', '')} {v.split(',')[0].upper()}"
+            )
+        return v.split(",")[0].upper() if "," in v else v.upper()
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
 
 
 class BalanceSheetData(Data):
     """Balance Sheet Data."""
 
+<<<<<<< HEAD
     symbol: Optional[str] = Field(
         default=None, description=DATA_DESCRIPTIONS.get("symbol", "")
     )
@@ -201,3 +234,12 @@ class BalanceSheetData(Data):
         if isinstance(v, str):
             return v.upper()
         return ",".join([symbol.upper() for symbol in list(v)]) if v else None
+=======
+    period_ending: dateType = Field(description="The end date of the reporting period.")
+    fiscal_period: Optional[str] = Field(
+        description="The fiscal period of the report.", default=None
+    )
+    fiscal_year: Optional[int] = Field(
+        description="The fiscal year of the fiscal period.", default=None
+    )
+>>>>>>> 7a07970fc8bd4b03ea459cb0d892005ff5130ffe
